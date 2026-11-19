@@ -302,6 +302,7 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
+    const VIDEO_SEMANAL_LOCAL = "video-semanal.mp4";
     const medioBox = document.getElementById("medioSemanalBox");
     const logoImg = document.getElementById("logoEstatico");
     const logoEstado = document.getElementById("logoEstado");
@@ -373,12 +374,12 @@
     }
 
     function resolverUrlVideo(urlStr) {
-      const limpia = (urlStr || "").trim();
+      const limpia = (urlStr || "").trim() || VIDEO_SEMANAL_LOCAL;
       const idDrive = limpia.includes("drive.google.com") ? extraerIdDrive(limpia) : "";
       if (idDrive) {
         return {
           modo: "iframe",
-          src: `https://drive.google.com/file/d/${idDrive}/preview`
+          src: `https://drive.google.com/file/d/${idDrive}/preview?autoplay=1&mute=1`
         };
       }
       return {
@@ -387,13 +388,44 @@
       };
     }
 
+    function activarAutoplayVideo() {
+      if (!medioBox) return;
+      const videoEl = medioBox.querySelector("video");
+      if (!videoEl) return;
+
+      videoEl.muted = true;
+      videoEl.defaultMuted = true;
+      videoEl.playsInline = true;
+
+      const reproducir = () => {
+        const promesa = videoEl.play();
+        if (promesa && typeof promesa.catch === "function") {
+          promesa.catch(() => {});
+        }
+      };
+
+      if (videoEl.readyState >= 2) {
+        reproducir();
+      } else {
+        videoEl.addEventListener("canplay", reproducir, { once: true });
+      }
+    }
+
+    function renderizarVideoLocal(titulo) {
+      if (!medioBox) return;
+      const tituloSeguro = (titulo || "Destacado semanal").replace(/"/g, "&quot;");
+      medioBox.innerHTML = `
+        <video id="videoSemanalLocal" src="${VIDEO_SEMANAL_LOCAL}" controls autoplay muted loop playsinline preload="auto" onerror="this.outerHTML='<p>No se pudo reproducir <strong>video-semanal.mp4</strong>. Verifica que el archivo exista en la raíz del repositorio y sea un MP4 válido.</p>';"></video>
+        ${titulo ? `<p class="medio-titulo">${titulo}</p>` : ""}
+      `;
+      activarAutoplayVideo();
+    }
+
     async function cargarDestacadoYLogo() {
       try {
         const snap = await getDoc(doc(db, "configuracion", "destacado_semanal"));
         if (!snap.exists()) {
-          if (medioBox) {
-            medioBox.innerHTML = "<p>Destacado semanal pendiente de configurar en <strong>configuracion/destacado_semanal</strong>.</p>";
-          }
+          renderizarVideoLocal("");
           return;
         }
 
@@ -405,15 +437,17 @@
         }
 
         const rawUrl = (data.imagen || data.imagenUrl || data.url || data.videoUrl || "").trim();
-        if (!rawUrl) {
-          if (medioBox) {
-            medioBox.innerHTML = "<p>Pronto publicaremos el nuevo contenido destacado de la semana.</p>";
-          }
+        if (!rawUrl || data.tipo === "video-local") {
+          renderizarVideoLocal(data.titulo || "");
           return;
         }
 
         const esYouTube = rawUrl.includes("youtube.com") || rawUrl.includes("youtu.be") || data.tipo === "youtube";
-        const esVideo = data.tipo === "video" || data.tipo === "mp4" || /\.(mp4|webm|ogg|mov)(\?|$)/i.test(rawUrl) || rawUrl.includes("drive.google.com");
+        const esVideo =
+          data.tipo === "video" ||
+          data.tipo === "mp4" ||
+          /\.(mp4|webm|ogg|mov)(\?|$)/i.test(rawUrl) ||
+          rawUrl.includes("drive.google.com");
         let medioHtml = "";
         const tituloSeguro = (data.titulo || "Destacado semanal").replace(/"/g, "&quot;");
 
@@ -425,7 +459,7 @@
           if (resuelto.modo === "iframe") {
             medioHtml = `<iframe src="${resuelto.src}" title="${tituloSeguro}" style="width:100%;aspect-ratio:16/9;border:0;border-radius:8px;" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
           } else {
-            medioHtml = `<video src="${resuelto.src}" controls autoplay muted loop playsinline preload="metadata" onerror="this.outerHTML='<p>No se pudo reproducir el video. Verifica que el enlace sea un .mp4/.webm público y permita reproducción en el navegador.</p>';"></video>`;
+            medioHtml = `<video src="${resuelto.src}" controls autoplay muted loop playsinline preload="auto" onerror="this.outerHTML='<p>No se pudo reproducir el video. Verifica que el enlace sea un .mp4/.webm público o usa video-semanal.mp4.</p>';"></video>`;
           }
         } else {
           const imgUrl = normalizarUrlDriveImagen(rawUrl);
@@ -437,11 +471,10 @@
             ${medioHtml}
             ${data.titulo ? `<p class="medio-titulo">${data.titulo}</p>` : ""}
           `;
+          activarAutoplayVideo();
         }
       } catch (e) {
-        if (medioBox) {
-          medioBox.innerHTML = "<p>No se pudo cargar el contenido de la semana en este momento (verifica el enlace o permisos de Firestore).</p>";
-        }
+        renderizarVideoLocal("");
       }
     }
 

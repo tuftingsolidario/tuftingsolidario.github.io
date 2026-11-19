@@ -6,24 +6,60 @@
   <title>EcoLegado Alfombras | Tu hogar, tu huella, tu legado</title>
   <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfWWOMtAAAAAG-5zjE4hywzDE1Qtfbz1AuRd30g"></script>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .faq-section {
+      background-color: var(--card-bg, var(--bg-card, #ffffff));
+      border: 1px solid var(--border-color, #e3dcd0);
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .faq-section h2 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      color: var(--primary-color, var(--accent-primary, #2e6f40));
+      text-align: center;
+      font-size: 1.65rem;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border-color, #e3dcd0);
+      padding: 0.9rem 0;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .faq-item h3 {
+      margin: 0 0 0.35rem;
+      color: var(--accent-warm, #b85d3b);
+      font-size: 1.08rem;
+    }
+
+    .faq-item p {
+      margin: 0;
+      color: var(--muted-color, var(--text-muted, #5c534c));
+    }
+  </style>
 </head>
 <body>
-  <nav>
-    <div class="nav-links">
-      <a href="index.html">Inicio</a>
-      <a href="nosotros.html">Nosotros</a>
-      <a href="arboles.html">Bosque Virtual 🌳</a>
-      <a href="resenas.html">Reseñas ⭐</a>
-    </div>
-    <button id="themeToggle" type="button" class="theme-btn" aria-label="Alternar entre modo claro y oscuro">
-      🌙 Modo oscuro
-    </button>
-  </nav>
-
-  <header class="site-header">
+  <header>
     <h1>EcoLegado Alfombras</h1>
     <p>Tu hogar, tu huella, tu legado</p>
   </header>
+
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="nosotros.html">Nosotros</a>
+    <a href="arboles.html">Bosque Virtual 🌳</a>
+    <a href="resenas.html">Reseñas ⭐</a>
+    <button id="btnTema" type="button" class="btn-tema" aria-label="Alternar entre modo claro y oscuro">
+      🌙 Modo oscuro
+    </button>
+  </nav>
 
   <section class="showcase-semanal">
     <div class="showcase-grid">
@@ -34,7 +70,7 @@
           alt="Logo estático de EcoLegado Alfombras"
           class="logo-estatico"
         />
-        <p class="logo-etiqueta">EcoLegado Alfombras · Tufting & Legado</p>
+        <p class="logo-etiqueta">EcoLegado Alfombras · Tufting &amp; Legado</p>
       </div>
 
       <div id="medioSemanalBox" class="medio-semanal-box">
@@ -53,7 +89,7 @@
       <a href="nosotros.html#cotizador" class="btn">Calcular Cotización Aproximada 🌱</a>
     </section>
 
-    <section>
+    <section id="pilares">
       <h2 class="seccion-titulo">¿Qué Hace Única a Cada Alfombra?</h2>
       <div class="grid-cards">
         <article class="card">
@@ -86,7 +122,43 @@
         En la pestaña <strong>Nosotros</strong> puedes combinar tamaño, tipo de boceto, forma y
         acabado para obtener una suma aproximada al instante.
       </p>
-      <a href="nosotros.html" class="btn">Ir al Cotizador Automático</a>
+      <a href="nosotros.html#cotizador" class="btn btn-secundario">Ir al Cotizador Automático</a>
+    </section>
+
+    <section id="preguntas-frecuentes" class="faq-section">
+      <h2>Preguntas Frecuentes</h2>
+
+      <div class="faq-item">
+        <h3>¿Cómo funciona el compromiso ecológico de un árbol por alfombra?</h3>
+        <p>
+          Por cada alfombra elaborada impulsamos la siembra y seguimiento de un árbol protector y
+          puedes consultar su registro o certificado en la pestaña <strong>Bosque Virtual</strong>.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>¿Las alfombras son pet-friendly y resistentes para uso diario?</h3>
+        <p>
+          Sí, están pensadas para acompañarte en el día a día con materiales y acabados firmes
+          aptos para hogares con mascotas. Revisa experiencias reales en <strong>Reseñas</strong>.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>¿Cómo puedo pedir un diseño o calcular un precio aproximado?</h3>
+        <p>
+          Entra a <strong>Nosotros</strong> para usar el cotizador automático eligiendo tamaño,
+          tipo de imagen o boceto, forma y acabado.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>¿Cada cuánto cambia el video o imagen de la semana?</h3>
+        <p>
+          Actualizamos periódicamente el bloque destacado desde nuestra configuración semanal para
+          mostrar nuevos avances, piezas de tufting y novedades del proyecto.
+        </p>
+      </div>
     </section>
   </main>
 
@@ -103,30 +175,32 @@
         📘 Facebook
       </a>
     </div>
-    <p>EcoLegado Alfombras · tuftingsolidario · Arte sostenible para tu espacio</p>
+    <p class="footer-copy">
+      EcoLegado Alfombras · tuftingsolidario · Arte sostenible para tu espacio
+    </p>
   </footer>
 
   <script>
     (function () {
       const STORAGE_KEY = "ecolegado_theme";
       const rootEl = document.documentElement;
-      const toggleBtn = document.getElementById("themeToggle");
+      const btnTema = document.getElementById("btnTema");
 
       function aplicarTema(tema) {
         if (tema === "dark") {
           rootEl.setAttribute("data-theme", "dark");
-          if (toggleBtn) toggleBtn.textContent = "☀️ Modo claro";
+          if (btnTema) btnTema.textContent = "☀️ Modo claro";
         } else {
           rootEl.removeAttribute("data-theme");
-          if (toggleBtn) toggleBtn.textContent = "🌙 Modo oscuro";
+          if (btnTema) btnTema.textContent = "🌙 Modo oscuro";
         }
       }
 
       const temaGuardado = localStorage.getItem(STORAGE_KEY) || "light";
       aplicarTema(temaGuardado);
 
-      if (toggleBtn) {
-        toggleBtn.addEventListener("click", function () {
+      if (btnTema) {
+        btnTema.addEventListener("click", function () {
           const esOscuro = rootEl.getAttribute("data-theme") === "dark";
           const siguienteTema = esOscuro ? "light" : "dark";
           localStorage.setItem(STORAGE_KEY, siguienteTema);
@@ -173,7 +247,10 @@
     async function cargarDestacadoYLogo() {
       try {
         const snap = await getDoc(doc(db, "configuracion", "destacado_semanal"));
-        if (!snap.exists()) return;
+        if (!snap.exists()) {
+          if (medioBox) medioBox.innerHTML = "<p>Configura el documento destacado_semanal en Firestore.</p>";
+          return;
+        }
 
         const data = snap.data();
 
@@ -182,7 +259,10 @@
         }
 
         const url = (data.url || "").trim();
-        if (!url) return;
+        if (!url) {
+          if (medioBox) medioBox.innerHTML = "<p>Agrega una URL en el campo url de destacado_semanal.</p>";
+          return;
+        }
 
         const esYouTube = url.includes("youtube.com") || url.includes("youtu.be") || data.tipo === "youtube";
         const esVideoDirecto = data.tipo === "video" || /\.(mp4|webm|ogg)(\?|$)/i.test(url);
@@ -197,12 +277,14 @@
           medioHtml = `<img src="${url}" alt="${data.titulo || "Destacado semanal"}" />`;
         }
 
-        medioBox.innerHTML = `
-          ${medioHtml}
-          ${data.titulo ? `<p class="medio-titulo">${data.titulo}</p>` : ""}
-        `;
+        if (medioBox) {
+          medioBox.innerHTML = `
+            ${medioHtml}
+            ${data.titulo ? `<p class="medio-titulo">${data.titulo}</p>` : ""}
+          `;
+        }
       } catch (e) {
-        medioBox.innerHTML = "<p>No se pudo cargar el contenido de la semana.</p>";
+        if (medioBox) medioBox.innerHTML = "<p>No se pudo cargar el contenido de la semana.</p>";
       }
     }
 

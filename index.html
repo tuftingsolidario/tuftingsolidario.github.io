@@ -7,6 +7,26 @@
   <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfWWOMtAAAAAG-5zjE4hywzDE1Qtfbz1AuRd30g"></script>
   <link rel="stylesheet" href="styles.css" />
   <style>
+    header {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    header h1 {
+      margin: 0 auto;
+      text-align: center;
+      width: 100%;
+    }
+
+    header p {
+      margin: 0.35rem auto 0;
+      text-align: center;
+      max-width: 720px;
+    }
+
     .faq-section {
       background-color: var(--card-bg, var(--bg-card, #ffffff));
       border: 1px solid var(--border-color, #e3dcd0);
@@ -77,16 +97,10 @@
   <section class="showcase-semanal">
     <div class="showcase-grid">
       <div class="logo-fijo-box">
-        <img
-          id="logoEstatico"
-          src="logo-ecolegado.png"
-          alt="Logo estático de Tuftinsolidario"
-          class="logo-estatico"
-        />
+        <img id="logoEstatico" src="logo-ecolegado.png" alt="Logo estático de Tuftinsolidario" class="logo-estatico" />
         <p class="logo-etiqueta">Tuftinsolidario · EcoLegado</p>
         <span id="logoEstado" class="logo-fallback-badge">🌱 Legado Artesanal</span>
       </div>
-
       <div id="medioSemanalBox" class="medio-semanal-box">
         <p id="estadoMedioSemanal">Cargando destacado de la semana...</p>
       </div>
@@ -97,8 +111,7 @@
     <section class="hero">
       <h2>Arte Textil Artesanal con Propósito Ecológico</h2>
       <p>
-        Creamos alfombras personalizadas mediante la técnica de <strong>tufting</strong>. Por cada
-        pieza elaborada, impulsamos la siembra y el cuidado de un árbol registrado a tu nombre.
+        Creamos alfombras personalizadas mediante la técnica de <strong>tufting</strong>. Por cada pieza elaborada, impulsamos la siembra y el cuidado de un árbol registrado a tu nombre.
       </p>
       <a href="nosotros.html#cotizador" class="btn">Calcular Cotización Aproximada 🌱</a>
     </section>
@@ -109,22 +122,19 @@
         <article class="card">
           <h3>Diseño a Medida</h3>
           <p>
-            Trabajamos desde bocetos, tipografías, mascotas, logos o ilustraciones para adaptar
-            cada pieza a tus espacios.
+            Trabajamos desde bocetos, tipografías, mascotas, logos o ilustraciones para adaptar cada pieza a tus espacios.
           </p>
         </article>
         <article class="card">
           <h3>Acabados Artesanales</h3>
           <p>
-            Opciones de acabado limpio o tallado en relieve 3D (<em>carving</em>) para dar volumen y
-            textura a cada detalle.
+            Opciones de acabado limpio o tallado en relieve 3D (<em>carving</em>) para dar volumen y textura a cada detalle.
           </p>
         </article>
         <article class="card">
           <h3>Legado Verde</h3>
           <p>
-            Cada compra conecta la calidez de tu hogar con la reforestación y el seguimiento de tu
-            árbol en el bosque virtual.
+            Cada compra conecta la calidez de tu hogar con la reforestación y el seguimiento de tu árbol en el bosque virtual.
           </p>
         </article>
       </div>
@@ -133,8 +143,7 @@
     <section class="cotizador-cta">
       <h3>¿Quieres conocer un estimado de tu diseño?</h3>
       <p>
-        En la pestaña <strong>Nosotros</strong> puedes combinar tamaño, tipo de boceto, forma y
-        acabado para obtener una suma aproximada al instante.
+        En la pestaña <strong>Nosotros</strong> puedes combinar tamaño, tipo de boceto, forma y acabado para obtener una suma aproximada al instante.
       </p>
       <a href="nosotros.html#cotizador" class="btn btn-secundario">Ir al Cotizador Automático</a>
     </section>
@@ -142,39 +151,28 @@
 
   <section id="preguntas-frecuentes" class="faq-section">
     <h2>Preguntas Frecuentes</h2>
-
     <div class="faq-item">
       <h3>¿Cómo se limpia una alfombra personalizada?</h3>
       <p>
-        Se recomienda aspirar suavemente de forma regular y limpiar manchas puntuales con un paño
-        ligeramente húmedo y jabón o detergente suave, evitando sumergirla por completo en agua o
-        usar blanqueadores agresivos y secado directo al sol fuerte.
+        Se recomienda aspirar suavemente de forma regular y limpiar manchas puntuales con un paño ligeramente húmedo y jabón o detergente suave, evitando sumergirla por completo en agua o usar blanqueadores agresivos y secado directo al sol fuerte.
       </p>
     </div>
-
     <div class="faq-item">
       <h3>¿Son aptas para hogares con mascotas?</h3>
       <p>
-        Sí, nuestras alfombras están pensadas para ser <strong>pet-friendly</strong> y convivir en
-        hogares con mascotas, combinando tejido firme y mantenimiento práctico para el día a día.
+        Sí, nuestras alfombras están pensadas para ser <strong>pet-friendly</strong> y convivir en hogares con mascotas, combinando tejido firme y mantenimiento práctico para el día a día.
       </p>
     </div>
-
     <div class="faq-item">
       <h3>¿Cómo funciona la política de pago?</h3>
       <p>
-        Al confirmar tu cotización y diseño personalizado se solicita un abono inicial para dar
-        inicio a la producción y el saldo restante al finalizar la confección y antes del envío o
-        entrega.
+        Al confirmar tu cotización y diseño personalizado se solicita un abono inicial para dar inicio a la producción y el saldo restante al finalizar la confección y antes del envío o entrega.
       </p>
     </div>
-
     <div class="faq-item">
       <h3>¿Cuáles son los tiempos estimados de confección?</h3>
       <p>
-        El tiempo estimado depende del tamaño, nivel de detalle del diseño y tipo de acabado
-        (incluyendo tallado 3D), variando habitualmente entre <strong>1 y 3 semanas</strong> tras
-        aprobar el boceto y el abono inicial.
+        El tiempo estimado depende del tamaño, nivel de detalle del diseño y tipo de acabado (incluyendo tallado 3D), variando habitualmente entre <strong>1 y 3 semanas</strong> tras aprobar el boceto y el abono inicial.
       </p>
     </div>
   </section>
@@ -244,6 +242,7 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+
     const medioBox = document.getElementById("medioSemanalBox");
     const logoImg = document.getElementById("logoEstatico");
     const logoEstado = document.getElementById("logoEstado");
@@ -274,20 +273,18 @@
         const snap = await getDoc(doc(db, "configuracion", "destacado_semanal"));
         if (!snap.exists()) {
           if (medioBox) {
-            medioBox.innerHTML =
-              "<p>Destacado semanal pendiente de configurar en <strong>configuracion/destacado_semanal</strong>.</p>";
+            medioBox.innerHTML = "<p>Destacado semanal pendiente de configurar en <strong>configuracion/destacado_semanal</strong>.</p>";
           }
           return;
         }
 
         const data = snap.data();
-
         if (typeof data.logoUrl === "string" && /^https?:\/\//i.test(data.logoUrl.trim()) && logoImg) {
           logoImg.style.display = "block";
           logoImg.src = data.logoUrl.trim();
         }
 
-        const url = (data.url || "").trim();
+        const url = (data.url || data.imagen || data.imagenUrl || "").trim();
         if (!url) {
           if (medioBox) {
             medioBox.innerHTML = "<p>Pronto publicaremos el nuevo contenido destacado de la semana.</p>";
@@ -316,8 +313,7 @@
         }
       } catch (e) {
         if (medioBox) {
-          medioBox.innerHTML =
-            "<p>No se pudo cargar el contenido de la semana en este momento (verifica el enlace o permisos de Firestore).</p>";
+          medioBox.innerHTML = "<p>No se pudo cargar el contenido de la semana en este momento (verifica el enlace o permisos de Firestore).</p>";
         }
       }
     }

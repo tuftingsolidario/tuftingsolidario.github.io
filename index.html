@@ -6,274 +6,42 @@
   <title>EcoLegado Alfombras | Tu hogar, tu huella, tu legado</title>
   <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfWWOMtAAAAAG-5zjE4hywzDE1Qtfbz1AuRd30g"></script>
   <link rel="stylesheet" href="styles.css" />
-  <head>
-    /* Paleta Modo Claro (Cálido y Ecológico) */
-    :root {
-      --primary-color: #2e6f40;
-      --secondary-color: #489462;
-      --accent-warm: #b85d3b;
-      --bg-color: #fbf7f0;
-      --card-bg: #ffffff;
-      --box-bg: #f6efe4;
-      --text-color: #2b2623;
-      --muted-color: #5c534c;
-      --border-color: #e3dcd0;
-      --nav-bg: #225430;
-      --footer-bg: #1a3f25;
-    }
-
-    /* Paleta Modo Oscuro (Acogedor y de Alto Contraste) */
-    [data-theme="dark"] {
-      --primary-color: #57a773;
-      --secondary-color: #79c293;
-      --accent-warm: #df7a53;
-      --bg-color: #141916;
-      --card-bg: #1d2520;
-      --box-bg: #242e28;
-      --text-color: #f2efe9;
-      --muted-color: #b8c2ba;
-      --border-color: #2f3b33;
-      --nav-bg: #102417;
-      --footer-bg: #0c1b11;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      line-height: 1.55;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    header {
-      background-color: var(--primary-color);
-      color: #ffffff;
-      padding: 2.25rem 1rem;
-      text-align: center;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 2.1rem;
-    }
-
-    header p {
-      margin: 0.45rem 0 0;
-      font-size: 1.05rem;
-      opacity: 0.95;
-    }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 1.25rem;
-      background-color: var(--nav-bg);
-      padding: 0.9rem 1rem;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      color: #ffffff;
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.25s ease;
-    }
-
-    nav a:hover {
-      color: #f3d5c5;
-      text-decoration: underline;
-    }
-
-    .btn-tema {
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.75);
-      color: #ffffff;
-      padding: 0.45rem 0.95rem;
-      border-radius: 999px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 0.9rem;
-      transition: background-color 0.25s ease, color 0.25s ease;
-    }
-
-    .btn-tema:hover {
-      background-color: #ffffff;
-      color: var(--nav-bg);
-    }
-
-    .container {
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 2.5rem 1.5rem;
-      background-color: var(--box-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      margin-bottom: 2.5rem;
-    }
-
-    .hero h2 {
-      color: var(--primary-color);
-      font-size: 1.85rem;
-      margin-top: 0;
-    }
-
-    .hero p {
-      color: var(--muted-color);
-      max-width: 720px;
-      margin: 0 auto 1.5rem;
-    }
-
-    .btn {
-      background-color: var(--primary-color);
-      color: #ffffff;
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      display: inline-block;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.25s ease, transform 0.2s ease;
-    }
-
-    .btn:hover {
-      background-color: var(--accent-warm);
-      transform: translateY(-2px);
-    }
-
-    .btn-secundario {
-      background-color: var(--accent-warm);
-    }
-
-    .btn-secundario:hover {
-      background-color: var(--primary-color);
-    }
-
-    .seccion-titulo {
-      text-align: center;
-      color: var(--primary-color);
-      margin-bottom: 1.5rem;
-      font-size: 1.75rem;
-    }
-
-    .grid-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .card {
-      background-color: var(--card-bg);
-      border-radius: 12px;
-      padding: 1.5rem;
-      border: 1px solid var(--border-color);
-      transition: transform 0.25s ease, border-color 0.25s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: var(--secondary-color);
-    }
-
-    .card h3 {
-      color: var(--primary-color);
-      margin-top: 0;
-      margin-bottom: 0.5rem;
-    }
-
-    .card p {
-      color: var(--muted-color);
-      margin: 0;
-    }
-
-    .cotizador-cta {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-left: 5px solid var(--accent-warm);
-      border-radius: 10px;
-      padding: 1.5rem;
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
-
-    .cotizador-cta h3 {
-      margin-top: 0;
-      color: var(--primary-color);
-    }
-
-    .cotizador-cta p {
-      color: var(--muted-color);
-      margin-bottom: 1.25rem;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2.25rem 1rem;
-      background-color: var(--footer-bg);
-      color: #ffffff;
-    }
-
-    .social-links {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin: 1rem 0 1.25rem;
-    }
-
-    .social-link {
-      display: inline-block;
-      padding: 0.5rem 1rem;
-      border-radius: 999px;
-      background-color: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      color: #ffffff;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.25s ease, transform 0.2s ease;
-    }
-
-    .social-link:hover {
-      background-color: var(--accent-warm);
-      transform: translateY(-2px);
-    }
-
-    .footer-copy {
-      font-size: 0.9rem;
-      opacity: 0.85;
-      margin: 0;
-    }
-  </style>
 </head>
 <body>
-  <header>
+  <nav>
+    <div class="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="nosotros.html">Nosotros</a>
+      <a href="arboles.html">Bosque Virtual 🌳</a>
+      <a href="resenas.html">Reseñas ⭐</a>
+    </div>
+    <button id="themeToggle" type="button" class="theme-btn" aria-label="Alternar entre modo claro y oscuro">
+      🌙 Modo oscuro
+    </button>
+  </nav>
+
+  <header class="site-header">
     <h1>EcoLegado Alfombras</h1>
     <p>Tu hogar, tu huella, tu legado</p>
   </header>
 
-  <nav>
-    <a href="index.html">Inicio</a>
-    <a href="nosotros.html">Nosotros</a>
-    <a href="arboles.html">Bosque Virtual 🌳</a>
-    <a href="resenas.html">Reseñas ⭐</a>
-    <button id="btnTema" type="button" class="btn-tema" aria-label="Alternar entre modo claro y oscuro">
-      🌙 Modo oscuro
-    </button>
-  </nav>
+  <section class="showcase-semanal">
+    <div class="showcase-grid">
+      <div class="logo-fijo-box">
+        <img
+          id="logoEstatico"
+          src="logo-ecolegado.png"
+          alt="Logo estático de EcoLegado Alfombras"
+          class="logo-estatico"
+        />
+        <p class="logo-etiqueta">EcoLegado Alfombras · Tufting & Legado</p>
+      </div>
+
+      <div id="medioSemanalBox" class="medio-semanal-box">
+        <p id="estadoMedioSemanal">Cargando destacado de la semana...</p>
+      </div>
+    </div>
+  </section>
 
   <main class="container">
     <section class="hero">
@@ -285,7 +53,7 @@
       <a href="nosotros.html#cotizador" class="btn">Calcular Cotización Aproximada 🌱</a>
     </section>
 
-    <section id="pilares">
+    <section>
       <h2 class="seccion-titulo">¿Qué Hace Única a Cada Alfombra?</h2>
       <div class="grid-cards">
         <article class="card">
@@ -318,64 +86,47 @@
         En la pestaña <strong>Nosotros</strong> puedes combinar tamaño, tipo de boceto, forma y
         acabado para obtener una suma aproximada al instante.
       </p>
-      <a href="nosotros.html#cotizador" class="btn btn-secundario">Ir al Cotizador Automático</a>
+      <a href="nosotros.html" class="btn">Ir al Cotizador Automático</a>
     </section>
   </main>
 
   <footer>
     <h3>Síguenos en Redes Sociales</h3>
     <div class="social-links">
-      <a
-        href="https://www.tiktok.com/@tuftingsolidario"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="social-link"
-      >
+      <a href="https://www.tiktok.com/@tuftingsolidario" target="_blank" rel="noopener noreferrer" class="social-link">
         🎵 TikTok
       </a>
-      <a
-        href="https://www.instagram.com/tuftingsolidario"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="social-link"
-      >
+      <a href="https://www.instagram.com/tuftingsolidario" target="_blank" rel="noopener noreferrer" class="social-link">
         📸 Instagram
       </a>
-      <a
-        href="https://www.facebook.com/tuftingsolidario"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="social-link"
-      >
+      <a href="https://www.facebook.com/tuftingsolidario" target="_blank" rel="noopener noreferrer" class="social-link">
         📘 Facebook
       </a>
     </div>
-    <p class="footer-copy">
-      EcoLegado Alfombras · tuftingsolidario · Arte sostenible para tu espacio
-    </p>
+    <p>EcoLegado Alfombras · tuftingsolidario · Arte sostenible para tu espacio</p>
   </footer>
 
   <script>
     (function () {
       const STORAGE_KEY = "ecolegado_theme";
       const rootEl = document.documentElement;
-      const btnTema = document.getElementById("btnTema");
+      const toggleBtn = document.getElementById("themeToggle");
 
       function aplicarTema(tema) {
         if (tema === "dark") {
           rootEl.setAttribute("data-theme", "dark");
-          if (btnTema) btnTema.textContent = "☀️ Modo claro";
+          if (toggleBtn) toggleBtn.textContent = "☀️ Modo claro";
         } else {
           rootEl.removeAttribute("data-theme");
-          if (btnTema) btnTema.textContent = "🌙 Modo oscuro";
+          if (toggleBtn) toggleBtn.textContent = "🌙 Modo oscuro";
         }
       }
 
       const temaGuardado = localStorage.getItem(STORAGE_KEY) || "light";
       aplicarTema(temaGuardado);
 
-      if (btnTema) {
-        btnTema.addEventListener("click", function () {
+      if (toggleBtn) {
+        toggleBtn.addEventListener("click", function () {
           const esOscuro = rootEl.getAttribute("data-theme") === "dark";
           const siguienteTema = esOscuro ? "light" : "dark";
           localStorage.setItem(STORAGE_KEY, siguienteTema);
@@ -383,6 +134,79 @@
         });
       }
     })();
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDt8rNOONVBbJUIXT0MYHAHm6bbV9sZ1mk",
+      authDomain: "ecolegado-21e65.firebaseapp.com",
+      databaseURL: "https://ecolegado-21e65-default-rtdb.firebaseio.com",
+      projectId: "ecolegado-21e65",
+      storageBucket: "ecolegado-21e65.firebasestorage.app",
+      messagingSenderId: "678783567354",
+      appId: "1:678783567354:web:657139d7917401b745d043",
+      measurementId: "G-MJ78QZDTHJ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const medioBox = document.getElementById("medioSemanalBox");
+    const logoImg = document.getElementById("logoEstatico");
+
+    function convertirYouTubeEmbed(urlStr) {
+      try {
+        const u = new URL(urlStr);
+        if (u.hostname.includes("youtube.com") && u.searchParams.get("v")) {
+          return `https://www.youtube.com/embed/${u.searchParams.get("v")}`;
+        }
+        if (u.hostname.includes("youtu.be")) {
+          const id = u.pathname.replace("/", "");
+          return id ? `https://www.youtube.com/embed/${id}` : urlStr;
+        }
+      } catch (_) {}
+      return urlStr;
+    }
+
+    async function cargarDestacadoYLogo() {
+      try {
+        const snap = await getDoc(doc(db, "configuracion", "destacado_semanal"));
+        if (!snap.exists()) return;
+
+        const data = snap.data();
+
+        if (typeof data.logoUrl === "string" && /^https?:\/\//i.test(data.logoUrl.trim()) && logoImg) {
+          logoImg.src = data.logoUrl.trim();
+        }
+
+        const url = (data.url || "").trim();
+        if (!url) return;
+
+        const esYouTube = url.includes("youtube.com") || url.includes("youtu.be") || data.tipo === "youtube";
+        const esVideoDirecto = data.tipo === "video" || /\.(mp4|webm|ogg)(\?|$)/i.test(url);
+
+        let medioHtml = "";
+        if (esYouTube) {
+          const embedUrl = convertirYouTubeEmbed(url);
+          medioHtml = `<iframe src="${embedUrl}" title="${data.titulo || "Video de la semana"}" style="width:100%;aspect-ratio:16/9;border:0;border-radius:8px;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        } else if (esVideoDirecto) {
+          medioHtml = `<video src="${url}" controls autoplay muted loop playsinline></video>`;
+        } else {
+          medioHtml = `<img src="${url}" alt="${data.titulo || "Destacado semanal"}" />`;
+        }
+
+        medioBox.innerHTML = `
+          ${medioHtml}
+          ${data.titulo ? `<p class="medio-titulo">${data.titulo}</p>` : ""}
+        `;
+      } catch (e) {
+        medioBox.innerHTML = "<p>No se pudo cargar el contenido de la semana.</p>";
+      }
+    }
+
+    cargarDestacadoYLogo();
   </script>
 </body>
 </html>

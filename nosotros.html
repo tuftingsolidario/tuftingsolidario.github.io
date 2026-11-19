@@ -13,6 +13,7 @@
       --color-calido: #b85d3b;
       --color-tarjeta: #ffffff;
       --borde-suave: #e3dcd0;
+      --fondo-suave: #f6efe4;
     }
 
     * {
@@ -21,10 +22,10 @@
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: "Segoe UI", Arial, sans-serif;
       background-color: var(--fondo-principal);
       color: var(--color-texto);
-      line-height: 1.5;
+      line-height: 1.55;
     }
 
     nav {
@@ -32,7 +33,8 @@
       padding: 1rem 1.5rem;
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 1.15rem;
+      justify-content: center;
     }
 
     nav a {
@@ -46,17 +48,17 @@
     }
 
     main {
-      max-width: 860px;
-      margin: 2rem auto;
+      max-width: 900px;
+      margin: 2rem auto 3rem;
       padding: 0 1rem;
     }
 
     .card {
       background-color: var(--color-tarjeta);
       border: 1px solid var(--borde-suave);
-      border-radius: 10px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
+      border-radius: 12px;
+      padding: 1.6rem;
+      margin-bottom: 1.6rem;
     }
 
     .badge-eco {
@@ -72,7 +74,7 @@
 
     .grid-cotizador {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 1rem;
       margin-top: 1rem;
     }
@@ -88,11 +90,13 @@
       font-size: 0.95rem;
     }
 
-    select, input, textarea {
+    select,
+    input[type="text"],
+    textarea {
       width: 100%;
       padding: 0.65rem;
       border: 1px solid #c9bfb0;
-      border-radius: 6px;
+      border-radius: 8px;
       font-size: 0.95rem;
       background-color: #fffdf9;
       color: var(--color-texto);
@@ -101,9 +105,9 @@
     .resultado-box {
       margin-top: 1.25rem;
       padding: 1rem 1.25rem;
-      background-color: #f6efe4;
+      background-color: var(--fondo-suave);
       border-left: 5px solid var(--color-calido);
-      border-radius: 6px;
+      border-radius: 8px;
     }
 
     .precio-total {
@@ -113,25 +117,49 @@
       margin: 0.25rem 0;
     }
 
+    .acciones-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: 1.15rem;
+      align-items: center;
+    }
+
     .btn-enviar {
-      margin-top: 1rem;
       background-color: var(--color-acento);
       color: #ffffff;
       border: none;
-      padding: 0.8rem 1.25rem;
-      border-radius: 6px;
-      font-size: 1rem;
+      padding: 0.8rem 1.3rem;
+      border-radius: 8px;
+      font-size: 0.98rem;
       font-weight: bold;
       cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
     }
 
     .btn-enviar:hover {
       background-color: var(--color-acento-oscuro);
     }
 
+    .btn-secundario {
+      background-color: var(--color-calido);
+      color: #ffffff;
+      text-decoration: none;
+      padding: 0.8rem 1.3rem;
+      border-radius: 8px;
+      font-size: 0.98rem;
+      font-weight: bold;
+      display: inline-block;
+    }
+
+    .btn-secundario:hover {
+      filter: brightness(0.94);
+    }
+
     .resumen-solicitud {
-      margin-top: 0.75rem;
-      font-size: 0.92rem;
+      margin-top: 0.85rem;
+      font-size: 0.94rem;
       color: var(--color-acento-oscuro);
       font-weight: bold;
     }
@@ -150,115 +178,295 @@
       <span class="badge-eco">🌱 Arte Textil Sostenible</span>
       <h1>Sobre Nosotros</h1>
       <p>
-        En <strong>TUFTINGSOLIDARIO (EcoLegado Alfombras)</strong> elaboramos alfombras artesanales
-        mediante técnica de <em>tufting</em>. Cada pieza que creas ayuda a financiar la siembra y el
-        cuidado de un árbol registrado a tu nombre.
+        En <strong>TUFTINGSOLIDARIO (EcoLegado Alfombras)</strong> elaboramos alfombras artesanales mediante técnica de <em>tufting</em>. Cada pieza que creas ayuda a financiar la siembra y el cuidado de un árbol registrado a tu nombre.
       </p>
+      <div class="acciones-form">
+        <a href="#cotizador" class="btn-enviar">Solicitar cotización</a>
+        <a href="arboles.html" class="btn-secundario">Ver Bosque Virtual</a>
+      </div>
+    </section>
+
+    <section id="bosque-virtual-info" class="card">
+      <span class="badge-eco">🌳 Bosque Virtual · Código Único</span>
+      <h2>Evolución Mensual de Cada Árbol</h2>
+      <p>
+        Cada alfombra incluye un <strong>código único</strong> vinculado a su árbol en el <strong>Bosque Virtual</strong>. Con ese código puedes consultar cada mes su avance en altura, estado sanitario y cuidado.
+      </p>
+
+      <div class="grid-cotizador" style="align-items: end;">
+        <div class="campo">
+          <label for="inputCodigoNosotros">Consultar código único</label>
+          <input
+            type="text"
+            id="inputCodigoNosotros"
+            placeholder="Ej. ECO-001 o ECO-002"
+          />
+        </div>
+        <div class="acciones-form" style="margin-top: 0;">
+          <button type="button" id="btnConsultarNosotros" class="btn-enviar">
+            Ver evolución del árbol
+          </button>
+        </div>
+      </div>
+
+      <div id="resultadoCodigoNosotros" class="resultado-box">
+        <strong>Seguimiento mes a mes</strong>
+        <p style="margin: 0.35rem 0 0;">
+          Ingresa un código como <code>ECO-001</code> o <code>ECO-002</code> para revisar los hitos mensuales registrados para esa alfombra.
+        </p>
+      </div>
     </section>
 
     <section id="cotizador" class="card">
       <h2>Cotizador Automático de Alfombra Personalizada</h2>
       <p>
-        Selecciona las opciones de tu diseño para calcular una suma aproximada al instante:
+        Selecciona las opciones de tu diseño para calcular una suma aproximada en pesos colombianos (COP):
       </p>
 
       <form id="formCotizador">
         <div class="grid-cotizador">
-          <!-- 1. Tamaño (3 variantes) -->
           <div class="campo">
             <label for="tamano">1. Tamaño</label>
             <select id="tamano" class="calc-input">
-              <option value="75" selected>Pequeño (+$75 USD)</option>
-              <option value="130">Mediano (+$130 USD)</option>
-              <option value="210">Grande (+$210 USD)</option>
+              <option value="280000" selected>Pequeño (+$280.000 COP)</option>
+              <option value="490000">Mediano (+$490.000 COP)</option>
+              <option value="790000">Grande (+$790.000 COP)</option>
             </select>
           </div>
 
-          <!-- 2. Tipo de imagen o boceto (5 variantes) -->
           <div class="campo">
             <label for="tipoImagen">2. Tipo de imagen o boceto</label>
             <select id="tipoImagen" class="calc-input">
-              <option value="15" selected>Texto / tipografía simple (+$15 USD)</option>
-              <option value="25">Silueta o mascota (+$25 USD)</option>
-              <option value="35">Logo o patrón geométrico (+$35 USD)</option>
-              <option value="50">Personaje / ilustración detallada (+$50 USD)</option>
-              <option value="70">Retrato / arte complejo (+$70 USD)</option>
+              <option value="55000" selected>Texto / tipografía simple (+$55.000 COP)</option>
+              <option value="95000">Silueta o mascota (+$95.000 COP)</option>
+              <option value="130000">Logo o patrón geométrico (+$130.000 COP)</option>
+              <option value="185000">Personaje / ilustración detallada (+$185.000 COP)</option>
+              <option value="260000">Retrato / arte complejo (+$260.000 COP)</option>
             </select>
           </div>
 
-          <!-- 3. Seleccionar la forma (4 variantes) -->
           <div class="campo">
             <label for="forma">3. Seleccionar la forma</label>
             <select id="forma" class="calc-input">
-              <option value="0" selected>Cuadrada o rectangular (+$0 USD)</option>
-              <option value="10">Circular (+$10 USD)</option>
-              <option value="12">Ovalada (+$12 USD)</option>
-              <option value="25">Forma libre / irregular (+$25 USD)</option>
+              <option value="0" selected>Cuadrada o rectangular (+$0 COP)</option>
+              <option value="35000">Circular (+$35.000 COP)</option>
+              <option value="45000">Ovalada (+$45.000 COP)</option>
+              <option value="90000">Forma libre / irregular (+$90.000 COP)</option>
             </select>
           </div>
 
-          <!-- 4. Elegir acabados (2 variantes) -->
           <div class="campo">
             <label for="acabado">4. Elegir acabados</label>
             <select id="acabado" class="calc-input">
-              <option value="10" selected>Acabado estándar limpio (+$10 USD)</option>
-              <option value="30">Tallado en relieve 3D / carving (+$30 USD)</option>
+              <option value="35000" selected>Acabado estándar limpio (+$35.000 COP)</option>
+              <option value="110000">Tallado en relieve 3D / carving (+$110.000 COP)</option>
             </select>
           </div>
         </div>
 
         <div class="campo" style="margin-top: 1rem;">
           <label for="notasDiseno">Idea, colores o enlace de referencia (opcional)</label>
-          <textarea id="notasDiseno" rows="2" placeholder="Ej. Quiero tonos terracota y verde oliva con el nombre de mi gato..."></textarea>
+          <textarea
+            id="notasDiseno"
+            rows="2"
+            placeholder="Ej. Quiero tonos terracota y verde oliva con el nombre de mi gato..."
+          ></textarea>
         </div>
 
         <div class="resultado-box">
           <div>Precio aproximado estimado:</div>
-          <div id="precioAproximado" class="precio-total">$100 USD</div>
+          <div id="precioAproximado" class="precio-total">$370.000 COP</div>
           <small>
-            Incluye estimación base por selección y el compromiso ecológico de 1 árbol sembrado. El valor final puede ajustarse según medidas exactas o complejidad del boceto.
+            Incluye estimación base por selección y el compromiso ecológico de 1 árbol sembrado con su código único. El valor final puede ajustarse según medidas exactas o complejidad del boceto.
           </small>
         </div>
 
-        <button type="submit" class="btn-enviar">Registrar resumen de cotización</button>
+        <div class="acciones-form">
+          <button type="submit" class="btn-enviar">Registrar resumen de cotización</button>
+          <a href="index.html#bosque-virtual-codigo" class="btn-secundario">Ir al buscador en Inicio</a>
+        </div>
+
         <div id="resumenConfirmado" class="resumen-solicitud"></div>
       </form>
     </section>
   </main>
 
   <script>
-    const inputsCalculo = document.querySelectorAll(".calc-input");
-    const precioTotalEl = document.getElementById("precioAproximado");
-    const formCotizador = document.getElementById("formCotizador");
-    const resumenConfirmado = document.getElementById("resumenConfirmado");
+    (function () {
+      const inputsCalculo = document.querySelectorAll(".calc-input");
+      const precioTotalEl = document.getElementById("precioAproximado");
+      const formCotizador = document.getElementById("formCotizador");
+      const resumenConfirmado = document.getElementById("resumenConfirmado");
+      const notasDiseno = document.getElementById("notasDiseno");
 
-    function calcularPrecioAproximado() {
-      let suma = 0;
+      function formatearCOP(valor) {
+        return "$" + Number(valor).toLocaleString("es-CO") + " COP";
+      }
+
+      function calcularPrecioAproximado() {
+        let suma = 0;
+        inputsCalculo.forEach((select) => {
+          const valor = parseFloat(select.value) || 0;
+          suma += valor;
+        });
+        if (precioTotalEl) {
+          precioTotalEl.textContent = formatearCOP(suma);
+        }
+        return suma;
+      }
+
       inputsCalculo.forEach((select) => {
-        const valor = parseFloat(select.value) || 0;
-        suma += valor;
+        select.addEventListener("change", calcularPrecioAproximado);
       });
-      precioTotalEl.textContent = `$${suma} USD`;
-      return suma;
+
+      if (formCotizador) {
+        formCotizador.addEventListener("submit", function (evento) {
+          evento.preventDefault();
+          const total = calcularPrecioAproximado();
+          const tamanoTexto = document.getElementById("tamano").selectedOptions[0].text;
+          const imagenTexto = document.getElementById("tipoImagen").selectedOptions[0].text;
+          const formaTexto = document.getElementById("forma").selectedOptions[0].text;
+          const acabadoTexto = document.getElementById("acabado").selectedOptions[0].text;
+          const notaExtra = notasDiseno && notasDiseno.value.trim()
+            ? ` · Notas: "${notasDiseno.value.trim()}"`
+            : "";
+
+          if (resumenConfirmado) {
+            resumenConfirmado.textContent = `Cotización lista (${formatearCOP(total)}): ${tamanoTexto} · ${imagenTexto} · ${formaTexto} · ${acabadoTexto}${notaExtra}.`;
+          }
+        });
+      }
+
+      calcularPrecioAproximado();
+    })();
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDt8rNOONVBbJUIXT0MYHAHm6bbV9sZ1mk",
+      authDomain: "ecolegado-21e65.firebaseapp.com",
+      databaseURL: "https://ecolegado-21e65-default-rtdb.firebaseio.com",
+      projectId: "ecolegado-21e65",
+      storageBucket: "ecolegado-21e65.firebasestorage.app",
+      messagingSenderId: "678783567354",
+      appId: "1:678783567354:web:657139d7917401b745d043",
+      measurementId: "G-MJ78QZDTHJ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const respaldosArboles = {
+      "ECO-001": {
+        alfombra: "Alfombra Mediana · Silueta Mascota",
+        especie: "Roble / Cedro local",
+        historialMensual: [
+          { mes: "Mes 1", altura: "18 cm", estado: "Enraizamiento activo", nota: "Siembra inicial y riego controlado." },
+          { mes: "Mes 2", altura: "31 cm", estado: "Crecimiento estable", nota: "Nuevos brotes foliares y protección de suelo." },
+          { mes: "Mes 3", altura: "47 cm", estado: "Vigoroso", nota: "Buen desarrollo de tallo y humedad óptima." }
+        ]
+      },
+      "ECO-002": {
+        alfombra: "Alfombra Pequeña · Tipografía",
+        especie: "Especie nativa de bosque",
+        historialMensual: [
+          { mes: "Mes 1", altura: "15 cm", estado: "Adaptación", nota: "Registro del código único asignado al pedido." },
+          { mes: "Mes 2", altura: "26 cm", estado: "En crecimiento", nota: "Mantenimiento mensual y limpieza de maleza." }
+        ]
+      }
+    };
+
+    const inputCodigo = document.getElementById("inputCodigoNosotros");
+    const btnConsultar = document.getElementById("btnConsultarNosotros");
+    const boxResultado = document.getElementById("resultadoCodigoNosotros");
+
+    function pintarEvolucion(codigo, datos, fuente) {
+      if (!boxResultado) return;
+      const lista = Array.isArray(datos.historialMensual) ? datos.historialMensual : [];
+      const itemsHtml = lista.length
+        ? lista
+            .map(
+              (h) => `
+                <li style="margin-bottom: 0.4rem;">
+                  <strong>${h.mes || "Registro"}:</strong> ${h.altura || "En medición"} · <em>${h.estado || "Activo"}</em> — ${h.nota || ""}
+                </li>
+              `
+            )
+            .join("")
+        : `<li>Sin reportes mensuales cargados todavía.</li>`;
+
+      boxResultado.innerHTML = `
+        <div style="font-weight: bold; color: var(--color-acento-oscuro); font-size: 1.05rem;">
+          Código: ${codigo} · ${datos.especie || "Árbol nativo"}
+        </div>
+        <div style="font-size: 0.92rem; margin: 0.25rem 0 0.7rem;">
+          Alfombra asociada: <strong>${datos.alfombra || "Alfombra personalizada"}</strong> · <span style="opacity: 0.8;">${fuente}</span>
+        </div>
+        <ul style="margin: 0; padding-left: 1.2rem;">
+          ${itemsHtml}
+        </ul>
+      `;
     }
 
-    inputsCalculo.forEach((select) => {
-      select.addEventListener("change", calcularPrecioAproximado);
-    });
+    async function buscarCodigoArbol(codigoLimpio) {
+      if (!boxResultado) return;
+      if (!codigoLimpio) {
+        boxResultado.innerHTML = `
+          <strong>Escribe un código válido</strong>
+          <p style="margin: 0.35rem 0 0;">Ingresa un código como <code>ECO-001</code> para ver la evolución mensual.</p>
+        `;
+        return;
+      }
 
-    formCotizador.addEventListener("submit", function (evento) {
-      evento.preventDefault();
-      const total = calcularPrecioAproximado();
-      const tamanoTexto = document.getElementById("tamano").selectedOptions[0].text;
-      const imagenTexto = document.getElementById("tipoImagen").selectedOptions[0].text;
-      const formaTexto = document.getElementById("forma").selectedOptions[0].text;
-      const acabadoTexto = document.getElementById("acabado").selectedOptions[0].text;
+      boxResultado.innerHTML = `
+        <strong>Consultando en Firestore...</strong>
+        <p style="margin: 0.35rem 0 0;">Buscando información de <code>${codigoLimpio}</code>.</p>
+      `;
 
-      resumenConfirmado.textContent =
-        `Cotización lista (~$${total} USD): ${tamanoTexto} · ${imagenTexto} · ${formaTexto} · ${acabadoTexto}.`;
-    });
+      if (btnConsultar) btnConsultar.disabled = true;
 
-    calcularPrecioAproximado();
+      try {
+        const snap = await getDoc(doc(db, "arboles_bosque_virtual", codigoLimpio));
+        if (snap.exists()) {
+          pintarEvolucion(codigoLimpio, snap.data(), "Tiempo real · Firestore");
+          return;
+        }
+        if (respaldosArboles[codigoLimpio]) {
+          pintarEvolucion(codigoLimpio, respaldosArboles[codigoLimpio], "Ejemplo local");
+          return;
+        }
+        boxResultado.innerHTML = `
+          <strong>Código no encontrado: ${codigoLimpio}</strong>
+          <p style="margin: 0.35rem 0 0;">Prueba con <code>ECO-001</code> o <code>ECO-002</code> o revisa el documento en <code>arboles_bosque_virtual</code>.</p>
+        `;
+      } catch (_) {
+        if (respaldosArboles[codigoLimpio]) {
+          pintarEvolucion(codigoLimpio, respaldosArboles[codigoLimpio], "Respaldo sin conexión");
+        } else {
+          boxResultado.innerHTML = `
+            <strong>No se pudo consultar ${codigoLimpio}</strong>
+            <p style="margin: 0.35rem 0 0;">Verifica tu conexión o los permisos de lectura en Firestore.</p>
+          `;
+        }
+      } finally {
+        if (btnConsultar) btnConsultar.disabled = false;
+      }
+    }
+
+    if (btnConsultar && inputCodigo) {
+      btnConsultar.addEventListener("click", () => {
+        buscarCodigoArbol(inputCodigo.value.trim().toUpperCase());
+      });
+      inputCodigo.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          buscarCodigoArbol(inputCodigo.value.trim().toUpperCase());
+        }
+      });
+    }
   </script>
 </body>
 </html>

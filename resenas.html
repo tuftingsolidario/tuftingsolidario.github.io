@@ -1,201 +1,398 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Opiniones y Experiencias | EcoLegado Alfombras</title>
-    <style>
-        :root {
-            --primary-color: #2c5e3b;
-            --secondary-color: #52b788;
-            --bg-color: #f4f9f4;
-            --card-bg: #ffffff;
-            --text-color: #333333;
-            --border-color: #d8f3dc;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Opiniones y Experiencias | EcoLegado Alfombras</title>
+  <style>
+    :root {
+      --primary-color: #2e6f40;
+      --secondary-color: #489462;
+      --accent-warm: #b85d3b;
+      --bg-color: #fbf7f0;
+      --card-bg: #ffffff;
+      --box-bg: #f6efe4;
+      --text-color: #2b2623;
+      --muted-color: #5c534c;
+      --border-color: #e3dcd0;
+      --nav-bg: #225430;
+      --footer-bg: #1a3f25;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-        }
+    [data-theme="dark"] {
+      --primary-color: #57a773;
+      --secondary-color: #79c293;
+      --accent-warm: #df7a53;
+      --bg-color: #141916;
+      --card-bg: #1d2520;
+      --box-bg: #242e28;
+      --text-color: #f2efe9;
+      --muted-color: #b8c2ba;
+      --border-color: #2f3b33;
+      --nav-bg: #102417;
+      --footer-bg: #0c1b11;
+    }
 
-        header {
-            background: linear-gradient(135deg, #2c5e3b, #1e3d28);
-            color: white;
-            padding: 3rem 1rem;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-        }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      line-height: 1.55;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
 
-        header p {
-            margin: 0.8rem 0 1.5rem;
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--nav-bg));
+      color: #ffffff;
+      padding: 2.5rem 1rem;
+      text-align: center;
+    }
 
-        .btn-volver {
-            display: inline-block;
-            background-color: var(--secondary-color);
-            color: white;
-            padding: 0.6rem 1.4rem;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background 0.3s, transform 0.2s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
+    header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+    }
 
-        .btn-volver:hover {
-            background-color: #40916c;
-            transform: translateY(-2px);
-        }
+    header p {
+      margin: 0.75rem auto 1.25rem;
+      max-width: 720px;
+      font-size: 1.05rem;
+      opacity: 0.95;
+    }
 
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 3rem 1rem;
-        }
+    nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.2rem;
+      background-color: var(--nav-bg);
+      padding: 0.85rem 1rem;
+      flex-wrap: wrap;
+    }
 
-        .grid-resenas {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+    }
 
-        .tarjeta-resena {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 12px;
-            border: 2px solid var(--border-color);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
-            text-align: left;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+    nav a:hover {
+      color: #f3d5c5;
+      text-decoration: underline;
+    }
 
-        .tarjeta-resena:hover {
-            transform: translateY(-6px);
-            border-color: var(--secondary-color);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
-        }
+    .btn-tema {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      color: #ffffff;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
 
-        .tarjeta-resena h3 {
-            color: var(--primary-color);
-            margin-top: 0;
-            margin-bottom: 0.5rem;
-            font-size: 1.3rem;
-        }
+    .btn-tema:hover {
+      background-color: #ffffff;
+      color: var(--nav-bg);
+    }
 
-        .tarjeta-resena p {
-            line-height: 1.6;
-            margin: 0.5rem 0;
-        }
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 2.25rem 1rem 3rem;
+    }
 
-        .tarjeta-resena img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-top: 1rem;
-        }
+    .intro-durabilidad {
+      background-color: var(--box-bg);
+      border: 1px solid var(--border-color);
+      border-left: 5px solid var(--accent-warm);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2.25rem;
+    }
 
-        .mensaje-estado {
-            grid-column: 1 / -1;
-            text-align: center;
-            font-size: 1.2rem;
-            color: #666;
-            padding: 3rem;
-        }
+    .intro-durabilidad h2 {
+      margin-top: 0;
+      margin-bottom: 0.6rem;
+      color: var(--primary-color);
+      font-size: 1.45rem;
+    }
 
-        footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            background: #1e3d28;
-            color: white;
-            margin-top: 4rem;
-        }
-    </style>
+    .intro-durabilidad p {
+      margin: 0 0 1rem;
+      color: var(--text-color);
+    }
+
+    .etiquetas-calidad {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .etiqueta {
+      background-color: var(--card-bg);
+      color: var(--primary-color);
+      border: 1px solid var(--border-color);
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .grid-resenas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .tarjeta-resena {
+      background: var(--card-bg);
+      padding: 1.75rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      text-align: left;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .tarjeta-resena:hover {
+      transform: translateY(-4px);
+      border-color: var(--secondary-color);
+    }
+
+    .tarjeta-resena h3 {
+      color: var(--primary-color);
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1.25rem;
+    }
+
+    .tarjeta-resena p {
+      color: var(--muted-color);
+      line-height: 1.55;
+      margin: 0.45rem 0;
+    }
+
+    .tarjeta-resena img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+
+    .mensaje-estado {
+      grid-column: 1 / -1;
+      text-align: center;
+      font-size: 1.1rem;
+      color: var(--muted-color);
+      padding: 2.5rem 1rem;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2.25rem 1rem;
+      background-color: var(--footer-bg);
+      color: #ffffff;
+      margin-top: 3rem;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0 1.25rem;
+    }
+
+    .social-link {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      background-color: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .social-link:hover {
+      background-color: var(--accent-warm);
+    }
+
+    .footer-copy {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin: 0;
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>Opiniones de Nuestra Comunidad</h1>
+    <p>Descubre cómo se sienten y resisten en el día a día las alfombras de EcoLegado Alfombras.</p>
+  </header>
 
-    <header>
-        <h1>Opiniones de Nuestra Comunidad</h1>
-        <p>Descubre lo que dicen quienes ya transformaron sus hogares con arte y conciencia ecológica.</p>
-        <a href="index.html" class="btn-volver">← Volver al Inicio</a>
-    </header>
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="nosotros.html">Nosotros</a>
+    <a href="arboles.html">Bosque Virtual 🌳</a>
+    <a href="resenas.html">Reseñas ⭐</a>
+    <button id="btnTema" type="button" class="btn-tema" aria-label="Alternar entre modo claro y oscuro">
+      🌙 Modo oscuro
+    </button>
+  </nav>
 
-    <main>
-        <section id="listaResenas" class="grid-resenas">
-            <div class="mensaje-estado">Cargando todas las opiniones... 🌱</div>
-        </section>
-    </main>
+  <main>
+    <section class="intro-durabilidad">
+      <h2>🐾 Alfombras Pet-Friendly, Fabricadas para Durar</h2>
+      <p>
+        Nuestras alfombras artesanales en <strong>tufting</strong> están pensadas para acompañarte
+        durante años en la vida real: son <strong>pet-friendly</strong>, aptas para hogares donde
+        comparten espacio perros y gatos, y están <strong>fabricadas para durar</strong> con tejido
+        denso, respaldo firme y acabados cuidados que soportan el tránsito diario, el juego y la
+        limpieza constante sin perder su forma ni su calidez.
+      </p>
+      <div class="etiquetas-calidad">
+        <span class="etiqueta">🐾 Pet-Friendly</span>
+        <span class="etiqueta">🛡️ Fabricadas para Durar</span>
+        <span class="etiqueta">🌱 1 Alfombra = 1 Árbol</span>
+      </div>
+    </section>
 
-    <footer>
-        <p>&copy; 2026 EcoLegado Alfombras. Cuidando el planeta, un hogar a la vez.</p>
-    </footer>
+    <section id="listaResenas" class="grid-resenas">
+      <div class="mensaje-estado">Cargando todas las opiniones... 🌱</div>
+    </section>
+  </main>
 
-    <!-- Script para conectar a Firebase y renderizar todas las reseñas -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+  <footer>
+    <h3>Síguenos en Redes Sociales</h3>
+    <div class="social-links">
+      <a
+        href="https://www.tiktok.com/@tuftingsolidario"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="social-link"
+      >
+        🎵 TikTok
+      </a>
+      <a
+        href="https://www.instagram.com/tuftingsolidario"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="social-link"
+      >
+        📸 Instagram
+      </a>
+      <a
+        href="https://www.facebook.com/tuftingsolidario"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="social-link"
+      >
+        📘 Facebook
+      </a>
+    </div>
+    <p class="footer-copy">
+      &copy; 2026 EcoLegado Alfombras · tuftingsolidario · Cuidando el planeta, un hogar a la vez.
+    </p>
+  </footer>
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyDt8rNOONVBbJUIXT0MYHAHm6bbV9sZ1mk",
-            authDomain: "ecolegado-21e65.firebaseapp.com",
-            databaseURL: "https://ecolegado-21e65-default-rtdb.firebaseio.com",
-            projectId: "ecolegado-21e65",
-            storageBucket: "ecolegado-21e65.firebasestorage.app",
-            messagingSenderId: "678783567354",
-            appId: "1:678783567354:web:657139d7917401b745d043",
-            measurementId: "G-MJ78QZDTHJ"
-        };
+  <script>
+    (function () {
+      const STORAGE_KEY = "ecolegado_theme";
+      const rootEl = document.documentElement;
+      const btnTema = document.getElementById("btnTema");
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+      function aplicarTema(tema) {
+        if (tema === "dark") {
+          rootEl.setAttribute("data-theme", "dark");
+          if (btnTema) btnTema.textContent = "☀️ Modo claro";
+        } else {
+          rootEl.removeAttribute("data-theme");
+          if (btnTema) btnTema.textContent = "🌙 Modo oscuro";
+        }
+      }
 
-        async function cargarTodasLasResenas() {
-            const contenedor = document.getElementById('listaResenas');
-            try {
-                const querySnapshot = await getDocs(collection(db, "resenas"));
-                
-                if (querySnapshot.empty) {
-                    contenedor.innerHTML = `<div class="mensaje-estado">Aún no hay reseñas registradas en la base de datos. ¡Sé el primero en dejarnos una!</div>`;
-                    return;
-                }
+      const temaGuardado = localStorage.getItem(STORAGE_KEY) || "light";
+      aplicarTema(temaGuardado);
 
-                contenedor.innerHTML = "";
-                
-                // Recorre y muestra TODOS los documentos encontrados en la colección
-                querySnapshot.forEach((doc) => {
-                    const r = doc.data();
-                    contenedor.innerHTML += `
-                        <div class="tarjeta-resena">
-                            <div>
-                                <h3>${r.cliente || 'Cliente Anónimo'}</h3>
-                                <p style="color: #f39c12; font-size: 1.1rem; margin-bottom: 0.8rem;">★★★★★</p>
-                                <p>"${r.comentario || 'Excelente calidad y servicio.'}"</p>
-                            </div>
-                            ${r.imagenUrl ? `<img src="${r.imagenUrl}" alt="Alfombra de ${r.cliente || 'Cliente'}">` : ''}
-                        </div>
-                    `;
-                });
-            } catch (error) {
-                console.error("Error al cargar opiniones:", error);
-                contenedor.innerHTML = `<div class="mensaje-estado">Ocurrió un error al cargar las reseñas. Por favor, intenta recargar la página.</div>`;
-            }
+      if (btnTema) {
+        btnTema.addEventListener("click", function () {
+          const esOscuro = rootEl.getAttribute("data-theme") === "dark";
+          const siguienteTema = esOscuro ? "light" : "dark";
+          localStorage.setItem(STORAGE_KEY, siguienteTema);
+          aplicarTema(siguienteTema);
+        });
+      }
+    })();
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDt8rNOONVBbJUIXT0MYHAHm6bbV9sZ1mk",
+      authDomain: "ecolegado-21e65.firebaseapp.com",
+      databaseURL: "https://ecolegado-21e65-default-rtdb.firebaseio.com",
+      projectId: "ecolegado-21e65",
+      storageBucket: "ecolegado-21e65.firebasestorage.app",
+      messagingSenderId: "678783567354",
+      appId: "1:678783567354:web:657139d7917401b745d043",
+      measurementId: "G-MJ78QZDTHJ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function cargarTodasLasResenas() {
+      const contenedor = document.getElementById("listaResenas");
+      try {
+        const querySnapshot = await getDocs(collection(db, "resenas"));
+        if (querySnapshot.empty) {
+          contenedor.innerHTML =
+            '<div class="mensaje-estado">Aún no hay reseñas registradas en la base de datos. ¡Sé el primero en dejarnos una!</div>';
+          return;
         }
 
-        cargarTodasLasResenas();
-    </script>
+        let htmlResenas = "";
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          const estrellas = "⭐".repeat(Number(data.calificacion) || 5);
+          htmlResenas += `
+            <article class="tarjeta-resena">
+              <div>
+                <h3>${data.nombre || "Cliente EcoLegado"}</h3>
+                <p><strong>Calificación:</strong> ${estrellas}</p>
+                <p>${data.comentario || ""}</p>
+              </div>
+              ${data.imagenUrl ? `<img src="${data.imagenUrl}" alt="Alfombra de ${data.nombre || "cliente"}" />` : ""}
+            </article>
+          `;
+        });
+
+        contenedor.innerHTML = htmlResenas;
+      } catch (error) {
+        contenedor.innerHTML =
+          '<div class="mensaje-estado">No se pudieron cargar las reseñas en este momento. Intenta recargar la página.</div>';
+      }
+    }
+
+    cargarTodasLasResenas();
+  </script>
 </body>
 </html>

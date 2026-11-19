@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EcoLegado Alfombras | Tu hogar, tu huella, tu legado</title>
+  <title>Tuftinsolidario</title>
   <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfWWOMtAAAAAG-5zjE4hywzDE1Qtfbz1AuRd30g"></script>
   <link rel="stylesheet" href="styles.css" />
   <style>
@@ -12,7 +12,8 @@
       border: 1px solid var(--border-color, #e3dcd0);
       border-radius: 12px;
       padding: 1.75rem;
-      margin-bottom: 2rem;
+      margin: 2rem auto;
+      max-width: 980px;
     }
 
     .faq-section h2 {
@@ -43,12 +44,24 @@
       margin: 0;
       color: var(--muted-color, var(--text-muted, #5c534c));
     }
+
+    .logo-fallback-badge {
+      display: inline-block;
+      margin-top: 0.35rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: bold;
+      background-color: var(--card-bg, #ffffff);
+      color: var(--primary-color, var(--accent-primary, #2e6f40));
+      border: 1px solid var(--border-color, #e3dcd0);
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>EcoLegado Alfombras</h1>
-    <p>Tu hogar, tu huella, tu legado</p>
+    <h1>Tuftinsolidario</h1>
+    <p>Tu hogar, tu huella, tu legado · EcoLegado Alfombras</p>
   </header>
 
   <nav>
@@ -67,10 +80,11 @@
         <img
           id="logoEstatico"
           src="logo-ecolegado.png"
-          alt="Logo estático de EcoLegado Alfombras"
+          alt="Logo estático de Tuftinsolidario"
           class="logo-estatico"
         />
-        <p class="logo-etiqueta">EcoLegado Alfombras · Tufting &amp; Legado</p>
+        <p class="logo-etiqueta">Tuftinsolidario · EcoLegado</p>
+        <span id="logoEstado" class="logo-fallback-badge">🌱 Legado Artesanal</span>
       </div>
 
       <div id="medioSemanalBox" class="medio-semanal-box">
@@ -124,43 +138,46 @@
       </p>
       <a href="nosotros.html#cotizador" class="btn btn-secundario">Ir al Cotizador Automático</a>
     </section>
-
-    <section id="preguntas-frecuentes" class="faq-section">
-      <h2>Preguntas Frecuentes</h2>
-
-      <div class="faq-item">
-        <h3>¿Cómo funciona el compromiso ecológico de un árbol por alfombra?</h3>
-        <p>
-          Por cada alfombra elaborada impulsamos la siembra y seguimiento de un árbol protector y
-          puedes consultar su registro o certificado en la pestaña <strong>Bosque Virtual</strong>.
-        </p>
-      </div>
-
-      <div class="faq-item">
-        <h3>¿Las alfombras son pet-friendly y resistentes para uso diario?</h3>
-        <p>
-          Sí, están pensadas para acompañarte en el día a día con materiales y acabados firmes
-          aptos para hogares con mascotas. Revisa experiencias reales en <strong>Reseñas</strong>.
-        </p>
-      </div>
-
-      <div class="faq-item">
-        <h3>¿Cómo puedo pedir un diseño o calcular un precio aproximado?</h3>
-        <p>
-          Entra a <strong>Nosotros</strong> para usar el cotizador automático eligiendo tamaño,
-          tipo de imagen o boceto, forma y acabado.
-        </p>
-      </div>
-
-      <div class="faq-item">
-        <h3>¿Cada cuánto cambia el video o imagen de la semana?</h3>
-        <p>
-          Actualizamos periódicamente el bloque destacado desde nuestra configuración semanal para
-          mostrar nuevos avances, piezas de tufting y novedades del proyecto.
-        </p>
-      </div>
-    </section>
   </main>
+
+  <section id="preguntas-frecuentes" class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+
+    <div class="faq-item">
+      <h3>¿Cómo se limpia una alfombra personalizada?</h3>
+      <p>
+        Se recomienda aspirar suavemente de forma regular y limpiar manchas puntuales con un paño
+        ligeramente húmedo y jabón o detergente suave, evitando sumergirla por completo en agua o
+        usar blanqueadores agresivos y secado directo al sol fuerte.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Son aptas para hogares con mascotas?</h3>
+      <p>
+        Sí, nuestras alfombras están pensadas para ser <strong>pet-friendly</strong> y convivir en
+        hogares con mascotas, combinando tejido firme y mantenimiento práctico para el día a día.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Cómo funciona la política de pago?</h3>
+      <p>
+        Al confirmar tu cotización y diseño personalizado se solicita un abono inicial para dar
+        inicio a la producción y el saldo restante al finalizar la confección y antes del envío o
+        entrega.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Cuáles son los tiempos estimados de confección?</h3>
+      <p>
+        El tiempo estimado depende del tamaño, nivel de detalle del diseño y tipo de acabado
+        (incluyendo tallado 3D), variando habitualmente entre <strong>1 y 3 semanas</strong> tras
+        aprobar el boceto y el abono inicial.
+      </p>
+    </div>
+  </section>
 
   <footer>
     <h3>Síguenos en Redes Sociales</h3>
@@ -176,7 +193,7 @@
       </a>
     </div>
     <p class="footer-copy">
-      EcoLegado Alfombras · tuftingsolidario · Arte sostenible para tu espacio
+      Tuftinsolidario · EcoLegado Alfombras · Arte sostenible para tu espacio
     </p>
   </footer>
 
@@ -229,6 +246,14 @@
     const db = getFirestore(app);
     const medioBox = document.getElementById("medioSemanalBox");
     const logoImg = document.getElementById("logoEstatico");
+    const logoEstado = document.getElementById("logoEstado");
+
+    if (logoImg) {
+      logoImg.addEventListener("error", function () {
+        logoImg.style.display = "none";
+        if (logoEstado) logoEstado.textContent = "🌿 TUFTINGSOLIDARIO";
+      });
+    }
 
     function convertirYouTubeEmbed(urlStr) {
       try {
@@ -248,19 +273,25 @@
       try {
         const snap = await getDoc(doc(db, "configuracion", "destacado_semanal"));
         if (!snap.exists()) {
-          if (medioBox) medioBox.innerHTML = "<p>Configura el documento destacado_semanal en Firestore.</p>";
+          if (medioBox) {
+            medioBox.innerHTML =
+              "<p>Destacado semanal pendiente de configurar en <strong>configuracion/destacado_semanal</strong>.</p>";
+          }
           return;
         }
 
         const data = snap.data();
 
         if (typeof data.logoUrl === "string" && /^https?:\/\//i.test(data.logoUrl.trim()) && logoImg) {
+          logoImg.style.display = "block";
           logoImg.src = data.logoUrl.trim();
         }
 
         const url = (data.url || "").trim();
         if (!url) {
-          if (medioBox) medioBox.innerHTML = "<p>Agrega una URL en el campo url de destacado_semanal.</p>";
+          if (medioBox) {
+            medioBox.innerHTML = "<p>Pronto publicaremos el nuevo contenido destacado de la semana.</p>";
+          }
           return;
         }
 
@@ -284,7 +315,10 @@
           `;
         }
       } catch (e) {
-        if (medioBox) medioBox.innerHTML = "<p>No se pudo cargar el contenido de la semana.</p>";
+        if (medioBox) {
+          medioBox.innerHTML =
+            "<p>No se pudo cargar el contenido de la semana en este momento (verifica el enlace o permisos de Firestore).</p>";
+        }
       }
     }
 

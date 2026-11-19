@@ -331,6 +331,7 @@
 
       const patrones = [
         /drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/,
+        /drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/,
         /lh3\.googleusercontent\.com\/d\/([a-zA-Z0-9_-]+)/,
         /[?&]id=([a-zA-Z0-9_-]+)/
       ];
@@ -342,7 +343,7 @@
       return "";
     }
 
-    function normalizarUrlDrive(urlStr) {
+    function normalizarUrlDriveImagen(urlStr) {
       const limpia = (urlStr || "").trim();
       if (!limpia) return "";
 
@@ -356,15 +357,34 @@
     function convertirYouTubeEmbed(urlStr) {
       try {
         const u = new URL(urlStr);
-        if (u.hostname.includes("youtube.com") && u.searchParams.get("v")) {
-          return `https://www.youtube.com/embed/${u.searchParams.get("v")}`;
+        let videoId = "";
+        if (u.hostname.includes("youtube.com")) {
+          if (u.searchParams.get("v")) videoId = u.searchParams.get("v");
+          else if (u.pathname.includes("/embed/")) videoId = u.pathname.split("/embed/")[1].split("/")[0];
+          else if (u.pathname.includes("/shorts/")) videoId = u.pathname.split("/shorts/")[1].split("/")[0];
+        } else if (u.hostname.includes("youtu.be")) {
+          videoId = u.pathname.replace("/", "").split("/")[0];
         }
-        if (u.hostname.includes("youtu.be")) {
-          const id = u.pathname.replace("/", "");
-          return id ? `https://www.youtube.com/embed/${id}` : urlStr;
+        if (videoId) {
+          return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1`;
         }
       } catch (_) {}
       return urlStr;
+    }
+
+    function resolverUrlVideo(urlStr) {
+      const limpia = (urlStr || "").trim();
+      const idDrive = limpia.includes("drive.google.com") ? extraerIdDrive(limpia) : "";
+      if (idDrive) {
+        return {
+          modo: "iframe",
+          src: `https://drive.google.com/file/d/${idDrive}/preview`
+        };
+      }
+      return {
+        modo: "video",
+        src: limpia
+      };
     }
 
     async function cargarDestacadoYLogo() {
@@ -378,13 +398,13 @@
         }
 
         const data = snap.data();
-        const urlLogoNorm = normalizarUrlDrive(data.logoUrl);
+        const urlLogoNorm = normalizarUrlDriveImagen(data.logoUrl);
         if (urlLogoNorm && /^https?:\/\//i.test(urlLogoNorm) && logoImg) {
           logoImg.style.display = "block";
           logoImg.src = urlLogoNorm;
         }
 
-        const rawUrl = (data.imagen || data.imagenUrl || data.url || "").trim();
+        const rawUrl = (data.imagen || data.imagenUrl || data.url || data.videoUrl || "").trim();
         if (!rawUrl) {
           if (medioBox) {
             medioBox.innerHTML = "<p>Pronto publicaremos el nuevo contenido destacado de la semana.</p>";
@@ -393,17 +413,23 @@
         }
 
         const esYouTube = rawUrl.includes("youtube.com") || rawUrl.includes("youtu.be") || data.tipo === "youtube";
-        const esVideoDirecto = data.tipo === "video" || /\.(mp4|webm|ogg)(\?|$)/i.test(rawUrl);
+        const esVideo = data.tipo === "video" || data.tipo === "mp4" || /\.(mp4|webm|ogg|mov)(\?|$)/i.test(rawUrl) || rawUrl.includes("drive.google.com");
         let medioHtml = "";
+        const tituloSeguro = (data.titulo || "Destacado semanal").replace(/"/g, "&quot;");
 
         if (esYouTube) {
           const embedUrl = convertirYouTubeEmbed(rawUrl);
-          medioHtml = `<iframe src="${embedUrl}" title="${data.titulo || "Video de la semana"}" style="width:100%;aspect-ratio:16/9;border:0;border-radius:8px;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-        } else if (esVideoDirecto) {
-          medioHtml = `<video src="${rawUrl}" controls autoplay muted loop playsinline></video>`;
+          medioHtml = `<iframe src="${embedUrl}" title="${tituloSeguro}" style="width:100%;aspect-ratio:16/9;border:0;border-radius:8px;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        } else if (esVideo) {
+          const resuelto = resolverUrlVideo(rawUrl);
+          if (resuelto.modo === "iframe") {
+            medioHtml = `<iframe src="${resuelto.src}" title="${tituloSeguro}" style="width:100%;aspect-ratio:16/9;border:0;border-radius:8px;" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+          } else {
+            medioHtml = `<video src="${resuelto.src}" controls autoplay muted loop playsinline preload="metadata" onerror="this.outerHTML='<p>No se pudo reproducir el video. Verifica que el enlace sea un .mp4/.webm público y permita reproducción en el navegador.</p>';"></video>`;
+          }
         } else {
-          const imgUrl = normalizarUrlDrive(rawUrl);
-          medioHtml = `<img src="${imgUrl}" alt="${data.titulo || "Destacado semanal"}" onerror="this.outerHTML='<p>No se pudo mostrar la imagen. Revisa que el archivo en Drive sea público o usa un enlace directo de imagen.</p>';" />`;
+          const imgUrl = normalizarUrlDriveImagen(rawUrl);
+          medioHtml = `<img src="${imgUrl}" alt="${tituloSeguro}" onerror="this.outerHTML='<p>No se pudo mostrar la imagen. Revisa que el archivo en Drive sea público o usa un enlace directo de imagen.</p>';" />`;
         }
 
         if (medioBox) {

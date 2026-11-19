@@ -3,227 +3,341 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tuftinsolidario</title>
-  <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfWWOMtAAAAAG-5zjE4hywzDE1Qtfbz1AuRd30g"></script>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Nosotros y Cotizador | Tuftingsolidario</title>
   <style>
-    .faq-section {
-      background-color: var(--card-bg, var(--bg-card, #ffffff));
-      border: 1px solid var(--border-color, #e3dcd0);
-      border-radius: 12px;
-      padding: 1.75rem;
-      margin: 2rem auto;
-      max-width: 980px;
+    :root {
+      --fondo-principal: #fbf7f0;
+      --color-texto: #2b2623;
+      --color-acento: #2e6f40;
+      --color-acento-oscuro: #225430;
+      --color-calido: #b85d3b;
+      --color-tarjeta: #ffffff;
+      --borde-suave: #e3dcd0;
+      --fondo-suave: #f6efe4;
     }
 
-    .faq-section h2 {
-      margin-top: 0;
-      margin-bottom: 1rem;
-      color: var(--primary-color, var(--accent-primary, #2e6f40));
-      text-align: center;
-      font-size: 1.65rem;
+    * {
+      box-sizing: border-box;
     }
 
-    .faq-item {
-      border-bottom: 1px solid var(--border-color, #e3dcd0);
-      padding: 0.9rem 0;
-    }
-
-    .faq-item:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .faq-item h3 {
-      margin: 0 0 0.35rem;
-      color: var(--accent-warm, #b85d3b);
-      font-size: 1.08rem;
-    }
-
-    .faq-item p {
+    body {
       margin: 0;
-      color: var(--muted-color, var(--text-muted, #5c534c));
+      font-family: "Segoe UI", Arial, sans-serif;
+      background-color: var(--fondo-principal);
+      color: var(--color-texto);
+      line-height: 1.55;
     }
 
-    .logo-fallback-badge {
-      display: inline-block;
-      margin-top: 0.35rem;
-      padding: 0.25rem 0.65rem;
-      border-radius: 999px;
-      font-size: 0.78rem;
+    nav {
+      background-color: var(--color-acento);
+      padding: 1rem 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.15rem;
+      justify-content: center;
+    }
+
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
       font-weight: bold;
-      background-color: var(--card-bg, #ffffff);
-      color: var(--primary-color, var(--accent-primary, #2e6f40));
-      border: 1px solid var(--border-color, #e3dcd0);
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 2rem auto 3rem;
+      padding: 0 1rem;
+    }
+
+    .card {
+      background-color: var(--color-tarjeta);
+      border: 1px solid var(--borde-suave);
+      border-radius: 12px;
+      padding: 1.6rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .badge-eco {
+      display: inline-block;
+      background-color: #e6f2e9;
+      color: var(--color-acento-oscuro);
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .grid-cotizador {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .campo {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    select,
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 0.65rem;
+      border: 1px solid #c9bfb0;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      background-color: #fffdf9;
+      color: var(--color-texto);
+    }
+
+    .resultado-box {
+      margin-top: 1.25rem;
+      padding: 1rem 1.25rem;
+      background-color: var(--fondo-suave);
+      border-left: 5px solid var(--color-calido);
+      border-radius: 8px;
+    }
+
+    .precio-total {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: var(--color-acento-oscuro);
+      margin: 0.25rem 0;
+    }
+
+    .acciones-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: 1.15rem;
+      align-items: center;
+    }
+
+    .btn-enviar {
+      background-color: var(--color-acento);
+      color: #ffffff;
+      border: none;
+      padding: 0.8rem 1.3rem;
+      border-radius: 8px;
+      font-size: 0.98rem;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-enviar:hover {
+      background-color: var(--color-acento-oscuro);
+    }
+
+    .btn-secundario {
+      background-color: var(--color-calido);
+      color: #ffffff;
+      text-decoration: none;
+      padding: 0.8rem 1.3rem;
+      border-radius: 8px;
+      font-size: 0.98rem;
+      font-weight: bold;
+      display: inline-block;
+    }
+
+    .btn-secundario:hover {
+      filter: brightness(0.94);
+    }
+
+    .resumen-solicitud {
+      margin-top: 0.85rem;
+      font-size: 0.94rem;
+      color: var(--color-acento-oscuro);
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Tuftinsolidario</h1>
-    <p>Tu hogar, tu huella, tu legado · EcoLegado Alfombras</p>
-  </header>
-
   <nav>
     <a href="index.html">Inicio</a>
     <a href="nosotros.html">Nosotros</a>
-    <a href="arboles.html">Bosque Virtual 🌳</a>
-    <a href="resenas.html">Reseñas ⭐</a>
-    <button id="btnTema" type="button" class="btn-tema" aria-label="Alternar entre modo claro y oscuro">
-      🌙 Modo oscuro
-    </button>
+    <a href="arboles.html">Árboles</a>
+    <a href="resenas.html">Reseñas</a>
   </nav>
 
-  <section class="showcase-semanal">
-    <div class="showcase-grid">
-      <div class="logo-fijo-box">
-        <img
-          id="logoEstatico"
-          src="logo-ecolegado.png"
-          alt="Logo estático de Tuftinsolidario"
-          class="logo-estatico"
-        />
-        <p class="logo-etiqueta">Tuftinsolidario · EcoLegado</p>
-        <span id="logoEstado" class="logo-fallback-badge">🌱 Legado Artesanal</span>
-      </div>
-
-      <div id="medioSemanalBox" class="medio-semanal-box">
-        <p id="estadoMedioSemanal">Cargando destacado de la semana...</p>
-      </div>
-    </div>
-  </section>
-
-  <main class="container">
-    <section class="hero">
-      <h2>Arte Textil Artesanal con Propósito Ecológico</h2>
+  <main>
+    <section class="card">
+      <span class="badge-eco">🌱 Arte Textil Sostenible</span>
+      <h1>Sobre Nosotros</h1>
       <p>
-        Creamos alfombras personalizadas mediante la técnica de <strong>tufting</strong>. Por cada
-        pieza elaborada, impulsamos la siembra y el cuidado de un árbol registrado a tu nombre.
+        En <strong>TUFTINGSOLIDARIO (EcoLegado Alfombras)</strong> elaboramos alfombras artesanales mediante técnica de <em>tufting</em>. Cada pieza que creas ayuda a financiar la siembra y el cuidado de un árbol registrado a tu nombre.
       </p>
-      <a href="nosotros.html#cotizador" class="btn">Calcular Cotización Aproximada 🌱</a>
-    </section>
-
-    <section id="pilares">
-      <h2 class="seccion-titulo">¿Qué Hace Única a Cada Alfombra?</h2>
-      <div class="grid-cards">
-        <article class="card">
-          <h3>Diseño a Medida</h3>
-          <p>
-            Trabajamos desde bocetos, tipografías, mascotas, logos o ilustraciones para adaptar
-            cada pieza a tus espacios.
-          </p>
-        </article>
-        <article class="card">
-          <h3>Acabados Artesanales</h3>
-          <p>
-            Opciones de acabado limpio o tallado en relieve 3D (<em>carving</em>) para dar volumen y
-            textura a cada detalle.
-          </p>
-        </article>
-        <article class="card">
-          <h3>Legado Verde</h3>
-          <p>
-            Cada compra conecta la calidez de tu hogar con la reforestación y el seguimiento de tu
-            árbol en el bosque virtual.
-          </p>
-        </article>
+      <div class="acciones-form">
+        <a href="#cotizador" class="btn-enviar">Solicitar cotización</a>
+        <a href="arboles.html" class="btn-secundario">Ver Bosque Virtual</a>
       </div>
     </section>
 
-    <section class="cotizador-cta">
-      <h3>¿Quieres conocer un estimado de tu diseño?</h3>
+    <section id="bosque-virtual-info" class="card">
+      <span class="badge-eco">🌳 Bosque Virtual · Código Único</span>
+      <h2>Evolución Mensual de Cada Árbol</h2>
       <p>
-        En la pestaña <strong>Nosotros</strong> puedes combinar tamaño, tipo de boceto, forma y
-        acabado para obtener una suma aproximada al instante.
+        Cada alfombra incluye un <strong>código único</strong> vinculado a su árbol en el <strong>Bosque Virtual</strong>. Con ese código puedes consultar cada mes su avance en altura, estado sanitario y cuidado.
       </p>
-      <a href="nosotros.html#cotizador" class="btn btn-secundario">Ir al Cotizador Automático</a>
+
+      <div class="grid-cotizador" style="align-items: end;">
+        <div class="campo">
+          <label for="inputCodigoNosotros">Consultar código único</label>
+          <input
+            type="text"
+            id="inputCodigoNosotros"
+            placeholder="Ej. ECO-001 o ECO-002"
+          />
+        </div>
+        <div class="acciones-form" style="margin-top: 0;">
+          <button type="button" id="btnConsultarNosotros" class="btn-enviar">
+            Ver evolución del árbol
+          </button>
+        </div>
+      </div>
+
+      <div id="resultadoCodigoNosotros" class="resultado-box">
+        <strong>Seguimiento mes a mes</strong>
+        <p style="margin: 0.35rem 0 0;">
+          Ingresa un código como <code>ECO-001</code> o <code>ECO-002</code> para revisar los hitos mensuales registrados para esa alfombra.
+        </p>
+      </div>
+    </section>
+
+    <section id="cotizador" class="card">
+      <h2>Cotizador Automático de Alfombra Personalizada</h2>
+      <p>
+        Selecciona las opciones de tu diseño para calcular una suma aproximada en pesos colombianos (COP):
+      </p>
+
+      <form id="formCotizador">
+        <div class="grid-cotizador">
+          <div class="campo">
+            <label for="tamano">1. Tamaño</label>
+            <select id="tamano" class="calc-input">
+              <option value="350000" selected>Pequeño · 1 m² (+$350.000 COP)</option>
+              <option value="560000">Mediano · 1,6 m² (+$560.000 COP)</option>
+              <option value="840000">Grande · 2,4 m² (+$840.000 COP)</option>
+            </select>
+          </div>
+
+          <div class="campo">
+            <label for="tipoImagen">2. Tipo de imagen o boceto</label>
+            <select id="tipoImagen" class="calc-input">
+              <option value="55000" selected>Texto / tipografía simple (+$55.000 COP)</option>
+              <option value="95000">Silueta o mascota (+$95.000 COP)</option>
+              <option value="130000">Logo o patrón geométrico (+$130.000 COP)</option>
+              <option value="185000">Personaje / ilustración detallada (+$185.000 COP)</option>
+              <option value="260000">Retrato / arte complejo (+$260.000 COP)</option>
+            </select>
+          </div>
+
+          <div class="campo">
+            <label for="forma">3. Seleccionar la forma</label>
+            <select id="forma" class="calc-input">
+              <option value="0" selected>Cuadrada o rectangular (+$0 COP)</option>
+              <option value="35000">Circular (+$35.000 COP)</option>
+              <option value="45000">Ovalada (+$45.000 COP)</option>
+              <option value="90000">Forma libre / irregular (+$90.000 COP)</option>
+            </select>
+          </div>
+
+          <div class="campo">
+            <label for="acabado">4. Elegir acabados</label>
+            <select id="acabado" class="calc-input">
+              <option value="35000" selected>Acabado estándar limpio (+$35.000 COP)</option>
+              <option value="110000">Tallado en relieve 3D / carving (+$110.000 COP)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="campo" style="margin-top: 1rem;">
+          <label for="notasDiseno">Idea, colores o enlace de referencia (opcional)</label>
+          <textarea
+            id="notasDiseno"
+            rows="2"
+            placeholder="Ej. Quiero tonos terracota y verde oliva con el nombre de mi gato..."
+          ></textarea>
+        </div>
+
+        <div class="resultado-box">
+          <div>Precio aproximado estimado:</div>
+          <div id="precioAproximado" class="precio-total">$440.000 COP</div>
+          <small>
+            Incluye estimación base por selección (tamaño pequeño de 1 m² desde $350.000 COP) y el compromiso ecológico de 1 árbol sembrado con su código único. El valor final puede ajustarse según medidas exactas o complejidad del boceto.
+          </small>
+        </div>
+
+        <div class="acciones-form">
+          <button type="submit" class="btn-enviar">Registrar resumen de cotización</button>
+          <a href="index.html#bosque-virtual-codigo" class="btn-secundario">Ir al buscador en Inicio</a>
+        </div>
+
+        <div id="resumenConfirmado" class="resumen-solicitud"></div>
+      </form>
     </section>
   </main>
 
-  <section id="preguntas-frecuentes" class="faq-section">
-    <h2>Preguntas Frecuentes</h2>
-
-    <div class="faq-item">
-      <h3>¿Cómo se limpia una alfombra personalizada?</h3>
-      <p>
-        Se recomienda aspirar suavemente de forma regular y limpiar manchas puntuales con un paño
-        ligeramente húmedo y jabón o detergente suave, evitando sumergirla por completo en agua o
-        usar blanqueadores agresivos y secado directo al sol fuerte.
-      </p>
-    </div>
-
-    <div class="faq-item">
-      <h3>¿Son aptas para hogares con mascotas?</h3>
-      <p>
-        Sí, nuestras alfombras están pensadas para ser <strong>pet-friendly</strong> y convivir en
-        hogares con mascotas, combinando tejido firme y mantenimiento práctico para el día a día.
-      </p>
-    </div>
-
-    <div class="faq-item">
-      <h3>¿Cómo funciona la política de pago?</h3>
-      <p>
-        Al confirmar tu cotización y diseño personalizado se solicita un abono inicial para dar
-        inicio a la producción y el saldo restante al finalizar la confección y antes del envío o
-        entrega.
-      </p>
-    </div>
-
-    <div class="faq-item">
-      <h3>¿Cuáles son los tiempos estimados de confección?</h3>
-      <p>
-        El tiempo estimado depende del tamaño, nivel de detalle del diseño y tipo de acabado
-        (incluyendo tallado 3D), variando habitualmente entre <strong>1 y 3 semanas</strong> tras
-        aprobar el boceto y el abono inicial.
-      </p>
-    </div>
-  </section>
-
-  <footer>
-    <h3>Síguenos en Redes Sociales</h3>
-    <div class="social-links">
-      <a href="https://www.tiktok.com/@tuftingsolidario" target="_blank" rel="noopener noreferrer" class="social-link">
-        🎵 TikTok
-      </a>
-      <a href="https://www.instagram.com/tuftingsolidario" target="_blank" rel="noopener noreferrer" class="social-link">
-        📸 Instagram
-      </a>
-      <a href="https://www.facebook.com/tuftingsolidario" target="_blank" rel="noopener noreferrer" class="social-link">
-        📘 Facebook
-      </a>
-    </div>
-    <p class="footer-copy">
-      Tuftinsolidario · EcoLegado Alfombras · Arte sostenible para tu espacio
-    </p>
-  </footer>
-
   <script>
     (function () {
-      const STORAGE_KEY = "ecolegado_theme";
-      const rootEl = document.documentElement;
-      const btnTema = document.getElementById("btnTema");
+      const inputsCalculo = document.querySelectorAll(".calc-input");
+      const precioTotalEl = document.getElementById("precioAproximado");
+      const formCotizador = document.getElementById("formCotizador");
+      const resumenConfirmado = document.getElementById("resumenConfirmado");
+      const notasDiseno = document.getElementById("notasDiseno");
 
-      function aplicarTema(tema) {
-        if (tema === "dark") {
-          rootEl.setAttribute("data-theme", "dark");
-          if (btnTema) btnTema.textContent = "☀️ Modo claro";
-        } else {
-          rootEl.removeAttribute("data-theme");
-          if (btnTema) btnTema.textContent = "🌙 Modo oscuro";
-        }
+      function formatearCOP(valor) {
+        return "$" + Number(valor).toLocaleString("es-CO") + " COP";
       }
 
-      const temaGuardado = localStorage.getItem(STORAGE_KEY) || "light";
-      aplicarTema(temaGuardado);
+      function calcularPrecioAproximado() {
+        let suma = 0;
+        inputsCalculo.forEach((select) => {
+          const valor = parseFloat(select.value) || 0;
+          suma += valor;
+        });
+        if (precioTotalEl) {
+          precioTotalEl.textContent = formatearCOP(suma);
+        }
+        return suma;
+      }
 
-      if (btnTema) {
-        btnTema.addEventListener("click", function () {
-          const esOscuro = rootEl.getAttribute("data-theme") === "dark";
-          const siguienteTema = esOscuro ? "light" : "dark";
-          localStorage.setItem(STORAGE_KEY, siguienteTema);
-          aplicarTema(siguienteTema);
+      inputsCalculo.forEach((select) => {
+        select.addEventListener("change", calcularPrecioAproximado);
+      });
+
+      if (formCotizador) {
+        formCotizador.addEventListener("submit", function (evento) {
+          evento.preventDefault();
+          const total = calcularPrecioAproximado();
+          const tamanoTexto = document.getElementById("tamano").selectedOptions[0].text;
+          const imagenTexto = document.getElementById("tipoImagen").selectedOptions[0].text;
+          const formaTexto = document.getElementById("forma").selectedOptions[0].text;
+          const acabadoTexto = document.getElementById("acabado").selectedOptions[0].text;
+          const notaExtra = notasDiseno && notasDiseno.value.trim()
+            ? ` · Notas: "${notasDiseno.value.trim()}"`
+            : "";
+
+          if (resumenConfirmado) {
+            resumenConfirmado.textContent = `Cotización lista (${formatearCOP(total)}): ${tamanoTexto} · ${imagenTexto} · ${formaTexto} · ${acabadoTexto}${notaExtra}.`;
+          }
         });
       }
+
+      calcularPrecioAproximado();
     })();
   </script>
 
@@ -244,85 +358,115 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-    const medioBox = document.getElementById("medioSemanalBox");
-    const logoImg = document.getElementById("logoEstatico");
-    const logoEstado = document.getElementById("logoEstado");
 
-    if (logoImg) {
-      logoImg.addEventListener("error", function () {
-        logoImg.style.display = "none";
-        if (logoEstado) logoEstado.textContent = "🌿 TUFTINGSOLIDARIO";
-      });
+    const respaldosArboles = {
+      "ECO-001": {
+        alfombra: "Alfombra Mediana · Silueta Mascota",
+        especie: "Roble / Cedro local",
+        historialMensual: [
+          { mes: "Mes 1", altura: "18 cm", estado: "Enraizamiento activo", nota: "Siembra inicial y riego controlado." },
+          { mes: "Mes 2", altura: "31 cm", estado: "Crecimiento estable", nota: "Nuevos brotes foliares y protección de suelo." },
+          { mes: "Mes 3", altura: "47 cm", estado: "Vigoroso", nota: "Buen desarrollo de tallo y humedad óptima." }
+        ]
+      },
+      "ECO-002": {
+        alfombra: "Alfombra Pequeña · 1 m² · Tipografía",
+        especie: "Especie nativa de bosque",
+        historialMensual: [
+          { mes: "Mes 1", altura: "15 cm", estado: "Adaptación", nota: "Registro del código único asignado al pedido." },
+          { mes: "Mes 2", altura: "26 cm", estado: "En crecimiento", nota: "Mantenimiento mensual y limpieza de maleza." }
+        ]
+      }
+    };
+
+    const inputCodigo = document.getElementById("inputCodigoNosotros");
+    const btnConsultar = document.getElementById("btnConsultarNosotros");
+    const boxResultado = document.getElementById("resultadoCodigoNosotros");
+
+    function pintarEvolucion(codigo, datos, fuente) {
+      if (!boxResultado) return;
+      const lista = Array.isArray(datos.historialMensual) ? datos.historialMensual : [];
+      const itemsHtml = lista.length
+        ? lista
+            .map(
+              (h) => `
+                <li style="margin-bottom: 0.4rem;">
+                  <strong>${h.mes || "Registro"}:</strong> ${h.altura || "En medición"} · <em>${h.estado || "Activo"}</em> — ${h.nota || ""}
+                </li>
+              `
+            )
+            .join("")
+        : `<li>Sin reportes mensuales cargados todavía.</li>`;
+
+      boxResultado.innerHTML = `
+        <div style="font-weight: bold; color: var(--color-acento-oscuro); font-size: 1.05rem;">
+          Código: ${codigo} · ${datos.especie || "Árbol nativo"}
+        </div>
+        <div style="font-size: 0.92rem; margin: 0.25rem 0 0.7rem;">
+          Alfombra asociada: <strong>${datos.alfombra || "Alfombra personalizada"}</strong> · <span style="opacity: 0.8;">${fuente}</span>
+        </div>
+        <ul style="margin: 0; padding-left: 1.2rem;">
+          ${itemsHtml}
+        </ul>
+      `;
     }
 
-    function convertirYouTubeEmbed(urlStr) {
-      try {
-        const u = new URL(urlStr);
-        if (u.hostname.includes("youtube.com") && u.searchParams.get("v")) {
-          return `https://www.youtube.com/embed/${u.searchParams.get("v")}`;
-        }
-        if (u.hostname.includes("youtu.be")) {
-          const id = u.pathname.replace("/", "");
-          return id ? `https://www.youtube.com/embed/${id}` : urlStr;
-        }
-      } catch (_) {}
-      return urlStr;
-    }
+    async function buscarCodigoArbol(codigoLimpio) {
+      if (!boxResultado) return;
+      if (!codigoLimpio) {
+        boxResultado.innerHTML = `
+          <strong>Escribe un código válido</strong>
+          <p style="margin: 0.35rem 0 0;">Ingresa un código como <code>ECO-001</code> para ver la evolución mensual.</p>
+        `;
+        return;
+      }
 
-    async function cargarDestacadoYLogo() {
+      boxResultado.innerHTML = `
+        <strong>Consultando en Firestore...</strong>
+        <p style="margin: 0.35rem 0 0;">Buscando información de <code>${codigoLimpio}</code>.</p>
+      `;
+
+      if (btnConsultar) btnConsultar.disabled = true;
+
       try {
-        const snap = await getDoc(doc(db, "configuracion", "destacado_semanal"));
-        if (!snap.exists()) {
-          if (medioBox) {
-            medioBox.innerHTML =
-              "<p>Destacado semanal pendiente de configurar en <strong>configuracion/destacado_semanal</strong>.</p>";
-          }
+        const snap = await getDoc(doc(db, "arboles_bosque_virtual", codigoLimpio));
+        if (snap.exists()) {
+          pintarEvolucion(codigoLimpio, snap.data(), "Tiempo real · Firestore");
           return;
         }
-
-        const data = snap.data();
-
-        if (typeof data.logoUrl === "string" && /^https?:\/\//i.test(data.logoUrl.trim()) && logoImg) {
-          logoImg.style.display = "block";
-          logoImg.src = data.logoUrl.trim();
-        }
-
-        const url = (data.url || "").trim();
-        if (!url) {
-          if (medioBox) {
-            medioBox.innerHTML = "<p>Pronto publicaremos el nuevo contenido destacado de la semana.</p>";
-          }
+        if (respaldosArboles[codigoLimpio]) {
+          pintarEvolucion(codigoLimpio, respaldosArboles[codigoLimpio], "Ejemplo local");
           return;
         }
-
-        const esYouTube = url.includes("youtube.com") || url.includes("youtu.be") || data.tipo === "youtube";
-        const esVideoDirecto = data.tipo === "video" || /\.(mp4|webm|ogg)(\?|$)/i.test(url);
-
-        let medioHtml = "";
-        if (esYouTube) {
-          const embedUrl = convertirYouTubeEmbed(url);
-          medioHtml = `<iframe src="${embedUrl}" title="${data.titulo || "Video de la semana"}" style="width:100%;aspect-ratio:16/9;border:0;border-radius:8px;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-        } else if (esVideoDirecto) {
-          medioHtml = `<video src="${url}" controls autoplay muted loop playsinline></video>`;
+        boxResultado.innerHTML = `
+          <strong>Código no encontrado: ${codigoLimpio}</strong>
+          <p style="margin: 0.35rem 0 0;">Prueba con <code>ECO-001</code> o <code>ECO-002</code> o revisa el documento en <code>arboles_bosque_virtual</code>.</p>
+        `;
+      } catch (_) {
+        if (respaldosArboles[codigoLimpio]) {
+          pintarEvolucion(codigoLimpio, respaldosArboles[codigoLimpio], "Respaldo sin conexión");
         } else {
-          medioHtml = `<img src="${url}" alt="${data.titulo || "Destacado semanal"}" />`;
-        }
-
-        if (medioBox) {
-          medioBox.innerHTML = `
-            ${medioHtml}
-            ${data.titulo ? `<p class="medio-titulo">${data.titulo}</p>` : ""}
+          boxResultado.innerHTML = `
+            <strong>No se pudo consultar ${codigoLimpio}</strong>
+            <p style="margin: 0.35rem 0 0;">Verifica tu conexión o los permisos de lectura en Firestore.</p>
           `;
         }
-      } catch (e) {
-        if (medioBox) {
-          medioBox.innerHTML =
-            "<p>No se pudo cargar el contenido de la semana en este momento (verifica el enlace o permisos de Firestore).</p>";
-        }
+      } finally {
+        if (btnConsultar) btnConsultar.disabled = false;
       }
     }
 
-    cargarDestacadoYLogo();
+    if (btnConsultar && inputCodigo) {
+      btnConsultar.addEventListener("click", () => {
+        buscarCodigoArbol(inputCodigo.value.trim().toUpperCase());
+      });
+      inputCodigo.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          buscarCodigoArbol(inputCodigo.value.trim().toUpperCase());
+        }
+      });
+    }
   </script>
 </body>
 </html>

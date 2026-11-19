@@ -27,6 +27,61 @@
       max-width: 720px;
     }
 
+    .impacto-section {
+      background-color: var(--card-bg, var(--bg-card, #ffffff));
+      border: 1px solid var(--border-color, #e3dcd0);
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin: 2rem auto 0;
+      text-align: center;
+    }
+
+    .impacto-section h2 {
+      margin-top: 0;
+      margin-bottom: 0.65rem;
+      color: var(--primary-color, var(--accent-primary, #2e6f40));
+      font-size: 1.6rem;
+    }
+
+    .impacto-section p {
+      margin: 0 auto 1.25rem;
+      max-width: 680px;
+      color: var(--muted-color, var(--text-muted, #5c534c));
+    }
+
+    .btn-contador-arboles {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      background-color: var(--primary-color, var(--accent-primary, #2e6f40));
+      color: #ffffff;
+      text-decoration: none;
+      padding: 0.85rem 1.45rem;
+      border-radius: 999px;
+      font-weight: bold;
+      font-size: 1.05rem;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+
+    .btn-contador-arboles:hover {
+      transform: translateY(-1px);
+      filter: brightness(0.95);
+    }
+
+    .contador-numero {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 2rem;
+      height: 2rem;
+      padding: 0 0.55rem;
+      border-radius: 999px;
+      background-color: #ffffff;
+      color: var(--primary-color, var(--accent-primary, #2e6f40));
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+
     .faq-section {
       background-color: var(--card-bg, var(--bg-card, #ffffff));
       border: 1px solid var(--border-color, #e3dcd0);
@@ -76,6 +131,15 @@
       color: var(--primary-color, var(--accent-primary, #2e6f40));
       border: 1px solid var(--border-color, #e3dcd0);
     }
+
+    .medio-semanal-box img,
+    .medio-semanal-box video {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      display: block;
+      margin: 0 auto;
+    }
   </style>
 </head>
 <body>
@@ -85,10 +149,10 @@
   </header>
 
   <nav>
-    <a href="index.html">Inicio</a>
-    <a href="nosotros.html">Nosotros</a>
+    <a href="arboles.html">Inicio</a>
+    <a href="arboles.html">Nosotros</a>
     <a href="arboles.html">Bosque Virtual 🌳</a>
-    <a href="resenas.html">Reseñas ⭐</a>
+    <a href="arboles.html">Reseñas ⭐</a>
     <button id="btnTema" type="button" class="btn-tema" aria-label="Alternar entre modo claro y oscuro">
       🌙 Modo oscuro
     </button>
@@ -113,7 +177,7 @@
       <p>
         Creamos alfombras personalizadas mediante la técnica de <strong>tufting</strong>. Por cada pieza elaborada, impulsamos la siembra y el cuidado de un árbol registrado a tu nombre.
       </p>
-      <a href="nosotros.html#cotizador" class="btn">Calcular Cotización Aproximada 🌱</a>
+      <a href="arboles.html" class="btn">Calcular Cotización Aproximada 🌱</a>
     </section>
 
     <section id="pilares">
@@ -140,12 +204,23 @@
       </div>
     </section>
 
+    <section id="impacto-clientes" class="impacto-section">
+      <h2>El impacto de nuestros clientes</h2>
+      <p>
+        Cada alfombra personalizada impulsa la reforestación y deja una huella viva que crece junto a nuestra comunidad.
+      </p>
+      <a href="arboles.html" class="btn-contador-arboles">
+        <span>🌳 Árboles sembrados</span>
+        <span id="contadorArbolesSembrados" class="contador-numero">2</span>
+      </a>
+    </section>
+
     <section class="cotizador-cta">
       <h3>¿Quieres conocer un estimado de tu diseño?</h3>
       <p>
         En la pestaña <strong>Nosotros</strong> puedes combinar tamaño, tipo de boceto, forma y acabado para obtener una suma aproximada al instante.
       </p>
-      <a href="nosotros.html#cotizador" class="btn btn-secundario">Ir al Cotizador Automático</a>
+      <a href="arboles.html" class="btn btn-secundario">Ir al Cotizador Automático</a>
     </section>
   </main>
 
@@ -254,6 +329,20 @@
       });
     }
 
+    function normalizarUrlDrive(urlStr) {
+      const limpia = (urlStr || "").trim();
+      if (!limpia) return "";
+      const matchFile = limpia.match(/drive\.google\.com\/file\/d\/([^/]+)/);
+      if (matchFile && matchFile[1]) {
+        return `https://drive.google.com/uc?export=view&id=${matchFile[1]}`;
+      }
+      const matchOpen = limpia.match(/[?&]id=([^&]+)/);
+      if (limpia.includes("drive.google.com") && matchOpen && matchOpen[1]) {
+        return `https://drive.google.com/uc?export=view&id=${matchOpen[1]}`;
+      }
+      return limpia;
+    }
+
     function convertirYouTubeEmbed(urlStr) {
       try {
         const u = new URL(urlStr);
@@ -279,30 +368,32 @@
         }
 
         const data = snap.data();
-        if (typeof data.logoUrl === "string" && /^https?:\/\//i.test(data.logoUrl.trim()) && logoImg) {
+        const urlLogoNorm = normalizarUrlDrive(data.logoUrl);
+        if (urlLogoNorm && /^https?:\/\//i.test(urlLogoNorm) && logoImg) {
           logoImg.style.display = "block";
-          logoImg.src = data.logoUrl.trim();
+          logoImg.src = urlLogoNorm;
         }
 
-        const url = (data.url || data.imagen || data.imagenUrl || "").trim();
-        if (!url) {
+        const rawUrl = (data.imagen || data.imagenUrl || data.url || "").trim();
+        if (!rawUrl) {
           if (medioBox) {
             medioBox.innerHTML = "<p>Pronto publicaremos el nuevo contenido destacado de la semana.</p>";
           }
           return;
         }
 
-        const esYouTube = url.includes("youtube.com") || url.includes("youtu.be") || data.tipo === "youtube";
-        const esVideoDirecto = data.tipo === "video" || /\.(mp4|webm|ogg)(\?|$)/i.test(url);
+        const esYouTube = rawUrl.includes("youtube.com") || rawUrl.includes("youtu.be") || data.tipo === "youtube";
+        const esVideoDirecto = data.tipo === "video" || /\.(mp4|webm|ogg)(\?|$)/i.test(rawUrl);
 
         let medioHtml = "";
         if (esYouTube) {
-          const embedUrl = convertirYouTubeEmbed(url);
+          const embedUrl = convertirYouTubeEmbed(rawUrl);
           medioHtml = `<iframe src="${embedUrl}" title="${data.titulo || "Video de la semana"}" style="width:100%;aspect-ratio:16/9;border:0;border-radius:8px;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
         } else if (esVideoDirecto) {
-          medioHtml = `<video src="${url}" controls autoplay muted loop playsinline></video>`;
+          medioHtml = `<video src="${rawUrl}" controls autoplay muted loop playsinline></video>`;
         } else {
-          medioHtml = `<img src="${url}" alt="${data.titulo || "Destacado semanal"}" />`;
+          const imgUrl = normalizarUrlDrive(rawUrl);
+          medioHtml = `<img src="${imgUrl}" alt="${data.titulo || "Destacado semanal"}" onerror="this.outerHTML='<p>No se pudo mostrar la imagen. Revisa que el archivo en Drive sea público o usa un enlace directo de imagen.</p>';" />`;
         }
 
         if (medioBox) {

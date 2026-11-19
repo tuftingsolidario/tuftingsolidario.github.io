@@ -147,7 +147,8 @@
     }
 
     select,
-    textarea {
+    textarea,
+    input[type="text"] {
       width: 100%;
       padding: 0.65rem;
       border: 1px solid var(--border-color);
@@ -189,6 +190,8 @@
       font-size: 0.98rem;
       font-weight: bold;
       cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
     }
 
     .btn-enviar:hover {
@@ -208,6 +211,21 @@
 
     .btn-asesor:hover {
       filter: brightness(0.95);
+    }
+
+    .btn-secundario-link {
+      background-color: var(--secondary-color);
+      color: #ffffff;
+      text-decoration: none;
+      padding: 0.8rem 1.3rem;
+      border-radius: 8px;
+      font-size: 0.98rem;
+      font-weight: bold;
+      display: inline-block;
+    }
+
+    .btn-secundario-link:hover {
+      background-color: var(--primary-color);
     }
 
     .resumen-solicitud {
@@ -322,9 +340,7 @@
       <span class="badge-eco">🌱 Arte Textil Sostenible</span>
       <h2>Sobre Nosotros</h2>
       <p>
-        En <strong>Tuftinsolidario</strong> (<strong>EcoLegado Alfombras</strong>) elaboramos
-        alfombras artesanales mediante técnica de <em>tufting</em>. Cada pieza que creas ayuda a
-        financiar la siembra y el cuidado de un árbol registrado a tu nombre.
+        En <strong>Tuftinsolidario</strong> (<strong>EcoLegado Alfombras</strong>) elaboramos alfombras artesanales mediante técnica de <em>tufting</em>. Cada pieza que creas ayuda a financiar la siembra y el cuidado de un árbol registrado a tu nombre.
       </p>
     </section>
 
@@ -336,7 +352,6 @@
 
       <form id="formCotizador">
         <div class="grid-cotizador">
-          <!-- 1. Tamaño (3 variantes en COP) -->
           <div class="campo">
             <label for="tamano">1. Tamaño</label>
             <select id="tamano" class="calc-input">
@@ -346,7 +361,6 @@
             </select>
           </div>
 
-          <!-- 2. Tipo de imagen o boceto (5 variantes en COP) -->
           <div class="campo">
             <label for="tipoImagen">2. Tipo de imagen o boceto</label>
             <select id="tipoImagen" class="calc-input">
@@ -358,7 +372,6 @@
             </select>
           </div>
 
-          <!-- 3. Seleccionar la forma (4 variantes en COP) -->
           <div class="campo">
             <label for="forma">3. Seleccionar la forma</label>
             <select id="forma" class="calc-input">
@@ -369,7 +382,6 @@
             </select>
           </div>
 
-          <!-- 4. Elegir acabados (2 variantes en COP) -->
           <div class="campo">
             <label for="acabado">4. Elegir acabados</label>
             <select id="acabado" class="calc-input">
@@ -392,8 +404,7 @@
           <div>Precio aproximado estimado:</div>
           <div id="precioAproximado" class="precio-total">$370.000 COP</div>
           <small>
-            Valor orientativo en pesos colombianos (COP). Incluye el compromiso ecológico de 1 árbol
-            registrado por cada alfombra y puede ajustarse según medidas exactas o complejidad del boceto.
+            Valor orientativo en pesos colombianos (COP). Incluye el compromiso ecológico de 1 árbol registrado por cada alfombra y puede ajustarse según medidas exactas o complejidad del boceto.
           </small>
         </div>
 
@@ -413,13 +424,47 @@
       </form>
     </section>
 
+    <section id="bosque-virtual-codigo" class="card">
+      <span class="badge-eco">🌳 Bosque Virtual y Código Único</span>
+      <h2>Evolución Mensual de Tu Árbol</h2>
+      <p>
+        Cada alfombra artesanal de <strong>Tuftinsolidario</strong> (<strong>EcoLegado Alfombras</strong>) incluye un <strong>código único</strong>. Con ese código puedes consultar mes a mes la evolución, crecimiento en altura y cuidado del árbol sembrado a tu nombre.
+      </p>
+
+      <div class="grid-cotizador" style="align-items: end;">
+        <div class="campo">
+          <label for="inputCodigoArbol">Ingresa tu código único</label>
+          <input
+            type="text"
+            id="inputCodigoArbol"
+            placeholder="Ej. ECO-001 o ECO-002"
+          />
+        </div>
+        <div class="acciones-cotizador" style="margin-top: 0;">
+          <button type="button" id="btnBuscarCodigo" class="btn-enviar">
+            Ver evolución mensual
+          </button>
+        </div>
+      </div>
+
+      <div id="resultadoBosqueVirtual" class="resultado-box" style="margin-top: 1.15rem;">
+        <strong>Consulta el crecimiento de tu árbol</strong>
+        <p style="margin: 0.35rem 0 0;">
+          Ingresa tu código único (prueba con <code>ECO-001</code> o <code>ECO-002</code>) para revisar los registros de cada mes asociados a tu alfombra.
+        </p>
+      </div>
+
+      <div class="acciones-cotizador" style="margin-top: 1.25rem;">
+        <a href="nosotros.html" class="btn-enviar">Solicitar cotización</a>
+        <a href="arboles.html" class="btn-secundario-link">Explorar Bosque Virtual</a>
+      </div>
+    </section>
+
     <section id="detras-de-camaras" class="card">
       <h2>🎬 Detrás de cámaras</h2>
       <p>
-        Conoce cómo cobras vida a cada alfombra en el taller: preparación del bastidor, tufting,
-        acabados y detalles reales cargados desde Firebase (4 espacios de video).
+        Conoce cómo cobras vida a cada alfombra en el taller: preparación del bastidor, tufting, acabados y detalles reales cargados desde Firebase (4 espacios de video).
       </p>
-
       <div id="gridDetrasCamaras" class="grid-videos-4">
         <div class="video-slot">
           <div class="video-placeholder">Cargando video 1 desde Firebase...</div>
@@ -444,13 +489,28 @@
   <footer>
     <h3>Síguenos en Redes Sociales</h3>
     <div class="social-links">
-      <a href="https://www.tiktok.com/@tuftingsolidario" target="_blank" rel="noopener noreferrer" class="social-link">
+      <a
+        href="https://www.tiktok.com/@tuftingsolidario"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="social-link"
+      >
         🎵 TikTok
       </a>
-      <a href="https://www.instagram.com/tuftingsolidario" target="_blank" rel="noopener noreferrer" class="social-link">
+      <a
+        href="https://www.instagram.com/tuftingsolidario"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="social-link"
+      >
         📸 Instagram
       </a>
-      <a href="https://www.facebook.com/tuftingsolidario" target="_blank" rel="noopener noreferrer" class="social-link">
+      <a
+        href="https://www.facebook.com/tuftingsolidario"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="social-link"
+      >
         📘 Facebook
       </a>
     </div>
@@ -521,15 +581,97 @@
           const imagenTexto = document.getElementById("tipoImagen").selectedOptions[0].text;
           const formaTexto = document.getElementById("forma").selectedOptions[0].text;
           const acabadoTexto = document.getElementById("acabado").selectedOptions[0].text;
-
           if (resumenConfirmado) {
-            resumenConfirmado.textContent =
-              `Cotización estimada (${formatearCOP(total)}): ${tamanoTexto} · ${imagenTexto} · ${formaTexto} · ${acabadoTexto}.`;
+            resumenConfirmado.textContent = `Cotización estimada (${formatearCOP(total)}): ${tamanoTexto} · ${imagenTexto} · ${formaTexto} · ${acabadoTexto}.`;
           }
         });
       }
 
       calcularPrecioAproximado();
+    })();
+
+    (function () {
+      const registrosEjemplo = {
+        "ECO-001": {
+          alfombra: "Alfombra Mediana · Silueta Mascota",
+          especie: "Roble / Cedro local",
+          historialMensual: [
+            { mes: "Mes 1", altura: "18 cm", estado: "Enraizamiento activo", nota: "Siembra inicial y riego controlado." },
+            { mes: "Mes 2", altura: "31 cm", estado: "Crecimiento estable", nota: "Nuevos brotes foliares y protección de suelo." },
+            { mes: "Mes 3", altura: "47 cm", estado: "Vigoroso", nota: "Buen desarrollo de tallo y humedad óptima." }
+          ]
+        },
+        "ECO-002": {
+          alfombra: "Alfombra Pequeña · Tipografía",
+          especie: "Especie nativa de bosque",
+          historialMensual: [
+            { mes: "Mes 1", altura: "15 cm", estado: "Adaptación", nota: "Registro del código único asignado al pedido." },
+            { mes: "Mes 2", altura: "26 cm", estado: "En crecimiento", nota: "Mantenimiento mensual y limpieza de maleza." }
+          ]
+        }
+      };
+
+      const inputCodigo = document.getElementById("inputCodigoArbol");
+      const btnBuscar = document.getElementById("btnBuscarCodigo");
+      const contenedorResultado = document.getElementById("resultadoBosqueVirtual");
+
+      function renderizarEvolucion(codigoLimpio) {
+        if (!contenedorResultado) return;
+
+        if (!codigoLimpio) {
+          contenedorResultado.innerHTML = `
+            <strong>Ingresa un código válido:</strong>
+            <p style="margin: 0.35rem 0 0;">Escribe el código único vinculado a tu alfombra (ej. <code>ECO-001</code>).</p>
+          `;
+          return;
+        }
+
+        const registro = registrosEjemplo[codigoLimpio];
+        if (!registro) {
+          contenedorResultado.innerHTML = `
+            <strong>No se encontró el código: ${codigoLimpio}</strong>
+            <p style="margin: 0.35rem 0 0;">
+              Revisa tu certificado o prueba con <code>ECO-001</code> y <code>ECO-002</code>.
+            </p>
+          `;
+          return;
+        }
+
+        const itemsHtml = registro.historialMensual
+          .map(
+            (hito) => `
+              <li style="margin-bottom: 0.45rem;">
+                <strong>${hito.mes}:</strong> ${hito.altura} · <em>${hito.estado}</em> — ${hito.nota}
+              </li>
+            `
+          )
+          .join("");
+
+        contenedorResultado.innerHTML = `
+          <div style="font-weight: bold; color: var(--primary-color); font-size: 1.05rem;">
+            Código: ${codigoLimpio} · ${registro.especie}
+          </div>
+          <div style="font-size: 0.92rem; margin: 0.25rem 0 0.75rem;">
+            Alfombra vinculada: <strong>${registro.alfombra}</strong>
+          </div>
+          <ul style="margin: 0; padding-left: 1.2rem;">
+            ${itemsHtml}
+          </ul>
+        `;
+      }
+
+      if (btnBuscar && inputCodigo) {
+        btnBuscar.addEventListener("click", function () {
+          renderizarEvolucion(inputCodigo.value.trim().toUpperCase());
+        });
+
+        inputCodigo.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            renderizarEvolucion(inputCodigo.value.trim().toUpperCase());
+          }
+        });
+      }
     })();
   </script>
 
@@ -569,7 +711,6 @@
     function renderizarSlotVideo(item, indice) {
       const titulo = item?.titulo || `Detrás de cámaras #${indice + 1}`;
       const url = (item?.url || "").trim();
-
       if (!url) {
         return `
           <div class="video-slot">
@@ -578,12 +719,10 @@
           </div>
         `;
       }
-
       const esYouTube = url.includes("youtube.com") || url.includes("youtu.be");
       const reproductorHtml = esYouTube
         ? `<iframe src="${convertirYouTubeEmbed(url)}" title="${titulo}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
         : `<video src="${url}" controls preload="metadata" playsinline></video>`;
-
       return `
         <div class="video-slot">
           ${reproductorHtml}
@@ -600,9 +739,7 @@
         snap.forEach((docItem) => {
           lista.push({ id: docItem.id, ...docItem.data() });
         });
-
         lista.sort((a, b) => (Number(a.orden) || 99) - (Number(b.orden) || 99));
-
         const cuatroEspacios = [0, 1, 2, 3].map((idx) => renderizarSlotVideo(lista[idx], idx));
         gridVideos.innerHTML = cuatroEspacios.join("");
       } catch (err) {

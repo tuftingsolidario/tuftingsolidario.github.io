@@ -14,6 +14,23 @@
       --color-tarjeta: #ffffff;
       --borde-suave: #e3dcd0;
       --fondo-suave: #f6efe4;
+      --borde-campo: #c9bfb0;
+      --fondo-campo: #fffdf9;
+      --badge-fondo: #e6f2e9;
+    }
+
+    body.modo-oscuro {
+      --fondo-principal: #161916;
+      --color-texto: #f4f1ea;
+      --color-acento: #3a8a52;
+      --color-acento-oscuro: #78c68e;
+      --color-calido: #d47652;
+      --color-tarjeta: #222722;
+      --borde-suave: #384038;
+      --fondo-suave: #2b312b;
+      --borde-campo: #4a544a;
+      --fondo-campo: #1a1e1a;
+      --badge-fondo: #243829;
     }
 
     * {
@@ -26,6 +43,7 @@
       background-color: var(--fondo-principal);
       color: var(--color-texto);
       line-height: 1.55;
+      transition: background-color 0.2s ease, color 0.2s ease;
     }
 
     nav {
@@ -35,6 +53,7 @@
       flex-wrap: wrap;
       gap: 1.15rem;
       justify-content: center;
+      align-items: center;
     }
 
     nav a {
@@ -45,6 +64,21 @@
 
     nav a:hover {
       text-decoration: underline;
+    }
+
+    .btn-tema {
+      background-color: rgba(255, 255, 255, 0.16);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn-tema:hover {
+      background-color: rgba(255, 255, 255, 0.26);
     }
 
     main {
@@ -63,7 +97,7 @@
 
     .badge-eco {
       display: inline-block;
-      background-color: #e6f2e9;
+      background-color: var(--badge-fondo);
       color: var(--color-acento-oscuro);
       padding: 0.3rem 0.75rem;
       border-radius: 999px;
@@ -95,10 +129,10 @@
     textarea {
       width: 100%;
       padding: 0.65rem;
-      border: 1px solid #c9bfb0;
+      border: 1px solid var(--borde-campo);
       border-radius: 8px;
       font-size: 0.95rem;
-      background-color: #fffdf9;
+      background-color: var(--fondo-campo);
       color: var(--color-texto);
     }
 
@@ -171,6 +205,9 @@
     <a href="nosotros.html">Nosotros</a>
     <a href="arboles.html">Árboles</a>
     <a href="resenas.html">Reseñas</a>
+    <button type="button" id="btnModoTema" class="btn-tema" aria-pressed="false">
+      🌙 Modo oscuro
+    </button>
   </nav>
 
   <main>
@@ -186,34 +223,14 @@
       </div>
     </section>
 
-    <section id="bosque-virtual-info" class="card">
-      <span class="badge-eco">🌳 Bosque Virtual · Código Único</span>
-      <h2>Evolución Mensual de Cada Árbol</h2>
+    <section class="card">
+      <span class="badge-eco">✨ Piezas Únicas con Propósito</span>
+      <h2>Lleva a Casa una Alfombra Hecha a tu Medida</h2>
       <p>
-        Cada alfombra incluye un <strong>código único</strong> vinculado a su árbol en el <strong>Bosque Virtual</strong>. Con ese código puedes consultar cada mes su avance en altura, estado sanitario y cuidado.
+        Transforma tu espacio con una alfombra artesanal tejida a mano con textura, calidez y carácter propio: ideal para destacar tu sala, estudio o habitación con tu diseño favorito, mascota o logo. Al elegir una pieza de <strong>EcoLegado Alfombras</strong>, no solo decoras tu hogar: impulsas la siembra y el seguimiento de un árbol que deja huella viva en el tiempo.
       </p>
-
-      <div class="grid-cotizador" style="align-items: end;">
-        <div class="campo">
-          <label for="inputCodigoNosotros">Consultar código único</label>
-          <input
-            type="text"
-            id="inputCodigoNosotros"
-            placeholder="Ej. ECO-001 o ECO-002"
-          />
-        </div>
-        <div class="acciones-form" style="margin-top: 0;">
-          <button type="button" id="btnConsultarNosotros" class="btn-enviar">
-            Ver evolución del árbol
-          </button>
-        </div>
-      </div>
-
-      <div id="resultadoCodigoNosotros" class="resultado-box">
-        <strong>Seguimiento mes a mes</strong>
-        <p style="margin: 0.35rem 0 0;">
-          Ingresa un código como <code>ECO-001</code> o <code>ECO-002</code> para revisar los hitos mensuales registrados para esa alfombra.
-        </p>
+      <div class="acciones-form">
+        <a href="#cotizador" class="btn-enviar">Armar mi alfombra ahora</a>
       </div>
     </section>
 
@@ -222,7 +239,6 @@
       <p>
         Selecciona las opciones de tu diseño para calcular una suma aproximada en pesos colombianos (COP):
       </p>
-
       <form id="formCotizador">
         <div class="grid-cotizador">
           <div class="campo">
@@ -233,7 +249,6 @@
               <option value="790000">Grande (+$790.000 COP)</option>
             </select>
           </div>
-
           <div class="campo">
             <label for="tipoImagen">2. Tipo de imagen o boceto</label>
             <select id="tipoImagen" class="calc-input">
@@ -244,7 +259,6 @@
               <option value="260000">Retrato / arte complejo (+$260.000 COP)</option>
             </select>
           </div>
-
           <div class="campo">
             <label for="forma">3. Seleccionar la forma</label>
             <select id="forma" class="calc-input">
@@ -254,7 +268,6 @@
               <option value="90000">Forma libre / irregular (+$90.000 COP)</option>
             </select>
           </div>
-
           <div class="campo">
             <label for="acabado">4. Elegir acabados</label>
             <select id="acabado" class="calc-input">
@@ -293,6 +306,43 @@
 
   <script>
     (function () {
+      // 1. Persistencia del tema claro / oscuro en localStorage
+      const CLAVE_TEMA = "ecolegado_tema";
+      const btnTema = document.getElementById("btnModoTema");
+
+      function aplicarTema(tema) {
+        const esOscuro = tema === "oscuro";
+        document.body.classList.toggle("modo-oscuro", esOscuro);
+        if (btnTema) {
+          btnTema.setAttribute("aria-pressed", String(esOscuro));
+          btnTema.textContent = esOscuro ? "☀️ Modo claro" : "🌙 Modo oscuro";
+        }
+      }
+
+      function obtenerTemaInicial() {
+        const guardado = localStorage.getItem(CLAVE_TEMA);
+        if (guardado === "oscuro" || guardado === "claro") {
+          return guardado;
+        }
+        return window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "oscuro"
+          : "claro";
+      }
+
+      aplicarTema(obtenerTemaInicial());
+
+      if (btnTema) {
+        btnTema.addEventListener("click", function () {
+          const siguienteTema = document.body.classList.contains("modo-oscuro")
+            ? "claro"
+            : "oscuro";
+          localStorage.setItem(CLAVE_TEMA, siguienteTema);
+          aplicarTema(siguienteTema);
+        });
+      }
+
+      // 2. Cotizador automático en COP
       const inputsCalculo = document.querySelectorAll(".calc-input");
       const precioTotalEl = document.getElementById("precioAproximado");
       const formCotizador = document.getElementById("formCotizador");
@@ -327,9 +377,10 @@
           const imagenTexto = document.getElementById("tipoImagen").selectedOptions[0].text;
           const formaTexto = document.getElementById("forma").selectedOptions[0].text;
           const acabadoTexto = document.getElementById("acabado").selectedOptions[0].text;
-          const notaExtra = notasDiseno && notasDiseno.value.trim()
-            ? ` · Notas: "${notasDiseno.value.trim()}"`
-            : "";
+          const notaExtra =
+            notasDiseno && notasDiseno.value.trim()
+              ? ` · Notas: "${notasDiseno.value.trim()}"`
+              : "";
 
           if (resumenConfirmado) {
             resumenConfirmado.textContent = `Cotización lista (${formatearCOP(total)}): ${tamanoTexto} · ${imagenTexto} · ${formaTexto} · ${acabadoTexto}${notaExtra}.`;
@@ -339,134 +390,6 @@
 
       calcularPrecioAproximado();
     })();
-  </script>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyDt8rNOONVBbJUIXT0MYHAHm6bbV9sZ1mk",
-      authDomain: "ecolegado-21e65.firebaseapp.com",
-      databaseURL: "https://ecolegado-21e65-default-rtdb.firebaseio.com",
-      projectId: "ecolegado-21e65",
-      storageBucket: "ecolegado-21e65.firebasestorage.app",
-      messagingSenderId: "678783567354",
-      appId: "1:678783567354:web:657139d7917401b745d043",
-      measurementId: "G-MJ78QZDTHJ"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    const respaldosArboles = {
-      "ECO-001": {
-        alfombra: "Alfombra Mediana · Silueta Mascota",
-        especie: "Roble / Cedro local",
-        historialMensual: [
-          { mes: "Mes 1", altura: "18 cm", estado: "Enraizamiento activo", nota: "Siembra inicial y riego controlado." },
-          { mes: "Mes 2", altura: "31 cm", estado: "Crecimiento estable", nota: "Nuevos brotes foliares y protección de suelo." },
-          { mes: "Mes 3", altura: "47 cm", estado: "Vigoroso", nota: "Buen desarrollo de tallo y humedad óptima." }
-        ]
-      },
-      "ECO-002": {
-        alfombra: "Alfombra Pequeña · Tipografía",
-        especie: "Especie nativa de bosque",
-        historialMensual: [
-          { mes: "Mes 1", altura: "15 cm", estado: "Adaptación", nota: "Registro del código único asignado al pedido." },
-          { mes: "Mes 2", altura: "26 cm", estado: "En crecimiento", nota: "Mantenimiento mensual y limpieza de maleza." }
-        ]
-      }
-    };
-
-    const inputCodigo = document.getElementById("inputCodigoNosotros");
-    const btnConsultar = document.getElementById("btnConsultarNosotros");
-    const boxResultado = document.getElementById("resultadoCodigoNosotros");
-
-    function pintarEvolucion(codigo, datos, fuente) {
-      if (!boxResultado) return;
-      const lista = Array.isArray(datos.historialMensual) ? datos.historialMensual : [];
-      const itemsHtml = lista.length
-        ? lista
-            .map(
-              (h) => `
-                <li style="margin-bottom: 0.4rem;">
-                  <strong>${h.mes || "Registro"}:</strong> ${h.altura || "En medición"} · <em>${h.estado || "Activo"}</em> — ${h.nota || ""}
-                </li>
-              `
-            )
-            .join("")
-        : `<li>Sin reportes mensuales cargados todavía.</li>`;
-
-      boxResultado.innerHTML = `
-        <div style="font-weight: bold; color: var(--color-acento-oscuro); font-size: 1.05rem;">
-          Código: ${codigo} · ${datos.especie || "Árbol nativo"}
-        </div>
-        <div style="font-size: 0.92rem; margin: 0.25rem 0 0.7rem;">
-          Alfombra asociada: <strong>${datos.alfombra || "Alfombra personalizada"}</strong> · <span style="opacity: 0.8;">${fuente}</span>
-        </div>
-        <ul style="margin: 0; padding-left: 1.2rem;">
-          ${itemsHtml}
-        </ul>
-      `;
-    }
-
-    async function buscarCodigoArbol(codigoLimpio) {
-      if (!boxResultado) return;
-      if (!codigoLimpio) {
-        boxResultado.innerHTML = `
-          <strong>Escribe un código válido</strong>
-          <p style="margin: 0.35rem 0 0;">Ingresa un código como <code>ECO-001</code> para ver la evolución mensual.</p>
-        `;
-        return;
-      }
-
-      boxResultado.innerHTML = `
-        <strong>Consultando en Firestore...</strong>
-        <p style="margin: 0.35rem 0 0;">Buscando información de <code>${codigoLimpio}</code>.</p>
-      `;
-
-      if (btnConsultar) btnConsultar.disabled = true;
-
-      try {
-        const snap = await getDoc(doc(db, "arboles_bosque_virtual", codigoLimpio));
-        if (snap.exists()) {
-          pintarEvolucion(codigoLimpio, snap.data(), "Tiempo real · Firestore");
-          return;
-        }
-        if (respaldosArboles[codigoLimpio]) {
-          pintarEvolucion(codigoLimpio, respaldosArboles[codigoLimpio], "Ejemplo local");
-          return;
-        }
-        boxResultado.innerHTML = `
-          <strong>Código no encontrado: ${codigoLimpio}</strong>
-          <p style="margin: 0.35rem 0 0;">Prueba con <code>ECO-001</code> o <code>ECO-002</code> o revisa el documento en <code>arboles_bosque_virtual</code>.</p>
-        `;
-      } catch (_) {
-        if (respaldosArboles[codigoLimpio]) {
-          pintarEvolucion(codigoLimpio, respaldosArboles[codigoLimpio], "Respaldo sin conexión");
-        } else {
-          boxResultado.innerHTML = `
-            <strong>No se pudo consultar ${codigoLimpio}</strong>
-            <p style="margin: 0.35rem 0 0;">Verifica tu conexión o los permisos de lectura en Firestore.</p>
-          `;
-        }
-      } finally {
-        if (btnConsultar) btnConsultar.disabled = false;
-      }
-    }
-
-    if (btnConsultar && inputCodigo) {
-      btnConsultar.addEventListener("click", () => {
-        buscarCodigoArbol(inputCodigo.value.trim().toUpperCase());
-      });
-      inputCodigo.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          buscarCodigoArbol(inputCodigo.value.trim().toUpperCase());
-        }
-      });
-    }
   </script>
 </body>
 </html>

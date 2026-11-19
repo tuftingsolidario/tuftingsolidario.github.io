@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nosotros y Cotizador | EcoLegado Alfombras</title>
+  <style>
+    :root {
+      --fondo-principal: #fbf7f0;
+      --color-texto: #2b2623;
+      --color-acento: #2e6f40;
+      --color-acento-oscuro: #225430;
+      --color-calido: #b85d3b;
+      --color-tarjeta: #ffffff;
+      --borde-suave: #e3dcd0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: var(--fondo-principal);
+      color: var(--color-texto);
+      line-height: 1.5;
+    }
+
+    nav {
+      background-color: var(--color-acento);
+      padding: 1rem 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      max-width: 860px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .card {
+      background-color: var(--color-tarjeta);
+      border: 1px solid var(--borde-suave);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .badge-eco {
+      display: inline-block;
+      background-color: #e6f2e9;
+      color: var(--color-acento-oscuro);
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .grid-cotizador {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .campo {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    select, input, textarea {
+      width: 100%;
+      padding: 0.65rem;
+      border: 1px solid #c9bfb0;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      background-color: #fffdf9;
+      color: var(--color-texto);
+    }
+
+    .resultado-box {
+      margin-top: 1.25rem;
+      padding: 1rem 1.25rem;
+      background-color: #f6efe4;
+      border-left: 5px solid var(--color-calido);
+      border-radius: 6px;
+    }
+
+    .precio-total {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: var(--color-acento-oscuro);
+      margin: 0.25rem 0;
+    }
+
+    .btn-enviar {
+      margin-top: 1rem;
+      background-color: var(--color-acento);
+      color: #ffffff;
+      border: none;
+      padding: 0.8rem 1.25rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn-enviar:hover {
+      background-color: var(--color-acento-oscuro);
+    }
+
+    .resumen-solicitud {
+      margin-top: 0.75rem;
+      font-size: 0.92rem;
+      color: var(--color-acento-oscuro);
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="nosotros.html">Nosotros</a>
+    <a href="arboles.html">Árboles</a>
+    <a href="resenas.html">Reseñas</a>
+  </nav>
+
+  <main>
+    <section class="card">
+      <span class="badge-eco">🌱 Arte Textil Sostenible</span>
+      <h1>Sobre Nosotros</h1>
+      <p>
+        En <strong>TUFTINGSOLIDARIO (EcoLegado Alfombras)</strong> elaboramos alfombras artesanales
+        mediante técnica de <em>tufting</em>. Cada pieza que creas ayuda a financiar la siembra y el
+        cuidado de un árbol registrado a tu nombre.
+      </p>
+    </section>
+
+    <section id="cotizador" class="card">
+      <h2>Cotizador Automático de Alfombra Personalizada</h2>
+      <p>
+        Selecciona las opciones de tu diseño para calcular una suma aproximada al instante:
+      </p>
+
+      <form id="formCotizador">
+        <div class="grid-cotizador">
+          <!-- 1. Tamaño (3 variantes) -->
+          <div class="campo">
+            <label for="tamano">1. Tamaño</label>
+            <select id="tamano" class="calc-input">
+              <option value="75" selected>Pequeño (+$75 USD)</option>
+              <option value="130">Mediano (+$130 USD)</option>
+              <option value="210">Grande (+$210 USD)</option>
+            </select>
+          </div>
+
+          <!-- 2. Tipo de imagen o boceto (5 variantes) -->
+          <div class="campo">
+            <label for="tipoImagen">2. Tipo de imagen o boceto</label>
+            <select id="tipoImagen" class="calc-input">
+              <option value="15" selected>Texto / tipografía simple (+$15 USD)</option>
+              <option value="25">Silueta o mascota (+$25 USD)</option>
+              <option value="35">Logo o patrón geométrico (+$35 USD)</option>
+              <option value="50">Personaje / ilustración detallada (+$50 USD)</option>
+              <option value="70">Retrato / arte complejo (+$70 USD)</option>
+            </select>
+          </div>
+
+          <!-- 3. Seleccionar la forma (4 variantes) -->
+          <div class="campo">
+            <label for="forma">3. Seleccionar la forma</label>
+            <select id="forma" class="calc-input">
+              <option value="0" selected>Cuadrada o rectangular (+$0 USD)</option>
+              <option value="10">Circular (+$10 USD)</option>
+              <option value="12">Ovalada (+$12 USD)</option>
+              <option value="25">Forma libre / irregular (+$25 USD)</option>
+            </select>
+          </div>
+
+          <!-- 4. Elegir acabados (2 variantes) -->
+          <div class="campo">
+            <label for="acabado">4. Elegir acabados</label>
+            <select id="acabado" class="calc-input">
+              <option value="10" selected>Acabado estándar limpio (+$10 USD)</option>
+              <option value="30">Tallado en relieve 3D / carving (+$30 USD)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="campo" style="margin-top: 1rem;">
+          <label for="notasDiseno">Idea, colores o enlace de referencia (opcional)</label>
+          <textarea id="notasDiseno" rows="2" placeholder="Ej. Quiero tonos terracota y verde oliva con el nombre de mi gato..."></textarea>
+        </div>
+
+        <div class="resultado-box">
+          <div>Precio aproximado estimado:</div>
+          <div id="precioAproximado" class="precio-total">$100 USD</div>
+          <small>
+            Incluye estimación base por selección y el compromiso ecológico de 1 árbol sembrado. El valor final puede ajustarse según medidas exactas o complejidad del boceto.
+          </small>
+        </div>
+
+        <button type="submit" class="btn-enviar">Registrar resumen de cotización</button>
+        <div id="resumenConfirmado" class="resumen-solicitud"></div>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const inputsCalculo = document.querySelectorAll(".calc-input");
+    const precioTotalEl = document.getElementById("precioAproximado");
+    const formCotizador = document.getElementById("formCotizador");
+    const resumenConfirmado = document.getElementById("resumenConfirmado");
+
+    function calcularPrecioAproximado() {
+      let suma = 0;
+      inputsCalculo.forEach((select) => {
+        const valor = parseFloat(select.value) || 0;
+        suma += valor;
+      });
+      precioTotalEl.textContent = `$${suma} USD`;
+      return suma;
+    }
+
+    inputsCalculo.forEach((select) => {
+      select.addEventListener("change", calcularPrecioAproximado);
+    });
+
+    formCotizador.addEventListener("submit", function (evento) {
+      evento.preventDefault();
+      const total = calcularPrecioAproximado();
+      const tamanoTexto = document.getElementById("tamano").selectedOptions[0].text;
+      const imagenTexto = document.getElementById("tipoImagen").selectedOptions[0].text;
+      const formaTexto = document.getElementById("forma").selectedOptions[0].text;
+      const acabadoTexto = document.getElementById("acabado").selectedOptions[0].text;
+
+      resumenConfirmado.textContent =
+        `Cotización lista (~$${total} USD): ${tamanoTexto} · ${imagenTexto} · ${formaTexto} · ${acabadoTexto}.`;
+    });
+
+    calcularPrecioAproximado();
+  </script>
+</body>
+</html>

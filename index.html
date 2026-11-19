@@ -14,19 +14,16 @@
       align-items: center;
       justify-content: center;
     }
-
     header h1 {
       margin: 0 auto;
       text-align: center;
       width: 100%;
     }
-
     header p {
       margin: 0.35rem auto 0;
       text-align: center;
       max-width: 720px;
     }
-
     .impacto-section {
       background-color: var(--card-bg, var(--bg-card, #ffffff));
       border: 1px solid var(--border-color, #e3dcd0);
@@ -35,20 +32,17 @@
       margin: 2rem auto 0;
       text-align: center;
     }
-
     .impacto-section h2 {
       margin-top: 0;
       margin-bottom: 0.65rem;
       color: var(--primary-color, var(--accent-primary, #2e6f40));
       font-size: 1.6rem;
     }
-
     .impacto-section p {
       margin: 0 auto 1.25rem;
       max-width: 680px;
       color: var(--muted-color, var(--text-muted, #5c534c));
     }
-
     .btn-contador-arboles {
       display: inline-flex;
       align-items: center;
@@ -62,12 +56,10 @@
       font-size: 1.05rem;
       transition: transform 0.15s ease, filter 0.15s ease;
     }
-
     .btn-contador-arboles:hover {
       transform: translateY(-1px);
       filter: brightness(0.95);
     }
-
     .contador-numero {
       display: inline-flex;
       align-items: center;
@@ -81,7 +73,6 @@
       font-weight: 800;
       font-size: 1.1rem;
     }
-
     .faq-section {
       background-color: var(--card-bg, var(--bg-card, #ffffff));
       border: 1px solid var(--border-color, #e3dcd0);
@@ -90,7 +81,6 @@
       margin: 2rem auto;
       max-width: 980px;
     }
-
     .faq-section h2 {
       margin-top: 0;
       margin-bottom: 1rem;
@@ -98,28 +88,23 @@
       text-align: center;
       font-size: 1.65rem;
     }
-
     .faq-item {
       border-bottom: 1px solid var(--border-color, #e3dcd0);
       padding: 0.9rem 0;
     }
-
     .faq-item:last-child {
       border-bottom: none;
       padding-bottom: 0;
     }
-
     .faq-item h3 {
       margin: 0 0 0.35rem;
       color: var(--accent-warm, #b85d3b);
       font-size: 1.08rem;
     }
-
     .faq-item p {
       margin: 0;
       color: var(--muted-color, var(--text-muted, #5c534c));
     }
-
     .logo-fallback-badge {
       display: inline-block;
       margin-top: 0.35rem;
@@ -131,7 +116,6 @@
       color: var(--primary-color, var(--accent-primary, #2e6f40));
       border: 1px solid var(--border-color, #e3dcd0);
     }
-
     .medio-semanal-box img,
     .medio-semanal-box video {
       max-width: 100%;
@@ -321,24 +305,50 @@
     const medioBox = document.getElementById("medioSemanalBox");
     const logoImg = document.getElementById("logoEstatico");
     const logoEstado = document.getElementById("logoEstado");
+    let logoCargadoOk = false;
 
     if (logoImg) {
-      logoImg.addEventListener("error", function () {
-        logoImg.style.display = "none";
-        if (logoEstado) logoEstado.textContent = "🌿 TUFTINGSOLIDARIO";
+      logoImg.addEventListener("load", function () {
+        logoCargadoOk = true;
+        logoImg.style.display = "block";
+        if (logoEstado) logoEstado.style.display = "none";
       });
+
+      logoImg.addEventListener("error", function () {
+        if (!logoCargadoOk) {
+          logoImg.style.display = "none";
+          if (logoEstado) {
+            logoEstado.style.display = "inline-block";
+            logoEstado.textContent = "🌿 TUFTINGSOLIDARIO";
+          }
+        }
+      });
+    }
+
+    function extraerIdDrive(urlStr) {
+      const limpia = (urlStr || "").trim();
+      if (!limpia) return "";
+
+      const patrones = [
+        /drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/,
+        /lh3\.googleusercontent\.com\/d\/([a-zA-Z0-9_-]+)/,
+        /[?&]id=([a-zA-Z0-9_-]+)/
+      ];
+
+      for (const patron of patrones) {
+        const match = limpia.match(patron);
+        if (match && match[1]) return match[1];
+      }
+      return "";
     }
 
     function normalizarUrlDrive(urlStr) {
       const limpia = (urlStr || "").trim();
       if (!limpia) return "";
-      const matchFile = limpia.match(/drive\.google\.com\/file\/d\/([^/]+)/);
-      if (matchFile && matchFile[1]) {
-        return `https://drive.google.com/uc?export=view&id=${matchFile[1]}`;
-      }
-      const matchOpen = limpia.match(/[?&]id=([^&]+)/);
-      if (limpia.includes("drive.google.com") && matchOpen && matchOpen[1]) {
-        return `https://drive.google.com/uc?export=view&id=${matchOpen[1]}`;
+
+      const id = extraerIdDrive(limpia);
+      if (id && (limpia.includes("drive.google.com") || limpia.includes("googleusercontent.com"))) {
+        return `https://lh3.googleusercontent.com/d/${id}`;
       }
       return limpia;
     }
@@ -384,8 +394,8 @@
 
         const esYouTube = rawUrl.includes("youtube.com") || rawUrl.includes("youtu.be") || data.tipo === "youtube";
         const esVideoDirecto = data.tipo === "video" || /\.(mp4|webm|ogg)(\?|$)/i.test(rawUrl);
-
         let medioHtml = "";
+
         if (esYouTube) {
           const embedUrl = convertirYouTubeEmbed(rawUrl);
           medioHtml = `<iframe src="${embedUrl}" title="${data.titulo || "Video de la semana"}" style="width:100%;aspect-ratio:16/9;border:0;border-radius:8px;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;

@@ -1,359 +1,387 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoLegado Alfombras | Tu hogar, tu huella, tu legado</title>
-    <!-- Carga opcional de reCAPTCHA Enterprise si usas App Check en la página principal -->
-    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfWWOMtAAAAAG-5zjE4hywzDE1Qtfbz1AuRd30g"></script>
-    <style>
-        /* Variables Globales (Modo Claro / Clásico) */
-        :root {
-            --primary-color: #2c5e3b;
-            --secondary-color: #52b788;
-            --bg-color: #fefae0;
-            --card-bg: #ffffff;
-            --text-color: #333333;
-            --border-color: #d8f3dc;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoLegado Alfombras | Tu hogar, tu huella, tu legado</title>
+  <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfWWOMtAAAAAG-5zjE4hywzDE1Qtfbz1AuRd30g"></script>
+  <style>
+    /* Paleta Modo Claro (Cálido y Ecológico) */
+    :root {
+      --primary-color: #2e6f40;
+      --secondary-color: #489462;
+      --accent-warm: #b85d3b;
+      --bg-color: #fbf7f0;
+      --card-bg: #ffffff;
+      --box-bg: #f6efe4;
+      --text-color: #2b2623;
+      --muted-color: #5c534c;
+      --border-color: #e3dcd0;
+      --nav-bg: #225430;
+      --footer-bg: #1a3f25;
+    }
 
-        /* Variables Modo Oscuro (Modo Orgánico Nocturno) */
-        [data-theme="dark"] {
-            --primary-color: #74c69d;
-            --secondary-color: #95d5b2;
-            --bg-color: #0d1b14;
-            --card-bg: #162c21;
-            --text-color: #e9ecef;
-            --border-color: #1b4332;
-        }
+    /* Paleta Modo Oscuro (Acogedor y de Alto Contraste) */
+    [data-theme="dark"] {
+      --primary-color: #57a773;
+      --secondary-color: #79c293;
+      --accent-warm: #df7a53;
+      --bg-color: #141916;
+      --card-bg: #1d2520;
+      --box-bg: #242e28;
+      --text-color: #f2efe9;
+      --muted-color: #b8c2ba;
+      --border-color: #2f3b33;
+      --nav-bg: #102417;
+      --footer-bg: #0c1b11;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: background-color 0.5s ease, color 0.5s ease;
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 2.5rem 1rem;
-            text-align: center;
-            transition: background-color 0.5s;
-        }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.55;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
 
-        header h1 {
-            margin: 0;
-            font-size: 2.2rem;
-        }
+    header {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      padding: 2.25rem 1rem;
+      text-align: center;
+    }
 
-        header p {
-            margin: 0.5rem 0 0;
-            font-size: 1.1rem;
-        }
+    header h1 {
+      margin: 0;
+      font-size: 2.1rem;
+    }
 
-        nav {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1.5rem;
-            background: #23492e;
-            padding: 1rem;
-            flex-wrap: wrap;
-        }
+    header p {
+      margin: 0.45rem 0 0;
+      font-size: 1.05rem;
+      opacity: 0.95;
+    }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
+    nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.25rem;
+      background-color: var(--nav-bg);
+      padding: 0.9rem 1rem;
+      flex-wrap: wrap;
+    }
 
-        nav a:hover {
-            color: var(--secondary-color);
-        }
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.25s ease;
+    }
 
-        .btn-tema {
-            background: transparent;
-            border: 1px solid white;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-        }
+    nav a:hover {
+      color: #f3d5c5;
+      text-decoration: underline;
+    }
 
-        .btn-tema:hover {
-            background: white;
-            color: #23492e;
-        }
+    .btn-tema {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      color: #ffffff;
+      padding: 0.45rem 0.95rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.9rem;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
+    .btn-tema:hover {
+      background-color: #ffffff;
+      color: var(--nav-bg);
+    }
 
-        .hero {
-            text-align: center;
-            padding: 3rem 1rem;
-            background: linear-gradient(rgba(44, 94, 59, 0.05), rgba(44, 94, 59, 0.1));
-            border-radius: 12px;
-            margin-bottom: 3rem;
-        }
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
 
-        .hero h2 {
-            color: var(--primary-color);
-            font-size: 2rem;
-            margin-top: 0;
-        }
+    .hero {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      background-color: var(--box-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      margin-bottom: 2.5rem;
+    }
 
-        .btn {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 0.8rem 1.8rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            display: inline-block;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: background 0.3s, transform 0.2s;
-            border: none;
-        }
+    .hero h2 {
+      color: var(--primary-color);
+      font-size: 1.85rem;
+      margin-top: 0;
+    }
 
-        .btn:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-2px);
-        }
+    .hero p {
+      color: var(--muted-color);
+      max-width: 720px;
+      margin: 0 auto 1.5rem;
+    }
 
-        .seccion-titulo {
-            text-align: center;
-            color: var(--primary-color);
-            margin-bottom: 2rem;
-            font-size: 2rem;
-        }
+    .btn {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.25s ease, transform 0.2s ease;
+    }
 
-        /* Estilos Tarjetas (Precios y Testimonios) */
-        .grid-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
-        }
+    .btn:hover {
+      background-color: var(--accent-warm);
+      transform: translateY(-2px);
+    }
 
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 2rem;
-            border: 2px solid var(--border-color);
-            text-align: center;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s;
-        }
+    .btn-secundario {
+      background-color: var(--accent-warm);
+    }
 
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--secondary-color);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-        }
+    .btn-secundario:hover {
+      background-color: var(--primary-color);
+    }
 
-        .card h3 {
-            color: var(--primary-color);
-            margin-top: 0;
-            font-size: 1.5rem;
-        }
+    .seccion-titulo {
+      text-align: center;
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+      font-size: 1.75rem;
+    }
 
-        /* Testimonios Específicos Destacados */
-        .testimonio-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-        }
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
 
-        .cliente-info {
-            font-style: italic;
-            color: var(--secondary-color);
-            margin-top: 1rem;
-            font-weight: bold;
-        }
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid var(--border-color);
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
 
-        .ver-todas-container {
-            text-align: center;
-            margin-top: -2rem;
-            margin-bottom: 3rem;
-        }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--secondary-color);
+    }
 
-        footer {
-            text-align: center;
-            padding: 3rem 1rem;
-            background: #1e3d28;
-            color: white;
-        }
+    .card h3 {
+      color: var(--primary-color);
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+    }
 
-        /* Clases para Animaciones de Scroll */
-        .oculto {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
+    .card p {
+      color: var(--muted-color);
+      margin: 0;
+    }
 
-        .mostrar {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+    .cotizador-cta {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-left: 5px solid var(--accent-warm);
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .cotizador-cta h3 {
+      margin-top: 0;
+      color: var(--primary-color);
+    }
+
+    .cotizador-cta p {
+      color: var(--muted-color);
+      margin-bottom: 1.25rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2.25rem 1rem;
+      background-color: var(--footer-bg);
+      color: #ffffff;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0 1.25rem;
+    }
+
+    .social-link {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      background-color: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.25s ease, transform 0.2s ease;
+    }
+
+    .social-link:hover {
+      background-color: var(--accent-warm);
+      transform: translateY(-2px);
+    }
+
+    .footer-copy {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin: 0;
+    }
+  </style>
 </head>
-<body data-theme="light">
+<body>
+  <header>
+    <h1>EcoLegado Alfombras</h1>
+    <p>Tu hogar, tu huella, tu legado</p>
+  </header>
 
-    <header>
-        <h1>EcoLegado Alfombras</h1>
-        <p>Tu hogar, tu huella, tu legado</p>
-    </header>
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="nosotros.html">Nosotros</a>
+    <a href="arboles.html">Bosque Virtual 🌳</a>
+    <a href="resenas.html">Reseñas ⭐</a>
+    <button id="btnTema" type="button" class="btn-tema" aria-label="Alternar entre modo claro y oscuro">
+      🌙 Modo oscuro
+    </button>
+  </nav>
 
-    <nav>
-        <a href="arboles.html">Bosque Virtual 🌳</a>
-        <a href="resenas.html">Reseñas ⭐</a>
-        <button id="btnTema" class="btn-tema">🌙 Modo Nocturno</button>
-    </nav>
+  <main class="container">
+    <section class="hero">
+      <h2>Arte Textil Artesanal con Propósito Ecológico</h2>
+      <p>
+        Creamos alfombras personalizadas mediante la técnica de <strong>tufting</strong>. Por cada
+        pieza elaborada, impulsamos la siembra y el cuidado de un árbol registrado a tu nombre.
+      </p>
+      <a href="nosotros.html#cotizador" class="btn">Calcular Cotización Aproximada 🌱</a>
+    </section>
 
-    <main class="container">
-        <!-- Sección Hero -->
-        <section class="hero oculto">
-            <h2>Arte, Confort y Vida para el Planeta</h2>
-            <p>Creamos alfombras únicas mediante la técnica de tufting. Por cada compra, sembramos y cuidamos un árbol asignado a tu nombre en nuestro bosque protegido.</p>
-            <a href="#precios" class="btn">Solicitar Cotización 🌱</a>
-        </section>
+    <section id="pilares">
+      <h2 class="seccion-titulo">¿Qué Hace Única a Cada Alfombra?</h2>
+      <div class="grid-cards">
+        <article class="card">
+          <h3>Diseño a Medida</h3>
+          <p>
+            Trabajamos desde bocetos, tipografías, mascotas, logos o ilustraciones para adaptar
+            cada pieza a tus espacios.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Acabados Artesanales</h3>
+          <p>
+            Opciones de acabado limpio o tallado en relieve 3D (<em>carving</em>) para dar volumen y
+            textura a cada detalle.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Legado Verde</h3>
+          <p>
+            Cada compra conecta la calidez de tu hogar con la reforestación y el seguimiento de tu
+            árbol en el bosque virtual.
+          </p>
+        </article>
+      </div>
+    </section>
 
-        <!-- Sección de Testimonios Destacados -->
-        <section id="testimonios" class="oculto">
-            <h2 class="seccion-titulo">El Impacto de Nuestros Clientes</h2>
-            <div id="contenedorDestacadas" class="grid-cards">
-                <div class="card">
-                    <p>Cargando testimonios destacados...</p>
-                </div>
-            </div>
-            <div class="ver-todas-container">
-                <a href="resenas.html" class="btn" style="background-color: var(--secondary-color);">Ver Todas las Opiniones 🌟</a>
-            </div>
-        </section>
+    <section class="cotizador-cta">
+      <h3>¿Quieres conocer un estimado de tu diseño?</h3>
+      <p>
+        En la pestaña <strong>Nosotros</strong> puedes combinar tamaño, tipo de boceto, forma y
+        acabado para obtener una suma aproximada al instante.
+      </p>
+      <a href="nosotros.html#cotizador" class="btn btn-secundario">Ir al Cotizador Automático</a>
+    </section>
+  </main>
 
-        <!-- Sección de Precios -->
-        <section id="precios" class="oculto">
-            <h2 class="seccion-titulo">Precios Aproximados</h2>
-            <div class="grid-cards">
-                <div class="card">
-                    <h3>Pequeña (100x100)</h3>
-                    <span style="font-size: 2rem; font-weight: bold; color: var(--secondary-color);">~$109 USD</span>
-                    <p><strong>1 Árbol Protector 🌱</strong></p>
-                </div>
-                <div class="card">
-                    <h3>Mediana (150x150)</h3>
-                    <span style="font-size: 2rem; font-weight: bold; color: var(--secondary-color);">~$217 USD</span>
-                    <p><strong>1 Árbol Protector 🌱</strong></p>
-                </div>
-                <div class="card">
-                    <h3>Grande (200x200)</h3>
-                    <span style="font-size: 2rem; font-weight: bold; color: var(--secondary-color);">~$373 USD</span>
-                    <p><strong>1 Árbol Protector 🌱</strong></p>
-                </div>
-            </div>
-        </section>
-    </main>
+  <footer>
+    <h3>Síguenos en Redes Sociales</h3>
+    <div class="social-links">
+      <a
+        href="https://www.tiktok.com/@tuftingsolidario"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="social-link"
+      >
+        🎵 TikTok
+      </a>
+      <a
+        href="https://www.instagram.com/tuftingsolidario"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="social-link"
+      >
+        📸 Instagram
+      </a>
+      <a
+        href="https://www.facebook.com/tuftingsolidario"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="social-link"
+      >
+        📘 Facebook
+      </a>
+    </div>
+    <p class="footer-copy">
+      EcoLegado Alfombras · tuftingsolidario · Arte sostenible para tu espacio
+    </p>
+  </footer>
 
-    <footer>
-        <p>&copy; 2026 EcoLegado Alfombras. Cuidando el planeta, un hogar a la vez.</p>
-    </footer>
+  <script>
+    (function () {
+      const STORAGE_KEY = "ecolegado_theme";
+      const rootEl = document.documentElement;
+      const btnTema = document.getElementById("btnTema");
 
-    <!-- Scripts de Firebase y Lógica para Cargar exactamente 2 Reseñas Destacadas -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyDt8rNOONVBbJUIXT0MYHAHm6bbV9sZ1mk",
-            authDomain: "ecolegado-21e65.firebaseapp.com",
-            databaseURL: "https://ecolegado-21e65-default-rtdb.firebaseio.com",
-            projectId: "ecolegado-21e65",
-            storageBucket: "ecolegado-21e65.firebasestorage.app",
-            messagingSenderId: "678783567354",
-            appId: "1:678783567354:web:657139d7917401b745d043",
-            measurementId: "G-MJ78QZDTHJ"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        async function cargarResenasDestacadas() {
-            const contenedor = document.getElementById('contenedorDestacadas');
-            try {
-                const querySnapshot = await getDocs(collection(db, "resenas"));
-                let destacadas = [];
-                
-                querySnapshot.forEach((doc) => {
-                    const r = doc.data();
-                    if (r.destacado === true) {
-                        destacadas.push(r);
-                    }
-                });
-
-                if (destacadas.length === 0) {
-                    contenedor.innerHTML = `<div class="card"><p>Configura al menos dos reseñas con el campo <strong>destacado: true</strong> en tu consola de Firebase.</p></div>`;
-                    return;
-                }
-
-                // Forzamos a mostrar máximo 2 reseñas destacadas
-                const seleccionadas = destacadas.slice(0, 2);
-                contenedor.innerHTML = "";
-                
-                seleccionadas.forEach(r => {
-                    contenedor.innerHTML += `
-                        <div class="card">
-                            <p>"${r.comentario || 'Excelente servicio'}"</p>
-                            ${r.imagenUrl ? `<img src="${r.imagenUrl}" alt="Alfombra de ${r.cliente || 'Cliente'}" class="testimonio-img">` : ''}
-                            <p class="cliente-info">- ${r.cliente || 'Cliente Anónimo'}</p>
-                        </div>
-                    `;
-                });
-            } catch (error) {
-                console.error("Error al cargar reseñas destacadas:", error);
-                contenedor.innerHTML = `<div class="card"><p>No se pudieron cargar los testimonios en este momento.</p></div>`;
-            }
+      function aplicarTema(tema) {
+        if (tema === "dark") {
+          rootEl.setAttribute("data-theme", "dark");
+          if (btnTema) btnTema.textContent = "☀️ Modo claro";
+        } else {
+          rootEl.removeAttribute("data-theme");
+          if (btnTema) btnTema.textContent = "🌙 Modo oscuro";
         }
+      }
 
-        cargarResenasDestacadas();
-    </script>
+      const temaGuardado = localStorage.getItem(STORAGE_KEY) || "light";
+      aplicarTema(temaGuardado);
 
-    <script>
-        // 1. Lógica del Modo Oscuro / Orgánico
-        const btnTema = document.getElementById('btnTema');
-        const cuerpo = document.body;
-
-        btnTema.addEventListener('click', () => {
-            if (cuerpo.getAttribute('data-theme') === 'light') {
-                cuerpo.setAttribute('data-theme', 'dark');
-                btnTema.textContent = '☀️ Modo Claro';
-            } else {
-                cuerpo.setAttribute('data-theme', 'light');
-                btnTema.textContent = '🌙 Modo Nocturno';
-            }
+      if (btnTema) {
+        btnTema.addEventListener("click", function () {
+          const esOscuro = rootEl.getAttribute("data-theme") === "dark";
+          const siguienteTema = esOscuro ? "light" : "dark";
+          localStorage.setItem(STORAGE_KEY, siguienteTema);
+          aplicarTema(siguienteTema);
         });
-
-        // 2. Animaciones de Desplazamiento (Scroll) usando IntersectionObserver
-        const observer = new IntersectionObserver((entradas) => {
-            entradas.forEach(entrada => {
-                if (entrada.isIntersecting) {
-                    entrada.target.classList.add('mostrar');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        const elementosOcultos = document.querySelectorAll('.oculto');
-        elementosOcultos.forEach((el) => observer.observe(el));
-    </script>
+      }
+    })();
+  </script>
 </body>
 </html>

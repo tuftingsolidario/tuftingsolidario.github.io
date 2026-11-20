@@ -12,16 +12,16 @@
 }
 
 [data-theme="dark"] {
-  --bg-page: #141916;
-  --bg-card: #1d2520;
-  --bg-box: #242e28;
-  --text-main: #f2efe9;
-  --text-muted: #b8c2ba;
-  --accent-primary: #489462;
-  --accent-hover: #37784d;
-  --accent-warm: #df7a53;
-  --border-color: #2f3b33;
-  --footer-bg: #0c1b11;
+  --bg-page: #101512;
+  --bg-card: #1b241e;
+  --bg-box: #26332b;
+  --text-main: #f4f1ea;
+  --text-muted: #c4cfc7;
+  --accent-primary: #52a66d;
+  --accent-hover: #3f8756;
+  --accent-warm: #e5835c;
+  --border-color: #3c4f42;
+  --footer-bg: #0b180f;
 }
 
 * {
@@ -45,6 +45,7 @@ nav {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .nav-links {
@@ -88,6 +89,7 @@ nav {
   color: #ffffff;
   padding: 2.15rem 1rem;
   text-align: center;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .site-header h1 {
@@ -113,6 +115,7 @@ nav {
   align-items: start;
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
   border-radius: 12px;
   padding: 1.25rem;
 }
@@ -190,6 +193,7 @@ nav {
   padding: 2.25rem 1.5rem;
   background-color: var(--bg-box);
   border: 1px solid var(--border-color);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
   border-radius: 12px;
   margin-bottom: 2.25rem;
 }
@@ -247,6 +251,7 @@ nav {
 .card {
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
@@ -266,6 +271,7 @@ nav {
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
   border-left: 5px solid var(--accent-warm);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
   border-radius: 10px;
   padding: 1.5rem;
   text-align: center;
@@ -288,6 +294,7 @@ nav {
 .campo label {
   font-weight: bold;
   font-size: 0.95rem;
+  color: var(--text-main);
 }
 
 .campo select,
@@ -305,6 +312,7 @@ nav {
   margin-top: 1.25rem;
   padding: 1rem 1.25rem;
   background-color: var(--bg-box);
+  border: 1px solid var(--border-color);
   border-left: 5px solid var(--accent-warm);
   border-radius: 8px;
 }
@@ -396,6 +404,7 @@ nav {
 .faq-section {
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
   border-radius: 12px;
   padding: 1.75rem;
   margin: 2rem auto;
@@ -436,6 +445,7 @@ footer {
   padding: 2rem 1rem;
   background-color: var(--footer-bg);
   color: #ffffff;
+  border-top: 1px solid var(--border-color);
 }
 
 .social-links {

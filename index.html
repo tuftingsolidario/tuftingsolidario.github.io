@@ -7,22 +7,34 @@
   <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfWWOMtAAAAAG-5zjE4hywzDE1Qtfbz1AuRd30g"></script>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    header {
+    header.site-header {
+      background: linear-gradient(135deg, var(--accent-primary, #2e6f40), var(--accent-hover, #225430));
+      color: #ffffff;
+      padding: 2.15rem 1.25rem;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 0.45rem;
+      border-bottom: 1px solid var(--border-color, #e3dcd0);
     }
-    header h1 {
+    header.site-header h1 {
       margin: 0 auto;
       text-align: center;
       width: 100%;
+      color: #ffffff;
+      font-size: clamp(1.75rem, 3.2vw, 2.3rem);
+      line-height: 1.2;
     }
-    header p {
-      margin: 0.35rem auto 0;
+    header.site-header p {
+      margin: 0 auto;
       text-align: center;
       max-width: 720px;
+      color: #ffffff;
+      opacity: 0.96;
+      font-size: 1.02rem;
+      line-height: 1.5;
     }
     .impacto-section {
       background-color: var(--card-bg, var(--bg-card, #ffffff));
@@ -72,6 +84,30 @@
       color: var(--primary-color, var(--accent-primary, #2e6f40));
       font-weight: 800;
       font-size: 1.1rem;
+    }
+    .impacto-media-box {
+      margin-top: 1.35rem;
+      background-color: var(--bg-box, #f6efe4);
+      border: 1px solid var(--border-color, #e3dcd0);
+      border-radius: 10px;
+      padding: 1rem;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .impacto-media-box img {
+      width: 100%;
+      max-height: 360px;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+      margin: 0 auto;
+    }
+    .impacto-media-caption {
+      margin: 0.65rem 0 0 !important;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-main, #2b2623) !important;
     }
     .faq-section {
       background-color: var(--card-bg, var(--bg-card, #ffffff));
@@ -127,7 +163,7 @@
   </style>
 </head>
 <body>
-  <header>
+  <header class="site-header">
     <h1>Tuftinsolidario</h1>
     <p>Tu hogar, tu huella, tu legado. Arte sostenible para tu espacio. Cada alfombra siembra vida y respalda un árbol protector.</p>
   </header>
@@ -197,6 +233,11 @@
         <span>🌳 Árboles sembrados</span>
         <span id="contadorArbolesSembrados" class="contador-numero">3</span>
       </a>
+
+      <div id="imagenImpactoBox" class="impacto-media-box">
+        <img id="imagenImpactoFirebase" src="" alt="Registro visual del impacto en árboles sembrados" style="display:none;" />
+        <p id="estadoImagenImpacto" class="impacto-media-caption">Cargando imagen de impacto desde Firebase...</p>
+      </div>
     </section>
 
     <section class="cotizador-cta">
@@ -321,9 +362,12 @@
     const db = getFirestore(app);
 
     const VIDEO_SEMANAL_LOCAL = "video-semanal.mp4";
+    const STORAGE_BUCKET_URL = "https://firebasestorage.googleapis.com/v0/b/ecolegado-21e65.firebasestorage.app/o/";
     const medioBox = document.getElementById("medioSemanalBox");
     const logoImg = document.getElementById("logoEstatico");
     const logoEstado = document.getElementById("logoEstado");
+    const imgImpacto = document.getElementById("imagenImpactoFirebase");
+    const estadoImgImpacto = document.getElementById("estadoImagenImpacto");
     let logoCargadoOk = false;
 
     function escapeHTML(str) {
@@ -369,6 +413,16 @@
         if (match && match[1]) return match[1];
       }
       return "";
+    }
+
+    function resolverUrlImagenFirebase(rawVal) {
+      const limpia = (rawVal || "").trim();
+      if (!limpia) return "";
+      if (/^https?:\/\//i.test(limpia)) {
+        return normalizarUrlDriveImagen(limpia);
+      }
+      const rutaSinSlash = limpia.replace(/^\/+/, "");
+      return `${STORAGE_BUCKET_URL}${encodeURIComponent(rutaSinSlash)}?alt=media`;
     }
 
     function normalizarUrlDriveImagen(urlStr) {
@@ -448,6 +502,44 @@
       activarAutoplayVideo();
     }
 
+    async function cargarImagenImpacto() {
+      if (!imgImpacto || !estadoImgImpacto) return;
+
+      try {
+        let dataImpacto = null;
+        const snapArbolesImpacto = await getDoc(doc(db, "arboles", "impacto"));
+        if (snapArbolesImpacto.exists()) {
+          dataImpacto = snapArbolesImpacto.data();
+        } else {
+          const snapConfigImpacto = await getDoc(doc(db, "configuracion", "impacto"));
+          if (snapConfigImpacto.exists()) {
+            dataImpacto = snapConfigImpacto.data();
+          }
+        }
+
+        const rawFuente =
+          (dataImpacto && (dataImpacto.imagen || dataImpacto.imagenUrl || dataImpacto.url || dataImpacto.storagePath)) ||
+          "arboles/impacto.jpg";
+        const urlFinal = resolverUrlImagenFirebase(rawFuente);
+        const leyenda = (dataImpacto && (dataImpacto.titulo || dataImpacto.descripcion)) || "Árboles sembrados · Legado EcoLegado";
+
+        imgImpacto.onload = function () {
+          imgImpacto.style.display = "block";
+          estadoImgImpacto.textContent = leyenda;
+        };
+
+        imgImpacto.onerror = function () {
+          imgImpacto.style.display = "none";
+          estadoImgImpacto.textContent = "Imagen de impacto en preparación desde Firebase (arboles/impacto).";
+        };
+
+        imgImpacto.src = urlFinal;
+      } catch (err) {
+        imgImpacto.style.display = "none";
+        estadoImgImpacto.textContent = "No se pudo cargar la imagen de impacto desde Firebase.";
+      }
+    }
+
     async function cargarDestacadoYLogo() {
       try {
         const snap = await getDoc(doc(db, "configuracion", "destacado_semanal"));
@@ -506,6 +598,7 @@
     }
 
     cargarDestacadoYLogo();
+    cargarImagenImpacto();
   </script>
 </body>
 </html>

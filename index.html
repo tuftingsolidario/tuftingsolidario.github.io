@@ -25,41 +25,88 @@
       --nav-bg: #102417;
     }
 
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      line-height: 1.55;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    header,
     header.site-header {
-      background: linear-gradient(135deg, var(--primary-color, #2e6f40), var(--nav-bg, #225430));
+      background: linear-gradient(135deg, var(--primary-color), var(--nav-bg));
       color: #ffffff;
-      padding: 2.15rem 1.25rem;
+      padding: 2.5rem 1rem;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 0.45rem;
-      border-bottom: 1px solid var(--border-color, #e3dcd0);
+      border-bottom: none;
     }
+
+    header h1,
     header.site-header h1 {
-      margin: 0 auto;
+      margin: 0;
       text-align: center;
       width: 100%;
       color: #ffffff;
-      font-size: clamp(1.75rem, 3.2vw, 2.3rem);
+      font-size: 2.2rem;
       line-height: 1.2;
     }
+
+    header p,
     header.site-header p {
-      margin: 0 auto;
+      margin: 0.75rem auto 1.25rem;
       text-align: center;
       max-width: 720px;
       color: #ffffff;
-      opacity: 0.96;
-      font-size: 1.02rem;
-      line-height: 1.5;
+      opacity: 0.95;
+      font-size: 1.05rem;
+      line-height: 1.55;
     }
+
     nav {
-      background-color: var(--nav-bg, #225430);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.2rem;
+      background-color: var(--nav-bg);
+      padding: 0.85rem 1rem;
+      flex-wrap: wrap;
     }
+
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
     nav a:hover {
       color: #f3d5c5;
+      text-decoration: underline;
     }
+
+    .btn-tema {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      color: #ffffff;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .btn-tema:hover {
+      background-color: #ffffff;
+      color: var(--nav-bg);
+    }
+
     .impacto-section {
       background-color: var(--card-bg, var(--bg-card, #ffffff));
       border: 1px solid var(--border-color, #e3dcd0);

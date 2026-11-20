@@ -631,6 +631,96 @@
     const resultadoCertEl = document.getElementById("resultadoCertificado");
     const estadoEl = document.getElementById("estadoBusqueda");
 
+    const MESES_ES = [
+      "enero", "febrero", "marzo", "abril", "mayo", "junio",
+      "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+    ];
+
+    function parsearFechaSiembra(valorFecha) {
+      if (!valorFecha) {
+        return { anio: 2026, mesIdx: 10, dia: null };
+      }
+
+      if (typeof valorFecha?.toDate === "function") {
+        const d = valorFecha.toDate();
+        return {
+          anio: d.getFullYear(),
+          mesIdx: d.getMonth(),
+          dia: d.getDate()
+        };
+      }
+
+      if (valorFecha instanceof Date && !Number.isNaN(valorFecha.getTime())) {
+        return {
+          anio: valorFecha.getUTCFullYear(),
+          mesIdx: valorFecha.getUTCMonth(),
+          dia: valorFecha.getUTCDate()
+        };
+      }
+
+      const texto = String(valorFecha).trim().toLowerCase();
+
+      // Formato ISO: YYYY-MM-DD o YYYY-MM
+      const isoMatch = texto.match(/^(\d{4})-(\d{1,2})(?:-(\d{1,2}))?/);
+      if (isoMatch) {
+        return {
+          anio: Number(isoMatch[1]),
+          mesIdx: Math.min(Math.max(Number(isoMatch[2]) - 1, 0), 11),
+          dia: isoMatch[3] ? Math.min(Math.max(Number(isoMatch[3]), 1), 31) : null
+        };
+      }
+
+      // Formato DD/MM/YYYY o DD-MM-YYYY
+      const latamMatch = texto.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
+      if (latamMatch) {
+        return {
+          anio: Number(latamMatch[3]),
+          mesIdx: Math.min(Math.max(Number(latamMatch[2]) - 1, 0), 11),
+          dia: Math.min(Math.max(Number(latamMatch[1]), 1), 31)
+        };
+      }
+
+      // Formato texto en español: "2026 noviembre", "noviembre 2026" o "19 de noviembre de 2026"
+      const anioMatch = texto.match(/\b(20\d{2}|19\d{2})\b/);
+      const mesIdx = MESES_ES.findIndex((m) => texto.includes(m));
+      const diaMatch = texto.match(/(?:^|\s)(\d{1,2})(?:\s+de|\s|$)/);
+
+      if (anioMatch && mesIdx !== -1) {
+        const diaCandidato = diaMatch ? Number(diaMatch[1]) : null;
+        return {
+          anio: Number(anioMatch[1]),
+          mesIdx,
+          dia: diaCandidato && diaCandidato >= 1 && diaCandidato <= 31 ? diaCandidato : null
+        };
+      }
+
+      const parsed = new Date(texto);
+      if (!Number.isNaN(parsed.getTime())) {
+        return {
+          anio: parsed.getUTCFullYear(),
+          mesIdx: parsed.getUTCMonth(),
+          dia: parsed.getUTCDate()
+        };
+      }
+
+      return { anio: 2026, mesIdx: 10, dia: null };
+    }
+
+    function obtenerEtiquetaMesSiguiente(fechaSiembra, mesesOffset = 0) {
+      const base = parsearFechaSiembra(fechaSiembra);
+      const safeOffset = Math.max(0, Number(mesesOffset) || 0);
+      const totalMeses = base.anio * 12 + base.mesIdx + safeOffset;
+      const anioFinal = Math.floor(totalMeses / 12);
+      const mesFinal = totalMeses % 12;
+      const nombreMes = MESES_ES[mesFinal];
+
+      if (safeOffset === 0 && base.dia) {
+        return `${base.dia} de ${nombreMes} de ${anioFinal}`;
+      }
+
+      return `${nombreMes} de ${anioFinal}`;
+    }
+
     function extraerIdDrive(urlStr) {
       const limpia = (urlStr || "").trim();
       if (!limpia) return "";
@@ -781,6 +871,63 @@
         .filter(Boolean);
     }
 
+    function construirEventosTimeline(data, codigoArbol, imagenes) {
+      const fechaSiembraRaw = data.fechaSiembra || data.fecha || data.fechaRegistro || "2026-11";
+      const fechaSiembraEtiqueta = obtenerEtiquetaMesSiguiente(fechaSiembraRaw, 0);
+
+      // Si el documento trae un arreglo `actualizaciones` o `historial`, respeta su orden
+      // comenzando en la fecha de siembra (offset 0) y sumando +1 mes por cada entrada siguiente.
+      const arregloActualizaciones = Array.isArray(data.actualizaciones)
+        ? data.actualizaciones
+        : Array.isArray(data.historial)
+          ? data.historial
+          : null;
+
+      if (arregloActualizaciones && arregloActualizaciones.length > 0) {
+        return arregloActualizaciones.map((item, idx) => {
+          const offsetMeses = idx;
+          const fechaCalculada = obtenerEtiquetaMesSiguiente(fechaSiembraRaw, offsetMeses);
+          const imgItem = typeof item === "object" && item !== null
+            ? normalizarUrlImagen(item.imagen || item.fotoUrl || item.url || "")
+            : "";
+
+          return {
+            fecha: offsetMeses === 0 ? `Siembra · ${fechaCalculada}` : `Mes +${offsetMeses} · ${fechaCalculada}`,
+            titulo: (typeof item === "object" && item?.titulo)
+              ? item.titulo
+              : (offsetMeses === 0 ? `Siembra y registro del árbol ${codigoArbol}` : `Seguimiento mensual (${codigoArbol})`),
+            detalle: (typeof item === "object" && item?.descripcion)
+              ? item.descripcion
+              : (data.observaciones || `Especie: ${data.especie || "Nativo andino"} · Estado: ${data.estado || "En crecimiento y cuidado activo"} · Ubicación: ${data.ubicacion || "Proyecto EcoLegado"}.`),
+            imagen: imgItem || imagenes[idx] || ""
+          };
+        });
+      }
+
+      // Base por defecto: inicia en la fecha de siembra y suma +1 mes por cada foto adicional
+      const eventos = [
+        {
+          fecha: `Siembra · ${fechaSiembraEtiqueta}`,
+          titulo: `Siembra y registro del árbol ${codigoArbol}`,
+          detalle: `Especie: ${data.especie || "Nativo andino"} · Estado: ${data.estado || "En crecimiento y cuidado activo"} · Ubicación: ${data.ubicacion || "Proyecto de reforestación EcoLegado"}.`,
+          imagen: imagenes[0] || ""
+        }
+      ];
+
+      imagenes.slice(1).forEach((imgUrl, idx) => {
+        const offsetMeses = idx + 1;
+        const fechaMesSiguiente = obtenerEtiquetaMesSiguiente(fechaSiembraRaw, offsetMeses);
+        eventos.push({
+          fecha: `Mes +${offsetMeses} · ${fechaMesSiguiente}`,
+          titulo: `Seguimiento fotográfico (${codigoArbol})`,
+          detalle: data.observaciones || "Registro de evolución en el Bosque Virtual.",
+          imagen: imgUrl
+        });
+      });
+
+      return eventos;
+    }
+
     window.buscarArbol = async function () {
       const inputVal = document.getElementById("searchInput").value.trim();
       resultadoCertEl.style.display = "none";
@@ -802,6 +949,10 @@
 
         const codigoArbol = String(data.codigo || inputVal).toUpperCase();
         const imagenes = obtenerImagenesArbol(data);
+        const fechaSiembraTexto = obtenerEtiquetaMesSiguiente(
+          data.fechaSiembra || data.fecha || data.fechaRegistro || "2026-11",
+          0
+        );
 
         const galeriaHtml = imagenes.length
           ? `<div class="galeria-crecimiento">${imagenes
@@ -809,20 +960,7 @@
               .join("")}</div>`
           : "";
 
-        const eventosTimeline = [
-          {
-            fecha: data.fecha || "Registro inicial",
-            titulo: `Registro del árbol ${codigoArbol}`,
-            detalle: `Especie: ${data.especie || "Nativo andino"} · Estado: ${data.estado || "En crecimiento y cuidado activo"} · Ubicación: ${data.ubicacion || "Proyecto EcoLegado"}.`,
-            imagen: imagenes[0] || ""
-          },
-          ...imagenes.slice(1).map((imgUrl, idx) => ({
-            fecha: `Actualización #${idx + 2}`,
-            titulo: `Seguimiento fotográfico (${codigoArbol})`,
-            detalle: data.observaciones || "Registro de evolución en el Bosque Virtual.",
-            imagen: imgUrl
-          }))
-        ];
+        const eventosTimeline = construirEventosTimeline(data, codigoArbol, imagenes);
 
         const timelineHtml = `
           <h3>🕒 Línea de tiempo</h3>
@@ -848,7 +986,7 @@
           <p><strong>Especie:</strong> ${data.especie || "Especie nativa reforestada"}</p>
           <p><strong>Estado actual:</strong> ${data.estado || "En crecimiento y cuidado activo"}</p>
           <p><strong>Ubicación / Zona:</strong> ${data.ubicacion || "Proyecto de reforestación EcoLegado"}</p>
-          <p><strong>Fecha de registro:</strong> ${data.fecha || "Registrado en Bosque Virtual"}</p>
+          <p><strong>Fecha de siembra:</strong> ${fechaSiembraTexto}</p>
           ${data.observaciones ? `<p><strong>Notas de evolución:</strong> ${data.observaciones}</p>` : ""}
           ${galeriaHtml}
           ${timelineHtml}

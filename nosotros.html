@@ -314,8 +314,13 @@
       display: inline-block;
     }
 
-    .btn-enviar:hover {
+    .btn-enviar:hover:not(:disabled) {
       background-color: var(--nav-bg);
+    }
+
+    .btn-enviar:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
     }
 
     .btn-secundario {
@@ -821,7 +826,6 @@
         if (lupa) lupa.style.display = "none";
       });
 
-      // Control visual de ventana flotante del cupón
       const modalCupon = document.getElementById("modalCupon");
       const btnAbrirCupon = document.getElementById("btnAbrirCupon");
       const btnCerrarCupon = document.getElementById("btnCerrarCupon");
@@ -850,8 +854,7 @@
       getFirestore,
       doc,
       getDoc,
-      collection,
-      addDoc,
+      setDoc,
       serverTimestamp
     } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
@@ -940,15 +943,50 @@
 
     cargarImagenPreciosFirebase();
 
-    // Guardar solicitud de cupón del 40% en la colección solicitudes_cupones
+    const CLAVE_LOCAL_CUPON = "ecolegado_cupon_reclamado";
     const formCupon = document.getElementById("formCupon");
     const correoCupon = document.getElementById("correoCupon");
     const telefonoCupon = document.getElementById("telefonoCupon");
     const estadoCupon = document.getElementById("estadoCupon");
     const btnEnviarCupon = document.getElementById("btnEnviarCupon");
 
+    function marcarCuponYaReclamado(mensaje) {
+      if (correoCupon) correoCupon.disabled = true;
+      if (telefonoCupon) telefonoCupon.disabled = true;
+      if (btnEnviarCupon) {
+        btnEnviarCupon.disabled = true;
+        btnEnviarCupon.textContent = "Cupón ya solicitado";
+      }
+      if (estadoCupon) {
+        estadoCupon.style.color = "var(--primary-color)";
+        estadoCupon.textContent = mensaje;
+      }
+    }
+
+    if (localStorage.getItem(CLAVE_LOCAL_CUPON) === "1") {
+      marcarCuponYaReclamado("Ya solicitaste tu cupón del 40% desde este dispositivo o red.");
+    }
+
+    async function obtenerIpPublica() {
+      const resp = await fetch("https://api.ipify.org?format=json", { cache: "no-store" });
+      if (!resp.ok) throw new Error("No se pudo obtener la IP");
+      const data = await resp.json();
+      const ipCruda = String(data.ip || "").trim();
+      if (!ipCruda) throw new Error("IP vacía");
+      return {
+        ipCruda,
+        ipDocId: ipCruda.replace(/[^a-zA-Z0-9]/g, "_")
+      };
+    }
+
     formCupon?.addEventListener("submit", async (e) => {
       e.preventDefault();
+
+      if (localStorage.getItem(CLAVE_LOCAL_CUPON) === "1") {
+        marcarCuponYaReclamado("Solo se permite una solicitud de cupón del 40% por dirección IP.");
+        return;
+      }
+
       const correo = correoCupon?.value.trim() || "";
       const telefono = telefonoCupon?.value.trim() || "";
 
@@ -965,11 +1003,14 @@
       if (btnEnviarCupon) btnEnviarCupon.disabled = true;
       if (estadoCupon) {
         estadoCupon.style.color = "var(--text-color)";
-        estadoCupon.textContent = "Guardando tu solicitud de cupón del 40%...";
+        estadoCupon.textContent = "Verificando disponibilidad y registrando tu cupón...";
       }
 
       try {
-        await addDoc(collection(db, "solicitudes_cupones"), {
+        const { ipCruda, ipDocId } = await obtenerIpPublica();
+
+        await setDoc(doc(db, "solicitudes_cupones", ipDocId), {
+          ip: ipCruda,
           correo,
           telefono,
           canalEnvio,
@@ -979,21 +1020,24 @@
           creadoEn: serverTimestamp()
         });
 
-        if (estadoCupon) {
-          estadoCupon.style.color = "var(--primary-color)";
-          estadoCupon.textContent =
-            "¡Listo! Registramos tu solicitud del 40% de descuento por primera compra y te lo enviaremos pronto.";
-        }
+        localStorage.setItem(CLAVE_LOCAL_CUPON, "1");
         formCupon.reset();
+        marcarCuponYaReclamado(
+          "¡Listo! Registramos tu solicitud del 40% de descuento por primera compra (1 por IP) y te lo enviaremos pronto."
+        );
       } catch (error) {
         console.error("Error al guardar en solicitudes_cupones:", error);
-        if (estadoCupon) {
-          estadoCupon.style.color = "var(--accent-warm)";
-          estadoCupon.textContent =
-            "No se pudo guardar la solicitud. Revisa las reglas de escritura en Firestore para solicitudes_cupones.";
+        if (error?.code === "permission-denied") {
+          localStorage.setItem(CLAVE_LOCAL_CUPON, "1");
+          marcarCuponYaReclamado("Ya existe una solicitud de cupón del 40% registrada desde tu dirección IP.");
+        } else {
+          if (btnEnviarCupon) btnEnviarCupon.disabled = false;
+          if (estadoCupon) {
+            estadoCupon.style.color = "var(--accent-warm)";
+            estadoCupon.textContent =
+              "No se pudo verificar tu red o guardar la solicitud. Intenta nuevamente en unos segundos.";
+          }
         }
-      } finally {
-        if (btnEnviarCupon) btnEnviarCupon.disabled = false;
       }
     });
   </script>

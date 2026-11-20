@@ -276,10 +276,10 @@
   </header>
 
   <nav>
-    <a href="index.html">Inicio 🏠</a>
-    <a href="nosotros.html">Nosotros 👥</a>
-    <a href="arboles.html">Bosque Virtual 🌳</a>
-    <a href="resenas.html">Reseñas ⭐</a>
+    <a href="https://tuftingsolidario.github.io/index.html">Inicio 🏠</a>
+    <a href="https://tuftingsolidario.github.io/nosotros.html">Nosotros 👥</a>
+    <a href="https://tuftingsolidario.github.io/arboles.html">Bosque Virtual 🌳</a>
+    <a href="https://tuftingsolidario.github.io/resenas.html">Reseñas ⭐</a>
     <button type="button" id="btnModoTema" class="btn-tema" aria-label="Alternar entre modo claro y oscuro">
       🌙 Modo oscuro
     </button>
@@ -316,7 +316,7 @@
 
       <div class="acciones-form">
         <a href="#cotizador" class="btn-enviar">Solicitar cotización</a>
-        <a href="arboles.html" class="btn-secundario">Ver Bosque Virtual</a>
+        <a href="https://tuftingsolidario.github.io/arboles.html" class="btn-secundario">Ver Bosque Virtual</a>
       </div>
     </section>
 
@@ -334,7 +334,7 @@
     <section id="cotizador" class="card">
       <h2>Cotizador Automático de Alfombra Personalizada</h2>
 
-      <!-- Imagen anclada al documento configuracion/precios en Firebase -->
+      <!-- Imagen anclada al documento configuracion/Precios en Firebase -->
       <div id="cajaImagenPrecios" class="contenedor-imagen-precios" hidden>
         <img
           id="imgGuiaPrecios"
@@ -404,7 +404,7 @@
 
         <div class="acciones-form">
           <button type="submit" class="btn-enviar">Registrar resumen de cotización</button>
-          <a href="index.html#bosque-virtual-codigo" class="btn-secundario">Ir al buscador en Inicio</a>
+          <a href="https://tuftingsolidario.github.io/index.html" class="btn-secundario">Ir al buscador en Inicio</a>
         </div>
 
         <div id="resumenConfirmado" class="resumen-solicitud"></div>
@@ -416,16 +416,18 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
     import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
-    // Pega aquí tus credenciales reales de Firebase (las mismas de index.html)
     const firebaseConfig = {
-      apiKey: "TU_API_KEY",
+      apiKey: "AIzaSyDt8rNOONVBbJUIXT0MYHAHm6bbV9sZ1mk",
       authDomain: "ecolegado-21e65.firebaseapp.com",
+      databaseURL: "https://ecolegado-21e65-default-rtdb.firebaseio.com",
       projectId: "ecolegado-21e65",
       storageBucket: "ecolegado-21e65.firebasestorage.app",
-      messagingSenderId: "TU_MESSAGING_SENDER_ID",
-      appId: "TU_APP_ID"
+      messagingSenderId: "678783567354",
+      appId: "1:678783567354:web:657139d7917401b745d043",
+      measurementId: "G-MJ78QZDTHJ"
     };
 
+    const STORAGE_BUCKET_URL = "https://firebasestorage.googleapis.com/v0/b/ecolegado-21e65.firebasestorage.app/o/";
     const CLAVE_TEMA = "ecolegado_theme";
     const rootEl = document.documentElement;
     const btnTema = document.getElementById("btnModoTema");
@@ -471,16 +473,22 @@
     function normalizarUrlImagen(urlOriginal) {
       if (!urlOriginal || typeof urlOriginal !== "string") return "";
       const urlLimpia = urlOriginal.trim();
+      if (!urlLimpia) return "";
 
-      const matchFileD = urlLimpia.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
-      if (matchFileD && matchFileD[1]) {
-        return `https://lh3.googleusercontent.com/d/${matchFileD[1]}`;
+      if (/^https?:\/\//i.test(urlLimpia)) {
+        const matchFileD = urlLimpia.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+        if (matchFileD && matchFileD[1]) {
+          return `https://lh3.googleusercontent.com/d/${matchFileD[1]}`;
+        }
+        const matchOpenId = urlLimpia.match(/drive\.google\.com\/(?:open|uc)\?.*id=([a-zA-Z0-9_-]+)/);
+        if (matchOpenId && matchOpenId[1]) {
+          return `https://lh3.googleusercontent.com/d/${matchOpenId[1]}`;
+        }
+        return urlLimpia;
       }
-      const matchOpenId = urlLimpia.match(/drive\.google\.com\/(?:open|uc)\?.*id=([a-zA-Z0-9_-]+)/);
-      if (matchOpenId && matchOpenId[1]) {
-        return `https://lh3.googleusercontent.com/d/${matchOpenId[1]}`;
-      }
-      return urlLimpia;
+
+      const rutaSinSlash = urlLimpia.replace(/^\/+/, "");
+      return `${STORAGE_BUCKET_URL}${encodeURIComponent(rutaSinSlash)}?alt=media`;
     }
 
     async function cargarImagenPreciosFirebase() {
@@ -491,25 +499,39 @@
       try {
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const snapPrecios = await getDoc(doc(db, "configuracion", "precios"));
+        const snapMayus = await getDoc(doc(db, "configuracion", "Precios"));
+        const snapMinus = snapMayus.exists() ? null : await getDoc(doc(db, "configuracion", "precios"));
+        const datos = snapMayus.exists() ? snapMayus.data() : (snapMinus?.exists() ? snapMinus.data() : null);
 
-        if (snapPrecios.exists()) {
-          const datos = snapPrecios.data();
-          const urlCruda = datos.imagenUrl || datos.url || datos.imagen || datos.foto || "";
-          const urlFinal = normalizarUrlImagen(urlCruda);
+        if (!datos) {
+          cajaImagen.hidden = true;
+          return;
+        }
 
-          if (urlFinal) {
-            imgGuia.src = urlFinal;
-            if (datos.alt) {
-              imgGuia.alt = datos.alt;
-            }
-            imgGuia.onload = () => {
-              cajaImagen.hidden = false;
-            };
+        const urlCruda =
+          datos.precios || datos.imagenUrl || datos.url || datos.imagen || datos.foto || datos.storagePath || "";
+        const urlFinal = normalizarUrlImagen(urlCruda);
+
+        if (urlFinal) {
+          if (datos.alt) {
+            imgGuia.alt = datos.alt;
           }
+          imgGuia.onload = () => {
+            cajaImagen.hidden = false;
+          };
+          imgGuia.onerror = () => {
+            cajaImagen.hidden = true;
+          };
+          imgGuia.src = urlFinal;
+          if (imgGuia.complete && imgGuia.naturalWidth > 0) {
+            cajaImagen.hidden = false;
+          }
+        } else {
+          cajaImagen.hidden = true;
         }
       } catch (error) {
-        console.error("Error al cargar configuracion/precios:", error);
+        console.error("Error al cargar configuracion/Precios:", error);
+        cajaImagen.hidden = true;
       }
     }
 

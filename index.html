@@ -15,7 +15,6 @@
       --text-color: #2b2623;
       --nav-bg: #225430;
     }
-
     [data-theme="dark"] {
       --primary-color: #57a773;
       --secondary-color: #79c293;
@@ -24,7 +23,6 @@
       --text-color: #f2efe9;
       --nav-bg: #102417;
     }
-
     body {
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       background-color: var(--bg-color);
@@ -34,42 +32,18 @@
       line-height: 1.55;
       transition: background-color 0.3s ease, color 0.3s ease;
     }
-
-    header,
-    header.site-header {
+    header {
       background: linear-gradient(135deg, var(--primary-color), var(--nav-bg));
-      color: #ffffff;
+      color: #fff;
       padding: 2.5rem 1rem;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       gap: 0.45rem;
-      border-bottom: none;
     }
-
-    header h1,
-    header.site-header h1 {
-      margin: 0;
-      text-align: center;
-      width: 100%;
-      color: #ffffff;
-      font-size: 2.2rem;
-      line-height: 1.2;
-    }
-
-    header p,
-    header.site-header p {
-      margin: 0.75rem auto 1.25rem;
-      text-align: center;
-      max-width: 720px;
-      color: #ffffff;
-      opacity: 0.95;
-      font-size: 1.05rem;
-      line-height: 1.55;
-    }
-
+    header h1 { margin: 0; font-size: 2.2rem; line-height: 1.2; color: #fff; }
+    header p { margin: 0.75rem auto 1.25rem; max-width: 720px; font-size: 1.05rem; color: #fff; opacity: 0.95; }
     nav {
       display: flex;
       justify-content: center;
@@ -79,59 +53,37 @@
       padding: 0.85rem 1rem;
       flex-wrap: wrap;
     }
-
-    nav a {
-      color: #ffffff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      color: #f3d5c5;
-      text-decoration: underline;
-    }
-
+    nav a { color: #fff; text-decoration: none; font-weight: bold; }
+    nav a:hover { color: #f3d5c5; text-decoration: underline; }
     .btn-tema {
       background: transparent;
       border: 1px solid rgba(255, 255, 255, 0.75);
-      color: #ffffff;
+      color: #fff;
       padding: 0.4rem 0.9rem;
       border-radius: 999px;
       cursor: pointer;
       font-weight: bold;
       font-size: 0.9rem;
     }
-
-    .btn-tema:hover {
-      background-color: #ffffff;
-      color: var(--nav-bg);
-    }
-
-    .impacto-section {
-      background-color: var(--card-bg, var(--bg-card, #ffffff));
+    .btn-tema:hover { background-color: #fff; color: var(--nav-bg); }
+    .impacto-section, .faq-section {
+      background-color: var(--card-bg, #fff);
       border: 1px solid var(--border-color, #e3dcd0);
       border-radius: 12px;
       padding: 1.75rem;
-      margin: 2rem auto 0;
-      text-align: center;
+      margin: 2rem auto;
     }
-    .impacto-section h2 {
-      margin-top: 0;
-      margin-bottom: 0.65rem;
-      color: var(--primary-color, var(--accent-primary, #2e6f40));
-      font-size: 1.6rem;
-    }
-    .impacto-section p {
-      margin: 0 auto 1.25rem;
-      max-width: 680px;
-      color: var(--muted-color, var(--text-muted, #5c534c));
-    }
+    .faq-section { max-width: 980px; }
+    .impacto-section { margin-bottom: 0; text-align: center; }
+    .impacto-section h2, .faq-section h2 { margin-top: 0; color: var(--primary-color, #2e6f40); font-size: 1.6rem; }
+    .faq-section h2 { text-align: center; margin-bottom: 1rem; font-size: 1.65rem; }
+    .impacto-section p { margin: 0 auto 1.25rem; max-width: 680px; color: var(--muted-color, #5c534c); }
     .btn-contador-arboles {
       display: inline-flex;
       align-items: center;
       gap: 0.65rem;
-      background-color: var(--primary-color, var(--accent-primary, #2e6f40));
-      color: #ffffff;
+      background-color: var(--primary-color, #2e6f40);
+      color: #fff;
       text-decoration: none;
       padding: 0.85rem 1.45rem;
       border-radius: 999px;
@@ -139,10 +91,7 @@
       font-size: 1.05rem;
       transition: transform 0.15s ease, filter 0.15s ease;
     }
-    .btn-contador-arboles:hover {
-      transform: translateY(-1px);
-      filter: brightness(0.95);
-    }
+    .btn-contador-arboles:hover { transform: translateY(-1px); filter: brightness(0.95); }
     .contador-numero {
       display: inline-flex;
       align-items: center;
@@ -151,20 +100,18 @@
       height: 2rem;
       padding: 0 0.55rem;
       border-radius: 999px;
-      background-color: #ffffff;
-      color: var(--primary-color, var(--accent-primary, #2e6f40));
+      background-color: #fff;
+      color: var(--primary-color, #2e6f40);
       font-weight: 800;
       font-size: 1.1rem;
     }
     .impacto-media-box {
-      margin-top: 1.35rem;
+      margin: 1.35rem auto 0;
       background-color: var(--bg-box, #f6efe4);
       border: 1px solid var(--border-color, #e3dcd0);
       border-radius: 10px;
       padding: 1rem;
       max-width: 640px;
-      margin-left: auto;
-      margin-right: auto;
     }
     .impacto-media-box img {
       width: 100%;
@@ -180,38 +127,10 @@
       font-weight: 600;
       color: var(--text-main, #2b2623) !important;
     }
-    .faq-section {
-      background-color: var(--card-bg, var(--bg-card, #ffffff));
-      border: 1px solid var(--border-color, #e3dcd0);
-      border-radius: 12px;
-      padding: 1.75rem;
-      margin: 2rem auto;
-      max-width: 980px;
-    }
-    .faq-section h2 {
-      margin-top: 0;
-      margin-bottom: 1rem;
-      color: var(--primary-color, var(--accent-primary, #2e6f40));
-      text-align: center;
-      font-size: 1.65rem;
-    }
-    .faq-item {
-      border-bottom: 1px solid var(--border-color, #e3dcd0);
-      padding: 0.9rem 0;
-    }
-    .faq-item:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-    .faq-item h3 {
-      margin: 0 0 0.35rem;
-      color: var(--accent-warm, #b85d3b);
-      font-size: 1.08rem;
-    }
-    .faq-item p {
-      margin: 0;
-      color: var(--muted-color, var(--text-muted, #5c534c));
-    }
+    .faq-item { border-bottom: 1px solid var(--border-color, #e3dcd0); padding: 0.9rem 0; }
+    .faq-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .faq-item h3 { margin: 0 0 0.35rem; color: var(--accent-warm, #b85d3b); font-size: 1.08rem; }
+    .faq-item p { margin: 0; color: var(--muted-color, #5c534c); }
     .logo-fallback-badge {
       display: inline-block;
       margin-top: 0.35rem;
@@ -219,12 +138,11 @@
       border-radius: 999px;
       font-size: 0.78rem;
       font-weight: bold;
-      background-color: var(--card-bg, #ffffff);
-      color: var(--primary-color, var(--accent-primary, #2e6f40));
+      background-color: var(--card-bg, #fff);
+      color: var(--primary-color, #2e6f40);
       border: 1px solid var(--border-color, #e3dcd0);
     }
-    .medio-semanal-box img,
-    .medio-semanal-box video {
+    .medio-semanal-box img, .medio-semanal-box video {
       max-width: 100%;
       height: auto;
       border-radius: 8px;
@@ -244,9 +162,7 @@
     <a href="nosotros.html">Nosotros 👥</a>
     <a href="arboles.html">Bosque Virtual 🌳</a>
     <a href="resenas.html">Reseñas ⭐</a>
-    <button id="btnTema" type="button" class="btn-tema" aria-label="Alternar entre modo claro y oscuro">
-      🌙 Modo oscuro
-    </button>
+    <button id="btnTema" type="button" class="btn-tema" aria-label="Alternar entre modo claro y oscuro">🌙 Modo oscuro</button>
   </nav>
 
   <section class="showcase-semanal">
@@ -265,9 +181,7 @@
   <main class="container">
     <section class="hero">
       <h2>Arte Textil Artesanal con Propósito Ecológico</h2>
-      <p>
-        Creamos alfombras personalizadas mediante la técnica de <strong>tufting</strong>. Por cada pieza elaborada, impulsamos la siembra y el cuidado de un árbol registrado a tu nombre.
-      </p>
+      <p>Creamos alfombras personalizadas mediante la técnica de <strong>tufting</strong>. Por cada pieza elaborada, impulsamos la siembra y el cuidado de un árbol registrado a tu nombre.</p>
       <a href="nosotros.html" class="btn">Calcular Cotización Aproximada 🌱</a>
     </section>
 
@@ -276,35 +190,26 @@
       <div class="grid-cards">
         <article class="card">
           <h3>Diseño a Medida</h3>
-          <p>
-            Trabajamos desde bocetos, tipografías, mascotas, logos o ilustraciones para adaptar cada pieza a tus espacios.
-          </p>
+          <p>Trabajamos desde bocetos, tipografías, mascotas, logos o ilustraciones para adaptar cada pieza a tus espacios.</p>
         </article>
         <article class="card">
           <h3>Acabados Artesanales</h3>
-          <p>
-            Opciones de acabado limpio o tallado en relieve 3D (<em>carving</em>) para dar volumen y textura a cada detalle.
-          </p>
+          <p>Opciones de acabado limpio o tallado en relieve 3D (<em>carving</em>) para dar volumen y textura a cada detalle.</p>
         </article>
         <article class="card">
           <h3>Legado Verde</h3>
-          <p>
-            Cada compra conecta la calidez de tu hogar con la reforestación y el seguimiento de tu árbol en el bosque virtual, teniendo fotografías actualizadas cada mes.
-          </p>
+          <p>Cada compra conecta la calidez de tu hogar con la reforestación y el seguimiento de tu árbol en el bosque virtual, teniendo fotografías actualizadas cada mes.</p>
         </article>
       </div>
     </section>
 
     <section id="impacto-clientes" class="impacto-section">
       <h2>El impacto de nuestros clientes</h2>
-      <p>
-        Cada alfombra personalizada impulsa la reforestación y deja una huella viva que crece junto a nuestra comunidad.
-      </p>
+      <p>Cada alfombra personalizada impulsa la reforestación y deja una huella viva que crece junto a nuestra comunidad.</p>
       <a href="arboles.html" class="btn-contador-arboles">
         <span>🌳 Árboles sembrados</span>
         <span id="contadorArbolesSembrados" class="contador-numero">3</span>
       </a>
-
       <div id="imagenImpactoBox" class="impacto-media-box">
         <img id="imagenImpactoFirebase" src="" alt="Registro visual del impacto en árboles sembrados" style="display:none;" />
         <p id="estadoImagenImpacto" class="impacto-media-caption">Cargando imagen de impacto desde Firebase...</p>
@@ -313,9 +218,7 @@
 
     <section class="cotizador-cta">
       <h3>¿Quieres conocer un estimado de tu diseño?</h3>
-      <p>
-        En la pestaña <strong>Nosotros</strong> puedes combinar tamaño, tipo de boceto, forma y acabado para obtener una suma aproximada al instante.
-      </p>
+      <p>En la pestaña <strong>Nosotros</strong> puedes combinar tamaño, tipo de boceto, forma y acabado para obtener una suma aproximada al instante.</p>
       <a href="nosotros.html" class="btn btn-secundario">Ir al Cotizador Automático</a>
     </section>
 
@@ -323,45 +226,31 @@
       <h2>Preguntas Frecuentes</h2>
       <div class="faq-item">
         <h3>¿Cómo se limpia una alfombra personalizada?</h3>
-        <p>
-          Se recomienda aspirar suavemente de forma regular y limpiar manchas puntuales con un paño ligeramente húmedo y jabón o detergente suave, evitando sumergirla por completo en agua o usar blanqueadores agresivos y secado directo al sol fuerte.
-        </p>
+        <p>Se recomienda aspirar suavemente de forma regular y limpiar manchas puntuales con un paño ligeramente húmedo y jabón o detergente suave, evitando sumergirla por completo en agua o usar blanqueadores agresivos y secado directo al sol fuerte.</p>
       </div>
       <div class="faq-item">
         <h3>¿Son aptas para hogares con mascotas?</h3>
-        <p>
-          Sí, nuestras alfombras están pensadas para ser <strong>pet-friendly</strong> y convivir en hogares con mascotas, combinando tejido firme y mantenimiento práctico para el día a día.
-        </p>
+        <p>Sí, nuestras alfombras están pensadas para ser <strong>pet-friendly</strong> y convivir en hogares con mascotas, combinando tejido firme y mantenimiento práctico para el día a día.</p>
       </div>
       <div class="faq-item">
         <h3>¿Cómo funciona la política de pago?</h3>
-        <p>
-          Al confirmar tu cotización y diseño personalizado se solicita un abono inicial para dar inicio a la producción y el saldo restante al finalizar la confección y antes del envío o entrega.
-        </p>
+        <p>Al confirmar tu cotización y diseño personalizado se solicita un abono inicial para dar inicio a la producción y el saldo restante al finalizar la confección y antes del envío o entrega.</p>
       </div>
       <div class="faq-item">
         <h3>¿Qué pasa si no tengo un boceto terminado o solo tengo una idea?</h3>
-        <p>
-          No necesitas tener un archivo profesional: cuéntanos tu idea, muestra una referencia o foto y te orientamos sobre cómo adaptar el diseño antes de iniciar la producción.
-        </p>
+        <p>No necesitas tener un archivo profesional: cuéntanos tu idea, muestra una referencia o foto y te orientamos sobre cómo adaptar el diseño antes de iniciar la producción.</p>
       </div>
       <div class="faq-item">
         <h3>¿Cuáles son los tiempos estimados de confección?</h3>
-        <p>
-          El tiempo estimado depende del tamaño, nivel de detalle del diseño y tipo de acabado (incluyendo tallado 3D), variando habitualmente entre <strong>1 y 3 semanas</strong> tras aprobar el boceto y el abono inicial.
-        </p>
+        <p>El tiempo estimado depende del tamaño, nivel de detalle del diseño y tipo de acabado (incluyendo tallado 3D), variando habitualmente entre <strong>1 y 3 semanas</strong> tras aprobar el boceto y el abono inicial.</p>
       </div>
       <div class="faq-item">
         <h3>¿Cómo funciona la relación entre el acabado (limpio o relieve 3D / carving) y la sensación de la alfombra?</h3>
-        <p>
-          El acabado limpio ofrece una superficie uniforme y definida ideal para trazos o logos, mientras que el relieve 3D (carving) resalta contornos y aporta textura y volumen al tacto. Puedes comparar opciones en Nosotros o calcular un estimado rápido antes de pedir tu cotización.
-        </p>
+        <p>El acabado limpio ofrece una superficie uniforme y definida ideal para trazos o logos, mientras que el relieve 3D (carving) resalta contornos y aporta textura y volumen al tacto. Puedes comparar opciones en Nosotros o calcular un estimado rápido antes de pedir tu cotización.</p>
       </div>
       <div class="faq-item">
         <h3>¿Cómo puedo verificar que mi árbol quedó registrado después de encargar mi alfombra?</h3>
-        <p>
-          Cada pieza se vincula a un árbol protector con su código único (como los registros en Bosque Virtual 🌳) para que puedas consultar su seguimiento mes a mes y su certificado.
-        </p>
+        <p>Cada pieza se vincula a un árbol protector con su código único (como los registros en Bosque Virtual 🌳) para que puedas consultar su seguimiento mes a mes y su certificado.</p>
       </div>
     </section>
   </main>
@@ -369,48 +258,30 @@
   <footer>
     <h3>Síguenos en Redes Sociales</h3>
     <div class="social-links">
-      <a href="https://www.tiktok.com/@tuftingsolidario" target="_blank" rel="noopener noreferrer" class="social-link">
-        🎵 TikTok
-      </a>
-      <a href="https://www.instagram.com/tuftingsolidario" target="_blank" rel="noopener noreferrer" class="social-link">
-        📸 Instagram
-      </a>
-      <a href="https://www.facebook.com/tuftingsolidario" target="_blank" rel="noopener noreferrer" class="social-link">
-        📘 Facebook
-      </a>
+      <a href="https://www.tiktok.com/@tuftingsolidario" target="_blank" rel="noopener noreferrer" class="social-link">🎵 TikTok</a>
+      <a href="https://www.instagram.com/tuftingsolidario" target="_blank" rel="noopener noreferrer" class="social-link">📸 Instagram</a>
+      <a href="https://www.facebook.com/tuftingsolidario" target="_blank" rel="noopener noreferrer" class="social-link">📘 Facebook</a>
     </div>
-    <p class="footer-copy">
-      &copy; 2026 · tuftingsolidario · Cuidando el planeta, un hogar a la vez.
-    </p>
+    <p class="footer-copy">&copy; 2026 · tuftingsolidario · Cuidando el planeta, un hogar a la vez.</p>
   </footer>
 
   <script>
-    (function () {
+    (() => {
       const STORAGE_KEY = "ecolegado_theme";
       const rootEl = document.documentElement;
       const btnTema = document.getElementById("btnTema");
-
-      function aplicarTema(tema) {
-        if (tema === "dark") {
-          rootEl.setAttribute("data-theme", "dark");
-          if (btnTema) btnTema.textContent = "☀️ Modo claro";
-        } else {
-          rootEl.removeAttribute("data-theme");
-          if (btnTema) btnTema.textContent = "🌙 Modo oscuro";
-        }
-      }
-
-      const temaGuardado = localStorage.getItem(STORAGE_KEY) || "light";
-      aplicarTema(temaGuardado);
-
-      if (btnTema) {
-        btnTema.addEventListener("click", function () {
-          const esOscuro = rootEl.getAttribute("data-theme") === "dark";
-          const siguienteTema = esOscuro ? "light" : "dark";
-          localStorage.setItem(STORAGE_KEY, siguienteTema);
-          aplicarTema(siguienteTema);
-        });
-      }
+      const aplicarTema = (tema) => {
+        const dark = tema === "dark";
+        rootEl.toggleAttribute("data-theme", dark);
+        if (dark) rootEl.setAttribute("data-theme", "dark");
+        if (btnTema) btnTema.textContent = dark ? "☀️ Modo claro" : "🌙 Modo oscuro";
+      };
+      aplicarTema(localStorage.getItem(STORAGE_KEY) || "light");
+      btnTema?.addEventListener("click", () => {
+        const siguiente = rootEl.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        localStorage.setItem(STORAGE_KEY, siguiente);
+        aplicarTema(siguiente);
+      });
     })();
   </script>
 
@@ -431,9 +302,9 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-
     const VIDEO_SEMANAL_LOCAL = "video-semanal.mp4";
     const STORAGE_BUCKET_URL = "https://firebasestorage.googleapis.com/v0/b/ecolegado-21e65.firebasestorage.app/o/";
+
     const medioBox = document.getElementById("medioSemanalBox");
     const logoImg = document.getElementById("logoEstatico");
     const logoEstado = document.getElementById("logoEstado");
@@ -441,23 +312,17 @@
     const estadoImgImpacto = document.getElementById("estadoImagenImpacto");
     let logoCargadoOk = false;
 
-    function escapeHTML(str) {
-      return String(str || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-    }
+    const escapeHTML = (str) => String(str || "")
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#039;");
 
     if (logoImg) {
-      logoImg.addEventListener("load", function () {
+      logoImg.addEventListener("load", () => {
         logoCargadoOk = true;
         logoImg.style.display = "block";
         if (logoEstado) logoEstado.style.display = "none";
       });
-
-      logoImg.addEventListener("error", function () {
+      logoImg.addEventListener("error", () => {
         if (!logoCargadoOk) {
           logoImg.style.display = "none";
           if (logoEstado) {
@@ -468,202 +333,151 @@
       });
     }
 
-    function extraerIdDrive(urlStr) {
+    const extraerIdDrive = (urlStr) => {
       const limpia = (urlStr || "").trim();
       if (!limpia) return "";
-
       const patrones = [
         /drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/,
         /drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/,
         /lh3\.googleusercontent\.com\/d\/([a-zA-Z0-9_-]+)/,
         /[?&]id=([a-zA-Z0-9_-]+)/
       ];
-
-      for (const patron of patrones) {
-        const match = limpia.match(patron);
-        if (match && match[1]) return match[1];
+      for (const p of patrones) {
+        const m = limpia.match(p);
+        if (m?.[1]) return m[1];
       }
       return "";
-    }
+    };
 
-    function resolverUrlImagenFirebase(rawVal) {
-      const limpia = (rawVal || "").trim();
-      if (!limpia) return "";
-      if (/^https?:\/\//i.test(limpia)) {
-        return normalizarUrlDriveImagen(limpia);
-      }
-      const rutaSinSlash = limpia.replace(/^\/+/, "");
-      return `${STORAGE_BUCKET_URL}${encodeURIComponent(rutaSinSlash)}?alt=media`;
-    }
-
-    function normalizarUrlDriveImagen(urlStr) {
+    const normalizarUrlDriveImagen = (urlStr) => {
       const limpia = (urlStr || "").trim();
       if (!limpia) return "";
-
       const id = extraerIdDrive(limpia);
-      if (id && (limpia.includes("drive.google.com") || limpia.includes("googleusercontent.com"))) {
-        return `https://lh3.googleusercontent.com/d/${id}`;
-      }
-      return limpia;
-    }
+      return id && (limpia.includes("drive.google.com") || limpia.includes("googleusercontent.com"))
+        ? `https://lh3.googleusercontent.com/d/${id}`
+        : limpia;
+    };
 
-    function convertirYouTubeEmbed(urlStr) {
+    const resolverUrlImagenFirebase = (rawVal) => {
+      const limpia = (rawVal || "").trim();
+      if (!limpia) return "";
+      if (/^https?:\/\//i.test(limpia)) return normalizarUrlDriveImagen(limpia);
+      return `${STORAGE_BUCKET_URL}${encodeURIComponent(limpia.replace(/^\/+/, ""))}?alt=media`;
+    };
+
+    const convertirYouTubeEmbed = (urlStr) => {
       try {
         const u = new URL(urlStr);
-        let videoId = "";
+        let id = "";
         if (u.hostname.includes("youtube.com")) {
-          if (u.searchParams.get("v")) videoId = u.searchParams.get("v");
-          else if (u.pathname.includes("/embed/")) videoId = u.pathname.split("/embed/")[1].split("/")[0];
-          else if (u.pathname.includes("/shorts/")) videoId = u.pathname.split("/shorts/")[1].split("/")[0];
+          id = u.searchParams.get("v")
+            || u.pathname.split("/embed/")[1]?.split("/")[0]
+            || u.pathname.split("/shorts/")[1]?.split("/")[0]
+            || "";
         } else if (u.hostname.includes("youtu.be")) {
-          videoId = u.pathname.replace("/", "").split("/")[0];
+          id = u.pathname.replace("/", "").split("/")[0];
         }
-        if (videoId) {
-          return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1`;
-        }
-      } catch (_) {}
-      return urlStr;
-    }
-
-    function resolverUrlVideo(urlStr) {
-      const limpia = (urlStr || "").trim() || VIDEO_SEMANAL_LOCAL;
-      const idDrive = limpia.includes("drive.google.com") ? extraerIdDrive(limpia) : "";
-      if (idDrive) {
-        return {
-          modo: "iframe",
-          src: `https://drive.google.com/file/d/${idDrive}/preview?autoplay=1&mute=1`
-        };
+        return id ? `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&playsinline=1` : urlStr;
+      } catch {
+        return urlStr;
       }
-      return {
-        modo: "video",
-        src: limpia
-      };
-    }
+    };
 
-    function activarAutoplayVideo() {
-      if (!medioBox) return;
-      const videoEl = medioBox.querySelector("video");
+    const activarAutoplayVideo = () => {
+      const videoEl = medioBox?.querySelector("video");
       if (!videoEl) return;
-
       videoEl.muted = true;
       videoEl.defaultMuted = true;
       videoEl.playsInline = true;
+      const playSafe = () => videoEl.play()?.catch(() => {});
+      if (videoEl.readyState >= 2) playSafe();
+      else videoEl.addEventListener("canplay", playSafe, { once: true });
+    };
 
-      const reproducir = () => {
-        const promesa = videoEl.play();
-        if (promesa && typeof promesa.catch === "function") {
-          promesa.catch(() => {});
-        }
-      };
-
-      if (videoEl.readyState >= 2) {
-        reproducir();
-      } else {
-        videoEl.addEventListener("canplay", reproducir, { once: true });
-      }
-    }
-
-    function renderizarVideoLocal(titulo) {
+    const renderizarVideoLocal = (titulo) => {
       if (!medioBox) return;
-      const tituloSeguro = escapeHTML(titulo || "Destacado semanal");
+      const seguro = escapeHTML(titulo || "Destacado semanal");
       medioBox.innerHTML = `
-        <video id="videoSemanalLocal" src="${VIDEO_SEMANAL_LOCAL}" controls autoplay muted loop playsinline preload="auto" onerror="this.outerHTML='<p>No se pudo reproducir <strong>video-semanal.mp4</strong>. Verifica que el archivo exista en la raíz del repositorio y sea un MP4 válido.</p>';"></video>
-        ${titulo ? `<p class="medio-titulo">${tituloSeguro}</p>` : ""}
+        <video id="videoSemanalLocal" src="${VIDEO_SEMANAL_LOCAL}" controls autoplay muted loop playsinline preload="auto" onerror="this.outerHTML='<p>No se pudo reproducir <strong>video-semanal.mp4</strong>.</p>';"></video>
+        ${titulo ? `<p class="medio-titulo">${seguro}</p>` : ""}
       `;
       activarAutoplayVideo();
-    }
+    };
 
     async function cargarImagenImpacto() {
       if (!imgImpacto || !estadoImgImpacto) return;
-
       try {
-        let dataImpacto = null;
-        const snapArbolesImpacto = await getDoc(doc(db, "arboles", "impacto"));
-        if (snapArbolesImpacto.exists()) {
-          dataImpacto = snapArbolesImpacto.data();
-        } else {
-          const snapConfigImpacto = await getDoc(doc(db, "configuracion", "impacto"));
-          if (snapConfigImpacto.exists()) {
-            dataImpacto = snapConfigImpacto.data();
-          }
+        const snapArbol = await getDoc(doc(db, "arboles", "impacto"));
+        const snapConfig = snapArbol.exists() ? null : await getDoc(doc(db, "configuracion", "impacto"));
+        const data = snapArbol.exists() ? snapArbol.data() : (snapConfig?.exists() ? snapConfig.data() : null);
+
+        if (!data) {
+          imgImpacto.style.display = "none";
+          estadoImgImpacto.textContent = "Aún no hay registro en arboles/impacto.";
+          return;
         }
 
-        const rawFuente =
-          (dataImpacto && (dataImpacto.imagen || dataImpacto.imagenUrl || dataImpacto.url || dataImpacto.storagePath)) ||
-          "arboles/impacto.jpg";
+        const rawFuente = data.imagen || data.imagenUrl || data.foto || data.fotoUrl || data.url || data.storagePath || "";
         const urlFinal = resolverUrlImagenFirebase(rawFuente);
-        const leyenda = (dataImpacto && (dataImpacto.titulo || dataImpacto.descripcion)) || "Árboles sembrados · Legado EcoLegado";
+        if (!urlFinal) {
+          imgImpacto.style.display = "none";
+          estadoImgImpacto.textContent = "El documento arboles/impacto no tiene un campo de imagen válido.";
+          return;
+        }
 
-        imgImpacto.onload = function () {
+        const leyenda = data.titulo || data.descripcion || data.caption || "Árboles sembrados · Legado EcoLegado";
+        imgImpacto.onload = () => {
           imgImpacto.style.display = "block";
           estadoImgImpacto.textContent = leyenda;
         };
-
-        imgImpacto.onerror = function () {
+        imgImpacto.onerror = () => {
           imgImpacto.style.display = "none";
-          estadoImgImpacto.textContent = "Imagen de impacto en preparación desde Firebase (arboles/impacto).";
+          estadoImgImpacto.textContent = "No se pudo descargar la imagen desde Firebase (revisa URL o permisos).";
         };
-
         imgImpacto.src = urlFinal;
       } catch (err) {
+        console.error("Error cargando arboles/impacto:", err);
         imgImpacto.style.display = "none";
-        estadoImgImpacto.textContent = "No se pudo cargar la imagen de impacto desde Firebase.";
+        estadoImgImpacto.textContent = "Error al consultar arboles/impacto en Firestore.";
       }
     }
 
     async function cargarDestacadoYLogo() {
       try {
         const snap = await getDoc(doc(db, "configuracion", "destacado_semanal"));
-        if (!snap.exists()) {
-          renderizarVideoLocal("");
-          return;
-        }
+        if (!snap.exists()) return renderizarVideoLocal("");
 
         const data = snap.data();
-        const urlLogoNorm = normalizarUrlDriveImagen(data.logoUrl);
-        if (urlLogoNorm && /^https?:\/\//i.test(urlLogoNorm) && logoImg) {
+        const urlLogo = normalizarUrlDriveImagen(data.logoUrl);
+        if (urlLogo && /^https?:\/\//i.test(urlLogo) && logoImg) {
           logoImg.style.display = "block";
-          logoImg.src = urlLogoNorm;
+          logoImg.src = urlLogo;
         }
 
         const rawUrl = (data.imagen || data.imagenUrl || data.url || data.videoUrl || "").trim();
-        if (!rawUrl || data.tipo === "video-local") {
-          renderizarVideoLocal(data.titulo || "");
-          return;
-        }
+        if (!rawUrl || data.tipo === "video-local") return renderizarVideoLocal(data.titulo || "");
 
+        const seguro = escapeHTML(data.titulo || "Destacado semanal");
         const esYouTube = rawUrl.includes("youtube.com") || rawUrl.includes("youtu.be") || data.tipo === "youtube";
-        const esVideo =
-          data.tipo === "video" ||
-          data.tipo === "mp4" ||
-          /\.(mp4|webm|ogg|mov)(\?|$)/i.test(rawUrl) ||
-          rawUrl.includes("drive.google.com");
+        const esVideo = data.tipo === "video" || data.tipo === "mp4" || /\.(mp4|webm|ogg|mov)(\?|$)/i.test(rawUrl) || rawUrl.includes("drive.google.com");
         let medioHtml = "";
-        const tituloSeguro = escapeHTML(data.titulo || "Destacado semanal");
 
         if (esYouTube) {
-          const embedUrl = escapeHTML(convertirYouTubeEmbed(rawUrl));
-          medioHtml = `<iframe src="${embedUrl}" title="${tituloSeguro}" style="width:100%;aspect-ratio:16/9;border:0;border-radius:8px;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+          medioHtml = `<iframe src="${escapeHTML(convertirYouTubeEmbed(rawUrl))}" title="${seguro}" style="width:100%;aspect-ratio:16/9;border:0;border-radius:8px;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
         } else if (esVideo) {
-          const resuelto = resolverUrlVideo(rawUrl);
-          if (resuelto.modo === "iframe") {
-            medioHtml = `<iframe src="${escapeHTML(resuelto.src)}" title="${tituloSeguro}" style="width:100%;aspect-ratio:16/9;border:0;border-radius:8px;" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-          } else {
-            medioHtml = `<video src="${escapeHTML(resuelto.src)}" controls autoplay muted loop playsinline preload="auto" onerror="this.outerHTML='<p>No se pudo reproducir el video. Verifica que el enlace sea un .mp4/.webm público o usa video-semanal.mp4.</p>';"></video>`;
-          }
+          const idDrive = rawUrl.includes("drive.google.com") ? extraerIdDrive(rawUrl) : "";
+          medioHtml = idDrive
+            ? `<iframe src="https://drive.google.com/file/d/${idDrive}/preview?autoplay=1&mute=1" title="${seguro}" style="width:100%;aspect-ratio:16/9;border:0;border-radius:8px;" allow="autoplay; encrypted-media" allowfullscreen></iframe>`
+            : `<video src="${escapeHTML(rawUrl)}" controls autoplay muted loop playsinline preload="auto" onerror="this.outerHTML='<p>No se pudo reproducir el video.</p>';"></video>`;
         } else {
-          const imgUrl = escapeHTML(normalizarUrlDriveImagen(rawUrl));
-          medioHtml = `<img src="${imgUrl}" alt="${tituloSeguro}" onerror="this.outerHTML='<p>No se pudo mostrar la imagen. Revisa que el archivo en Drive sea público o usa un enlace directo de imagen.</p>';" />`;
+          medioHtml = `<img src="${escapeHTML(normalizarUrlDriveImagen(rawUrl))}" alt="${seguro}" onerror="this.outerHTML='<p>No se pudo mostrar la imagen.</p>';" />`;
         }
 
         if (medioBox) {
-          medioBox.innerHTML = `
-            ${medioHtml}
-            ${data.titulo ? `<p class="medio-titulo">${tituloSeguro}</p>` : ""}
-          `;
+          medioBox.innerHTML = `${medioHtml}${data.titulo ? `<p class="medio-titulo">${seguro}</p>` : ""}`;
           activarAutoplayVideo();
         }
-      } catch (e) {
+      } catch {
         renderizarVideoLocal("");
       }
     }

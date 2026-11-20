@@ -119,6 +119,14 @@
       margin-bottom: 1.6rem;
     }
 
+    .titulo-cotizador {
+      text-align: center;
+      color: var(--primary-color);
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.65rem;
+    }
+
     .badge-eco {
       display: inline-block;
       background-color: var(--badge-fondo);
@@ -162,24 +170,75 @@
     .contenedor-imagen-precios {
       margin: 0.9rem 0 1.25rem;
       border-radius: 10px;
-      overflow: hidden;
       border: 1px solid var(--borde-suave);
       background-color: var(--fondo-suave);
       text-align: center;
-      padding: 0.6rem;
+      padding: 0.65rem;
     }
 
-    .contenedor-imagen-precios img {
+    .marco-lupa {
+      position: relative;
+      display: inline-block;
+      max-width: 100%;
+      overflow: hidden;
+      border-radius: 8px;
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    .marco-lupa img {
       display: block;
-      width: 100%;
+      max-width: 100%;
+      width: auto;
       max-height: 480px;
+      height: auto;
       object-fit: contain;
       margin: 0 auto;
       border-radius: 8px;
+      user-select: none;
+    }
+
+    .lupa-circulo {
+      position: absolute;
+      width: 165px;
+      height: 165px;
+      border-radius: 50%;
+      border: 3px solid var(--primary-color);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), inset 0 0 0 2px #ffffff;
+      pointer-events: none;
+      display: none;
+      background-repeat: no-repeat;
+      z-index: 10;
+    }
+
+    .barra-lupa {
+      margin-top: 0.55rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+
+    .btn-lupa {
+      background-color: transparent;
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+      border-radius: 999px;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.85rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn-lupa.activa,
+    .btn-lupa:hover {
+      background-color: var(--primary-color);
+      color: #ffffff;
     }
 
     .estado-guia-precios {
-      margin: 0.5rem 0 0;
+      margin: 0;
       font-size: 0.9rem;
       font-weight: 600;
       color: var(--text-color);
@@ -341,17 +400,22 @@
     </section>
 
     <section id="cotizador" class="card">
-      <h2>Cotizador Automático de Alfombra Personalizada</h2>
+      <h2 class="titulo-cotizador">Cotizador Automático de Alfombra Personalizada</h2>
 
-      <!-- Imagen anclada al documento configuracion/Precios en Firebase antes del cotizador -->
       <div id="cajaImagenPrecios" class="contenedor-imagen-precios">
-        <img
-          id="imgGuiaPrecios"
-          src=""
-          alt="Guía visual de tamaños y precios de alfombras personalizadas"
-          style="display:none;"
-        />
-        <p id="estadoGuiaPrecios" class="estado-guia-precios">Cargando imagen de guía de precios...</p>
+        <div id="marcoLupaPrecios" class="marco-lupa">
+          <img
+            id="imgGuiaPrecios"
+            src=""
+            alt="Guía visual de tamaños y precios de alfombras personalizadas"
+            style="display:none;"
+          />
+          <div id="lupaPrecios" class="lupa-circulo" aria-hidden="true"></div>
+        </div>
+        <div class="barra-lupa">
+          <p id="estadoGuiaPrecios" class="estado-guia-precios">Cargando imagen de guía de precios...</p>
+          <button type="button" id="btnToggleLupa" class="btn-lupa">🔍 Lupa activa</button>
+        </div>
       </div>
 
       <p>
@@ -494,6 +558,58 @@
       });
 
       calcularPrecioAproximado();
+
+      // Función de lupa sobre la imagen de precios
+      const marcoLupa = document.getElementById("marcoLupaPrecios");
+      const imgGuia = document.getElementById("imgGuiaPrecios");
+      const lupa = document.getElementById("lupaPrecios");
+      const btnToggleLupa = document.getElementById("btnToggleLupa");
+      const ZOOM = 2.2;
+      let lupaHabilitada = true;
+
+      btnToggleLupa?.addEventListener("click", () => {
+        lupaHabilitada = !lupaHabilitada;
+        btnToggleLupa.classList.toggle("activa", lupaHabilitada);
+        btnToggleLupa.textContent = lupaHabilitada ? "🔍 Lupa activa" : "🔍 Activar lupa";
+        if (!lupaHabilitada && lupa) lupa.style.display = "none";
+      });
+
+      const moverLupa = (clientX, clientY) => {
+        if (!lupaHabilitada || !imgGuia || !lupa || imgGuia.style.display === "none") return;
+        const rect = imgGuia.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+
+        if (x < 0 || y < 0 || x > rect.width || y > rect.height) {
+          lupa.style.display = "none";
+          return;
+        }
+
+        const radio = lupa.offsetWidth / 2;
+        lupa.style.display = "block";
+        lupa.style.left = `${x - radio}px`;
+        lupa.style.top = `${y - radio}px`;
+        lupa.style.backgroundImage = `url("${imgGuia.currentSrc || imgGuia.src}")`;
+        lupa.style.backgroundSize = `${rect.width * ZOOM}px ${rect.height * ZOOM}px`;
+        const bgX = -(x * ZOOM - radio);
+        const bgY = -(y * ZOOM - radio);
+        lupa.style.backgroundPosition = `${bgX}px ${bgY}px`;
+      };
+
+      marcoLupa?.addEventListener("mousemove", (e) => moverLupa(e.clientX, e.clientY));
+      marcoLupa?.addEventListener("mouseleave", () => {
+        if (lupa) lupa.style.display = "none";
+      });
+      marcoLupa?.addEventListener("touchmove", (e) => {
+        if (e.touches[0]) {
+          moverLupa(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      }, { passive: true });
+      marcoLupa?.addEventListener("touchend", () => {
+        if (lupa) lupa.style.display = "none";
+      });
     })();
   </script>
 

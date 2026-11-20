@@ -169,7 +169,7 @@
     <div class="showcase-grid">
       <div class="logo-fijo-box">
         <img id="logoEstatico" src="logo-ecolegado.png" alt="Logo estático de Tuftinsolidario" class="logo-estatico" />
-        <p class="logo-etiqueta">Tuftinsolidario · EcoLegado</p>
+        <p class="logo-etiqueta"> Escribenos para contactar a un asesor </p>
         <span id="logoEstado" class="logo-fallback-badge">🌱 Legado Artesanal</span>
       </div>
       <div id="medioSemanalBox" class="medio-semanal-box">
@@ -208,7 +208,7 @@
       <p>Cada alfombra personalizada impulsa la reforestación y deja una huella viva que crece junto a nuestra comunidad.</p>
       <a href="https://tuftingsolidario.github.io/arboles.html" class="btn-contador-arboles">
         <span>🌳 Árboles sembrados</span>
-        <span id="contadorArbolesSembrados" class="contador-numero">3</span>
+        <span id="contadorArbolesSembrados" class="contador-numero">1</span>
       </a>
       <div id="imagenImpactoBox" class="impacto-media-box">
         <img id="imagenImpactoFirebase" src="" alt="Registro visual del impacto en árboles sembrados" style="display:none;" />
@@ -426,7 +426,7 @@
           return;
         }
 
-        const leyenda = data.titulo || data.descripcion || data.caption || "Árboles sembrados · Legado EcoLegado";
+        const leyenda = data.titulo || data.descripcion || data.caption || "Este mes el envio es gratis · @Tuftinsolidario";
         imgImpacto.onload = () => {
           imgImpacto.style.display = "block";
           estadoImgImpacto.textContent = leyenda;

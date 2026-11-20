@@ -12,6 +12,7 @@
       --bg-color: #fbf7f0;
       --text-color: #2b2623;
       --nav-bg: #225430;
+      --footer-bg: #1a3f25;
       --color-tarjeta: #ffffff;
       --borde-suave: #e3dcd0;
       --fondo-suave: #f6efe4;
@@ -27,6 +28,7 @@
       --bg-color: #141916;
       --text-color: #f2efe9;
       --nav-bg: #102417;
+      --footer-bg: #0c1b11;
       --color-tarjeta: #222722;
       --borde-suave: #384038;
       --fondo-suave: #2b312b;
@@ -264,6 +266,8 @@
 
     select,
     input[type="text"],
+    input[type="email"],
+    input[type="tel"],
     textarea {
       width: 100%;
       padding: 0.65rem;
@@ -334,6 +338,166 @@
       font-size: 0.94rem;
       color: var(--primary-color);
       font-weight: bold;
+    }
+
+    footer {
+      background: linear-gradient(135deg, var(--nav-bg), var(--footer-bg));
+      color: #ffffff;
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 2rem;
+    }
+
+    footer h3 {
+      margin: 0 0 0.85rem;
+      font-size: 1.15rem;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .social-link {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 0.45rem 0.9rem;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      border-radius: 999px;
+      background-color: rgba(255, 255, 255, 0.08);
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .social-link:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .social-link.aumi-link {
+      background-color: var(--accent-warm);
+      border-color: transparent;
+    }
+
+    .social-link.aumi-link:hover {
+      filter: brightness(1.08);
+    }
+
+    .footer-copy {
+      margin: 0;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    /* Ventana flotante de cupón 40% */
+    .modal-cupon-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.58);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      z-index: 999;
+    }
+
+    .modal-cupon-backdrop.abierto {
+      display: flex;
+    }
+
+    .modal-cupon-caja {
+      position: relative;
+      width: 100%;
+      max-width: 440px;
+      background-color: var(--color-tarjeta);
+      color: var(--text-color);
+      border: 1px solid var(--borde-suave);
+      border-radius: 16px;
+      padding: 1.6rem;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+      animation: aparecerModal 0.22s ease;
+    }
+
+    @keyframes aparecerModal {
+      from { opacity: 0; transform: translateY(10px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .btn-cerrar-modal {
+      position: absolute;
+      top: 0.85rem;
+      right: 0.85rem;
+      background: transparent;
+      border: 1px solid var(--borde-suave);
+      color: var(--text-color);
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn-cerrar-modal:hover {
+      background-color: var(--fondo-suave);
+    }
+
+    .tag-descuento {
+      display: inline-block;
+      background-color: var(--accent-warm);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      margin-bottom: 0.55rem;
+    }
+
+    .modal-cupon-caja h3 {
+      margin: 0 0 0.45rem;
+      color: var(--primary-color);
+      font-size: 1.45rem;
+    }
+
+    .modal-cupon-caja p {
+      margin: 0 0 1rem;
+      font-size: 0.95rem;
+    }
+
+    .modal-campos {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .estado-cupon {
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      min-height: 1.2rem;
+    }
+
+    .btn-flotante-cupon {
+      position: fixed;
+      right: 1.15rem;
+      bottom: 1.15rem;
+      background-color: var(--accent-warm);
+      color: #ffffff;
+      border: none;
+      border-radius: 999px;
+      padding: 0.7rem 1.05rem;
+      font-weight: bold;
+      font-size: 0.9rem;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      z-index: 900;
+    }
+
+    .btn-flotante-cupon:hover {
+      filter: brightness(1.06);
     }
   </style>
 </head>
@@ -486,6 +650,53 @@
     </section>
   </main>
 
+  <footer>
+    <h3>Síguenos en Redes Sociales y Proyectos</h3>
+    <div class="social-links">
+      <a href="https://www.tiktok.com/@tuftingsolidario" target="_blank" rel="noopener noreferrer" class="social-link">
+        🎵 TikTok
+      </a>
+      <a href="https://www.instagram.com/tuftingsolidario" target="_blank" rel="noopener noreferrer" class="social-link">
+        📸 Instagram
+      </a>
+      <a href="https://www.facebook.com/tuftingsolidario" target="_blank" rel="noopener noreferrer" class="social-link">
+        📘 Facebook
+      </a>
+      <a href="https://aumi.github.io/" target="_blank" rel="noopener noreferrer" class="social-link aumi-link">
+        🍳 AUMI (aumi.github.io)
+      </a>
+    </div>
+    <p class="footer-copy">
+      &copy; 2026 · tuftingsolidario · Cuidando el planeta, un hogar a la vez.
+    </p>
+  </footer>
+
+  <!-- Ventana flotante de cupón 40% por primera compra -->
+  <div id="modalCupon" class="modal-cupon-backdrop" role="dialog" aria-modal="true" aria-labelledby="tituloModalCupon">
+    <div class="modal-cupon-caja">
+      <button type="button" id="btnCerrarCupon" class="btn-cerrar-modal" aria-label="Cerrar ventana de cupón">✕</button>
+      <span class="tag-descuento">🎁 40% DE DESCUENTO · PRIMERA COMPRA</span>
+      <h3 id="tituloModalCupon">¡Llévate un 40% OFF en tu primera alfombra!</h3>
+      <p>
+        Déjanos tu correo o teléfono y te enviaremos tu cupón del 40% por primera compra junto con el registro de tu árbol protector.
+      </p>
+      <form id="formCupon" class="modal-campos">
+        <div class="campo">
+          <label for="correoCupon">Correo electrónico</label>
+          <input type="email" id="correoCupon" placeholder="tucorreo@ejemplo.com" />
+        </div>
+        <div class="campo">
+          <label for="telefonoCupon">Teléfono o WhatsApp</label>
+          <input type="tel" id="telefonoCupon" placeholder="Ej. +57 300 000 0000" />
+        </div>
+        <button type="submit" id="btnEnviarCupon" class="btn-enviar">Quiero mi cupón del 40%</button>
+      </form>
+      <div id="estadoCupon" class="estado-cupon"></div>
+    </div>
+  </div>
+
+  <button type="button" id="btnAbrirCupon" class="btn-flotante-cupon">🎁 40% OFF Primera Compra</button>
+
   <script>
     (() => {
       const CLAVE_TEMA = "ecolegado_theme";
@@ -534,10 +745,10 @@
       };
 
       const generarResumenTexto = (total) => {
-        const tamanoTexto = document.getElementById("tamano").selectedOptions[0].text;
-        const imagenTexto = document.getElementById("tipoImagen").selectedOptions[0].text;
-        const formaTexto = document.getElementById("forma").selectedOptions[0].text;
-        const acabadoTexto = document.getElementById("acabado").selectedOptions[0].text;
+        const tamanoTexto = document.getElementById("tamano")?.selectedOptions?.[0]?.text || "";
+        const imagenTexto = document.getElementById("tipoImagen")?.selectedOptions?.[0]?.text || "";
+        const formaTexto = document.getElementById("forma")?.selectedOptions?.[0]?.text || "";
+        const acabadoTexto = document.getElementById("acabado")?.selectedOptions?.[0]?.text || "";
         const notaExtra = notasDiseno?.value.trim() ? ` · Notas: "${notasDiseno.value.trim()}"` : "";
         return `Cotización lista (${formatearCOP(total)}): ${tamanoTexto} · ${imagenTexto} · ${formaTexto} · ${acabadoTexto}${notaExtra}.`;
       };
@@ -559,7 +770,6 @@
 
       calcularPrecioAproximado();
 
-      // Función de lupa sobre la imagen de precios
       const marcoLupa = document.getElementById("marcoLupaPrecios");
       const imgGuia = document.getElementById("imgGuiaPrecios");
       const lupa = document.getElementById("lupaPrecios");
@@ -610,12 +820,40 @@
       marcoLupa?.addEventListener("touchend", () => {
         if (lupa) lupa.style.display = "none";
       });
+
+      // Control visual de ventana flotante del cupón
+      const modalCupon = document.getElementById("modalCupon");
+      const btnAbrirCupon = document.getElementById("btnAbrirCupon");
+      const btnCerrarCupon = document.getElementById("btnCerrarCupon");
+
+      const abrirModal = () => modalCupon?.classList.add("abierto");
+      const cerrarModal = () => modalCupon?.classList.remove("abierto");
+
+      btnAbrirCupon?.addEventListener("click", abrirModal);
+      btnCerrarCupon?.addEventListener("click", cerrarModal);
+      modalCupon?.addEventListener("click", (e) => {
+        if (e.target === modalCupon) cerrarModal();
+      });
+
+      if (!sessionStorage.getItem("ecolegado_cupon_mostrado")) {
+        setTimeout(() => {
+          abrirModal();
+          sessionStorage.setItem("ecolegado_cupon_mostrado", "1");
+        }, 1800);
+      }
     })();
   </script>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+    import {
+      getFirestore,
+      doc,
+      getDoc,
+      collection,
+      addDoc,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDt8rNOONVBbJUIXT0MYHAHm6bbV9sZ1mk",
@@ -701,6 +939,63 @@
     }
 
     cargarImagenPreciosFirebase();
+
+    // Guardar solicitud de cupón del 40% en la colección solicitudes_cupones
+    const formCupon = document.getElementById("formCupon");
+    const correoCupon = document.getElementById("correoCupon");
+    const telefonoCupon = document.getElementById("telefonoCupon");
+    const estadoCupon = document.getElementById("estadoCupon");
+    const btnEnviarCupon = document.getElementById("btnEnviarCupon");
+
+    formCupon?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const correo = correoCupon?.value.trim() || "";
+      const telefono = telefonoCupon?.value.trim() || "";
+
+      if (!correo && !telefono) {
+        if (estadoCupon) {
+          estadoCupon.style.color = "var(--accent-warm)";
+          estadoCupon.textContent = "Ingresa al menos tu correo electrónico o tu teléfono para recibir el cupón.";
+        }
+        return;
+      }
+
+      const canalEnvio = correo && telefono ? "correo_y_telefono" : (correo ? "correo" : "telefono");
+
+      if (btnEnviarCupon) btnEnviarCupon.disabled = true;
+      if (estadoCupon) {
+        estadoCupon.style.color = "var(--text-color)";
+        estadoCupon.textContent = "Guardando tu solicitud de cupón del 40%...";
+      }
+
+      try {
+        await addDoc(collection(db, "solicitudes_cupones"), {
+          correo,
+          telefono,
+          canalEnvio,
+          descuentoPorcentaje: 40,
+          motivo: "primera_compra",
+          origen: "nosotros.html",
+          creadoEn: serverTimestamp()
+        });
+
+        if (estadoCupon) {
+          estadoCupon.style.color = "var(--primary-color)";
+          estadoCupon.textContent =
+            "¡Listo! Registramos tu solicitud del 40% de descuento por primera compra y te lo enviaremos pronto.";
+        }
+        formCupon.reset();
+      } catch (error) {
+        console.error("Error al guardar en solicitudes_cupones:", error);
+        if (estadoCupon) {
+          estadoCupon.style.color = "var(--accent-warm)";
+          estadoCupon.textContent =
+            "No se pudo guardar la solicitud. Revisa las reglas de escritura en Firestore para solicitudes_cupones.";
+        }
+      } finally {
+        if (btnEnviarCupon) btnEnviarCupon.disabled = false;
+      }
+    });
   </script>
 </body>
 </html>

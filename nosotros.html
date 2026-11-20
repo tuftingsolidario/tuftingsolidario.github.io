@@ -6,11 +6,12 @@
   <title>Nosotros y Cotizador | Tuftingsolidario</title>
   <style>
     :root {
-      --fondo-principal: #fbf7f0;
-      --color-texto: #2b2623;
-      --color-acento: #2e6f40;
-      --color-acento-oscuro: #225430;
-      --color-calido: #b85d3b;
+      --primary-color: #2e6f40;
+      --secondary-color: #489462;
+      --accent-warm: #b85d3b;
+      --bg-color: #fbf7f0;
+      --text-color: #2b2623;
+      --nav-bg: #225430;
       --color-tarjeta: #ffffff;
       --borde-suave: #e3dcd0;
       --fondo-suave: #f6efe4;
@@ -19,12 +20,13 @@
       --badge-fondo: #e6f2e9;
     }
 
-    body.modo-oscuro {
-      --fondo-principal: #161916;
-      --color-texto: #f4f1ea;
-      --color-acento: #3a8a52;
-      --color-acento-oscuro: #78c68e;
-      --color-calido: #d47652;
+    [data-theme="dark"] {
+      --primary-color: #57a773;
+      --secondary-color: #79c293;
+      --accent-warm: #df7a53;
+      --bg-color: #141916;
+      --text-color: #f2efe9;
+      --nav-bg: #102417;
       --color-tarjeta: #222722;
       --borde-suave: #384038;
       --fondo-suave: #2b312b;
@@ -38,16 +40,17 @@
     }
 
     body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
-      background-color: var(--fondo-principal);
-      color: var(--color-texto);
+      padding: 0;
       line-height: 1.55;
-      transition: background-color 0.2s ease, color 0.2s ease;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     header {
-      background: linear-gradient(135deg, var(--color-acento), var(--color-acento-oscuro));
+      background: linear-gradient(135deg, var(--primary-color), var(--nav-bg));
       color: #ffffff;
       padding: 2.5rem 1rem;
       text-align: center;
@@ -59,20 +62,20 @@
     }
 
     header p {
-      margin: 0.7rem auto 0;
+      margin: 0.75rem auto 1.25rem;
       max-width: 720px;
       font-size: 1.05rem;
       opacity: 0.95;
     }
 
     nav {
-      background-color: var(--color-acento);
-      padding: 1rem 1.5rem;
       display: flex;
-      flex-wrap: wrap;
-      gap: 1.15rem;
       justify-content: center;
       align-items: center;
+      gap: 1.2rem;
+      background-color: var(--nav-bg);
+      padding: 0.85rem 1rem;
+      flex-wrap: wrap;
     }
 
     nav a {
@@ -82,22 +85,24 @@
     }
 
     nav a:hover {
+      color: #f3d5c5;
       text-decoration: underline;
     }
 
     .btn-tema {
-      background-color: rgba(255, 255, 255, 0.16);
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.75);
       color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.45);
-      padding: 0.4rem 0.85rem;
+      padding: 0.4rem 0.9rem;
       border-radius: 999px;
-      font-size: 0.9rem;
-      font-weight: bold;
       cursor: pointer;
+      font-weight: bold;
+      font-size: 0.9rem;
     }
 
     .btn-tema:hover {
-      background-color: rgba(255, 255, 255, 0.26);
+      background-color: #ffffff;
+      color: var(--nav-bg);
     }
 
     main {
@@ -117,7 +122,7 @@
     .badge-eco {
       display: inline-block;
       background-color: var(--badge-fondo);
-      color: var(--color-acento-oscuro);
+      color: var(--secondary-color);
       padding: 0.3rem 0.75rem;
       border-radius: 999px;
       font-size: 0.9rem;
@@ -133,7 +138,7 @@
 
     .mvv-bloque h3 {
       margin: 1rem 0 0.4rem;
-      color: var(--color-acento-oscuro);
+      color: var(--primary-color);
       font-size: 1.15rem;
     }
 
@@ -181,21 +186,21 @@
       border-radius: 8px;
       font-size: 0.95rem;
       background-color: var(--fondo-campo);
-      color: var(--color-texto);
+      color: var(--text-color);
     }
 
     .resultado-box {
       margin-top: 1.25rem;
       padding: 1rem 1.25rem;
       background-color: var(--fondo-suave);
-      border-left: 5px solid var(--color-calido);
+      border-left: 5px solid var(--accent-warm);
       border-radius: 8px;
     }
 
     .precio-total {
       font-size: 1.6rem;
       font-weight: bold;
-      color: var(--color-acento-oscuro);
+      color: var(--primary-color);
       margin: 0.25rem 0;
     }
 
@@ -208,7 +213,7 @@
     }
 
     .btn-enviar {
-      background-color: var(--color-acento);
+      background-color: var(--primary-color);
       color: #ffffff;
       border: none;
       padding: 0.8rem 1.3rem;
@@ -221,11 +226,11 @@
     }
 
     .btn-enviar:hover {
-      background-color: var(--color-acento-oscuro);
+      background-color: var(--nav-bg);
     }
 
     .btn-secundario {
-      background-color: var(--color-calido);
+      background-color: var(--accent-warm);
       color: #ffffff;
       text-decoration: none;
       padding: 0.8rem 1.3rem;
@@ -242,7 +247,7 @@
     .resumen-solicitud {
       margin-top: 0.85rem;
       font-size: 0.94rem;
-      color: var(--color-acento-oscuro);
+      color: var(--primary-color);
       font-weight: bold;
     }
   </style>
@@ -254,11 +259,11 @@
   </header>
 
   <nav>
-    <a href="index.html">Inicio</a>
-    <a href="nosotros.html">Nosotros</a>
-    <a href="arboles.html">Árboles</a>
-    <a href="resenas.html">Reseñas</a>
-    <button type="button" id="btnModoTema" class="btn-tema" aria-pressed="false">
+    <a href="index.html">Inicio 🏠</a>
+    <a href="nosotros.html">Nosotros 👥</a>
+    <a href="arboles.html">Bosque Virtual 🌳</a>
+    <a href="resenas.html">Reseñas ⭐</a>
+    <button type="button" id="btnModoTema" class="btn-tema" aria-label="Alternar entre modo claro y oscuro">
       🌙 Modo oscuro
     </button>
   </nav>
@@ -329,9 +334,9 @@
             <select id="tipoImagen" class="calc-input">
               <option value="55000" selected>Texto / tipografía simple (+$55.000 COP)</option>
               <option value="95000">Silueta o mascota (+$95.000 COP)</option>
-              <option value="130000">Logo o patrón geométrico (+$130.000 COP)</option>
-              <option value="185000">Personaje / ilustración detallada (+$185.000 COP)</option>
-              <option value="260000">Retrato / arte complejo (+$260.000 COP)</option>
+              <option value="110000">Logo o patrón geométrico (+$110.000 COP)</option>
+              <option value="115000">Personaje / ilustración detallada (+$115.000 COP)</option>
+              <option value="160000">Retrato / arte complejo (+$160.000 COP)</option>
             </select>
           </div>
           <div class="campo">
@@ -340,14 +345,14 @@
               <option value="0" selected>Cuadrada o rectangular (+$0 COP)</option>
               <option value="35000">Circular (+$35.000 COP)</option>
               <option value="45000">Ovalada (+$45.000 COP)</option>
-              <option value="90000">Forma libre / irregular (+$90.000 COP)</option>
+              <option value="50000">Forma libre / irregular (+$50.000 COP)</option>
             </select>
           </div>
           <div class="campo">
             <label for="acabado">4. Elegir acabados</label>
             <select id="acabado" class="calc-input">
               <option value="35000" selected>Acabado estándar limpio (+$35.000 COP)</option>
-              <option value="110000">Tallado en relieve 3D / carving (+$110.000 COP)</option>
+              <option value="45000">Tallado en relieve 3D / carving (+$45.000 COP)</option>
             </select>
           </div>
         </div>
@@ -381,12 +386,17 @@
 
   <script>
     (function () {
-      const CLAVE_TEMA = "ecolegado_tema";
+      const CLAVE_TEMA = "ecolegado_theme";
+      const rootEl = document.documentElement;
       const btnTema = document.getElementById("btnModoTema");
 
       function aplicarTema(tema) {
-        const esOscuro = tema === "oscuro";
-        document.body.classList.toggle("modo-oscuro", esOscuro);
+        const esOscuro = tema === "dark";
+        if (esOscuro) {
+          rootEl.setAttribute("data-theme", "dark");
+        } else {
+          rootEl.removeAttribute("data-theme");
+        }
         if (btnTema) {
           btnTema.setAttribute("aria-pressed", String(esOscuro));
           btnTema.textContent = esOscuro ? "☀️ Modo claro" : "🌙 Modo oscuro";
@@ -395,12 +405,15 @@
 
       function obtenerTemaInicial() {
         const guardado = localStorage.getItem(CLAVE_TEMA);
-        if (guardado === "oscuro" || guardado === "claro") {
+        if (guardado === "dark" || guardado === "claro") {
           return guardado;
+        }
+        if (guardado === "oscuro") {
+          return "dark";
         }
         return window.matchMedia &&
           window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "oscuro"
+          ? "dark"
           : "claro";
       }
 
@@ -408,9 +421,8 @@
 
       if (btnTema) {
         btnTema.addEventListener("click", function () {
-          const siguienteTema = document.body.classList.contains("modo-oscuro")
-            ? "claro"
-            : "oscuro";
+          const esOscuroActual = rootEl.getAttribute("data-theme") === "dark";
+          const siguienteTema = esOscuroActual ? "claro" : "dark";
           localStorage.setItem(CLAVE_TEMA, siguienteTema);
           aplicarTema(siguienteTema);
         });

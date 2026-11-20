@@ -220,6 +220,64 @@
       border-radius: 10px;
       border: 2px solid var(--border-color);
       flex-shrink: 0;
+      cursor: zoom-in;
+    }
+
+    .timeline-arbol {
+      position: relative;
+      margin-top: 1.5rem;
+      padding-left: 1.5rem;
+      border-left: 3px solid var(--secondary-color);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 1.15rem;
+      padding: 0.85rem 1rem;
+      background: var(--box-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -1.95rem;
+      top: 1.05rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent-warm);
+      border: 2px solid var(--card-bg);
+    }
+
+    .timeline-fecha {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+
+    .timeline-item h4 {
+      margin: 0.2rem 0 0.35rem;
+      color: var(--text-color);
+    }
+
+    .timeline-item p {
+      margin: 0.2rem 0 0.5rem;
+      font-size: 0.95rem;
+      color: var(--muted-color);
+    }
+
+    .timeline-item img {
+      width: 100%;
+      max-width: 240px;
+      height: 170px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      display: block;
+      cursor: zoom-in;
     }
 
     .certificado-box {
@@ -248,29 +306,89 @@
       color: var(--primary-color);
     }
 
-    .certificado-datos {
-      text-align: left;
-      max-width: 560px;
-      margin: 1rem auto;
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-color);
+    .certificado-imagen-preview {
+      max-width: 100%;
+      width: 100%;
+      max-height: 540px;
+      object-fit: contain;
       border-radius: 10px;
-      padding: 1.15rem 1.35rem;
-    }
-
-    .certificado-datos p {
-      margin: 0.45rem 0;
+      border: 2px solid var(--border-color);
+      background-color: var(--card-bg);
+      margin: 1rem auto 0.5rem;
+      display: block;
+      cursor: zoom-in;
     }
 
     .btn-imprimir {
       margin-top: 1rem;
-      padding: 10px 20px;
+      padding: 11px 22px;
       background-color: var(--primary-color);
       color: #ffffff;
       border: none;
       border-radius: 8px;
       font-weight: bold;
+      font-size: 1rem;
       cursor: pointer;
+    }
+
+    .btn-imprimir:hover {
+      background-color: var(--accent-warm);
+    }
+
+    /* Vista ampliada (Lightbox) */
+    .lightbox-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background-color: rgba(0, 0, 0, 0.88);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 1.25rem;
+    }
+
+    .lightbox-modal.activo {
+      display: flex;
+    }
+
+    .lightbox-modal img {
+      max-width: 94vw;
+      max-height: 82vh;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55);
+      background-color: #111111;
+    }
+
+    .lightbox-caption {
+      margin-top: 0.75rem;
+      color: #f5f5f5;
+      font-size: 0.98rem;
+      text-align: center;
+      max-width: 90vw;
+    }
+
+    .lightbox-cerrar {
+      position: fixed;
+      top: 16px;
+      right: 20px;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      background-color: rgba(20, 25, 22, 0.85);
+      color: #ffffff;
+      font-size: 1.3rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-cerrar:hover {
+      background-color: var(--accent-warm);
     }
 
     .mensaje-estado {
@@ -317,21 +435,6 @@
       opacity: 0.85;
       margin: 0;
     }
-
-    @media print {
-      nav, header, .panel-busqueda, #resultadoArbol, #estadoBusqueda, footer, .btn-imprimir {
-        display: none !important;
-      }
-      body {
-        background: #ffffff;
-        color: #111111;
-      }
-      #resultadoCertificado {
-        display: block !important;
-        border: 3px solid #2e6f40;
-        background: #ffffff;
-      }
-    }
   </style>
 </head>
 <body>
@@ -354,12 +457,12 @@
     <!-- Cuadro 1: Seguimiento de Árbol por Código -->
     <section class="panel-busqueda">
       <h2>🌳 Buscar Árbol en el Bosque Virtual</h2>
-      <p>Ingresa tu código único de árbol (por ejemplo, <strong>ECO-002</strong>) para ver su evolución.</p>
+      <p>Ingresa tu código único de árbol (por ejemplo, <strong>ECO-001</strong> o <strong>ECO-002</strong>) para ver su evolución.</p>
       <div class="buscador">
         <input
           type="text"
           id="searchInput"
-          placeholder="Ingresa tu código (ej. ECO-002)"
+          placeholder="Ingresa tu código (ej. ECO-001)"
           onkeypress="if (event.key === 'Enter') buscarArbol()"
         />
         <button class="btn-buscar" type="button" onclick="buscarArbol()">Buscar Árbol 🌳</button>
@@ -370,13 +473,13 @@
     <section class="panel-busqueda">
       <h2>🏅 Certificado de Árbol Protector</h2>
       <p>
-        Busca tu certificado ingresando el <strong>código del árbol</strong>, tu <strong>código de certificado</strong> o el <strong>nombre del titular</strong>.
+        Busca tu certificado ingresando el <strong>código del árbol</strong> (por ejemplo, <strong>ECO-001</strong>).
       </p>
       <div class="buscador">
         <input
           type="text"
           id="certInput"
-          placeholder="Código de árbol, certificado o nombre"
+          placeholder="Código de árbol (ej. ECO-001)"
           onkeypress="if (event.key === 'Enter') buscarCertificado()"
         />
         <button class="btn-buscar btn-certificado" type="button" onclick="buscarCertificado()">
@@ -390,9 +493,15 @@
     <section id="resultadoCertificado" class="certificado-box" style="display: none;"></section>
 
     <div id="estadoBusqueda" class="mensaje-estado">
-      Ingresa un código para consultar tu árbol protector o generar tu Certificado de Árbol Protector.
+      Ingresa un código para consultar tu árbol protector o descargar tu Certificado de Árbol Protector.
     </div>
   </main>
+
+  <div id="lightboxModal" class="lightbox-modal" role="dialog" aria-modal="true" aria-label="Vista ampliada de imagen">
+    <button type="button" id="lightboxCerrar" class="lightbox-cerrar" aria-label="Cerrar vista ampliada">✕</button>
+    <img id="lightboxImagen" src="" alt="" />
+    <p id="lightboxCaption" class="lightbox-caption"></p>
+  </div>
 
   <footer>
     <h3>Síguenos en Redes Sociales</h3>
@@ -454,6 +563,49 @@
           aplicarTema(siguienteTema);
         });
       }
+
+      // Vista ampliada (Lightbox) para imágenes de árbol y certificado
+      const modalEl = document.getElementById("lightboxModal");
+      const modalImgEl = document.getElementById("lightboxImagen");
+      const modalCaptionEl = document.getElementById("lightboxCaption");
+      const btnCerrarEl = document.getElementById("lightboxCerrar");
+
+      function abrirLightbox(src, altText) {
+        if (!src || !modalEl || !modalImgEl) return;
+        modalImgEl.src = src;
+        modalImgEl.alt = altText || "Imagen ampliada";
+        if (modalCaptionEl) {
+          modalCaptionEl.textContent = altText || "";
+        }
+        modalEl.classList.add("activo");
+      }
+
+      function cerrarLightbox() {
+        if (!modalEl || !modalImgEl) return;
+        modalEl.classList.remove("activo");
+        modalImgEl.src = "";
+      }
+
+      document.addEventListener("click", function (event) {
+        const imgClickeada = event.target.closest("#resultadoArbol img, #resultadoCertificado img");
+        if (imgClickeada && imgClickeada.src) {
+          abrirLightbox(imgClickeada.currentSrc || imgClickeada.src, imgClickeada.alt);
+          return;
+        }
+        if (event.target === modalEl) {
+          cerrarLightbox();
+        }
+      });
+
+      if (btnCerrarEl) {
+        btnCerrarEl.addEventListener("click", cerrarLightbox);
+      }
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && modalEl && modalEl.classList.contains("activo")) {
+          cerrarLightbox();
+        }
+      });
     })();
   </script>
 
@@ -479,6 +631,86 @@
     const resultadoCertEl = document.getElementById("resultadoCertificado");
     const estadoEl = document.getElementById("estadoBusqueda");
 
+    function extraerIdDrive(urlStr) {
+      const limpia = (urlStr || "").trim();
+      if (!limpia) return "";
+      const patrones = [
+        /lh3\.googleusercontent\.com\/d\/([a-zA-Z0-9_-]+)/,
+        /drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/,
+        /drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/,
+        /[?&]id=([a-zA-Z0-9_-]+)/
+      ];
+      for (const patron of patrones) {
+        const match = limpia.match(patron);
+        if (match && match[1]) return match[1];
+      }
+      return "";
+    }
+
+    function normalizarUrlImagen(urlStr) {
+      const limpia = (urlStr || "").trim();
+      if (!limpia) return "";
+      const idDrive = extraerIdDrive(limpia);
+      if (idDrive && (limpia.includes("drive.google.com") || limpia.includes("googleusercontent.com"))) {
+        return `https://lh3.googleusercontent.com/d/${idDrive}`;
+      }
+      return limpia;
+    }
+
+    function prepararEnlacesCertificado(urlRaw) {
+      const limpia = (urlRaw || "").trim();
+      if (!limpia) return { vistaUrl: "", descargaUrl: "" };
+      const idDrive = extraerIdDrive(limpia);
+      if (idDrive && (limpia.includes("drive.google.com") || limpia.includes("googleusercontent.com"))) {
+        return {
+          vistaUrl: `https://lh3.googleusercontent.com/d/${idDrive}`,
+          descargaUrl: `https://drive.google.com/uc?export=download&id=${idDrive}`
+        };
+      }
+      return {
+        vistaUrl: limpia,
+        descargaUrl: limpia
+      };
+    }
+
+    window.descargarImagenCertificado = async function (vistaEncoded, descargaEncoded, nombreBase) {
+      const vistaUrl = decodeURIComponent(vistaEncoded || "");
+      const descargaUrl = decodeURIComponent(descargaEncoded || "");
+      const candidatos = [vistaUrl, descargaUrl].filter(Boolean);
+
+      for (const candidato of candidatos) {
+        try {
+          const resp = await fetch(candidato);
+          if (!resp.ok) continue;
+          const blob = await resp.blob();
+          const mime = blob.type || "";
+          const ext = mime.includes("jpeg") || mime.includes("jpg")
+            ? "jpg"
+            : mime.includes("webp")
+            ? "webp"
+            : mime.includes("gif")
+            ? "gif"
+            : "png";
+
+          const blobUrl = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = blobUrl;
+          a.download = `${nombreBase}.${ext}`;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          setTimeout(() => URL.revokeObjectURL(blobUrl), 2000);
+          return;
+        } catch (_) {
+          // Intenta el siguiente enlace si hay restricción CORS
+        }
+      }
+
+      if (descargaUrl || vistaUrl) {
+        window.open(descargaUrl || vistaUrl, "_blank", "noopener,noreferrer");
+      }
+    };
+
     async function consultarRegistroArbol(termino) {
       const limpio = (termino || "").trim();
       const upper = limpio.toUpperCase();
@@ -497,7 +729,7 @@
       todosSnap.forEach((docItem) => {
         if (encontrado) return;
         const d = docItem.data();
-        const cod = String(d.codigo || "").toUpperCase();
+        const cod = String(d.codigo || docItem.id || "").toUpperCase();
         const certCod = String(d.certificadoCodigo || "").toUpperCase();
         const dueno = String(d.cliente || d.titular || d.nombre || "").toLowerCase();
         if (
@@ -511,13 +743,51 @@
       return encontrado;
     }
 
+    async function consultarCertificado(termino) {
+      const limpio = (termino || "").trim();
+      const upper = limpio.toUpperCase();
+      const certsRef = collection(db, "certificados");
+
+      let snap = await getDocs(query(certsRef, where("codigo", "==", upper)));
+      if (!snap.empty) return snap.docs[0].data();
+
+      snap = await getDocs(query(certsRef, where("codigoArbol", "==", upper)));
+      if (!snap.empty) return snap.docs[0].data();
+
+      const todosSnap = await getDocs(certsRef);
+      let encontrado = null;
+      todosSnap.forEach((docItem) => {
+        if (encontrado) return;
+        const d = docItem.data();
+        const cod = String(d.codigo || d.codigoArbol || docItem.id || "").toUpperCase();
+        if (cod === upper) {
+          encontrado = d;
+        }
+      });
+      return encontrado;
+    }
+
+    function obtenerImagenesArbol(data) {
+      const lista = Array.isArray(data.imagenes)
+        ? data.imagenes
+        : Array.isArray(data.fotos)
+          ? data.fotos
+          : data.fotoUrl
+            ? [data.fotoUrl]
+            : [];
+
+      return lista
+        .map((item) => (typeof item === "string" ? normalizarUrlImagen(item) : ""))
+        .filter(Boolean);
+    }
+
     window.buscarArbol = async function () {
       const inputVal = document.getElementById("searchInput").value.trim();
       resultadoCertEl.style.display = "none";
 
       if (!inputVal) {
         resultadoArbolEl.style.display = "none";
-        estadoEl.textContent = "Por favor ingresa un código de árbol (ejemplo: ECO-002).";
+        estadoEl.textContent = "Por favor ingresa un código de árbol (ejemplo: ECO-001).";
         return;
       }
 
@@ -530,20 +800,50 @@
           return;
         }
 
-        const fotos = Array.isArray(data.fotos)
-          ? data.fotos
-          : data.fotoUrl
-            ? [data.fotoUrl]
-            : [];
+        const codigoArbol = String(data.codigo || inputVal).toUpperCase();
+        const imagenes = obtenerImagenesArbol(data);
 
-        const galeriaHtml = fotos.length
-          ? `<div class="galeria-crecimiento">${fotos
-              .map((url) => `<img src="${url}" alt="Evolución del árbol ${data.codigo || ""}" />`)
+        const galeriaHtml = imagenes.length
+          ? `<div class="galeria-crecimiento">${imagenes
+              .map((url, idx) => `<img src="${url}" alt="Imagen ${idx + 1} del árbol ${codigoArbol}" loading="lazy" />`)
               .join("")}</div>`
           : "";
 
+        const eventosTimeline = [
+          {
+            fecha: data.fecha || "Registro inicial",
+            titulo: `Registro del árbol ${codigoArbol}`,
+            detalle: `Especie: ${data.especie || "Nativo andino"} · Estado: ${data.estado || "En crecimiento y cuidado activo"} · Ubicación: ${data.ubicacion || "Proyecto EcoLegado"}.`,
+            imagen: imagenes[0] || ""
+          },
+          ...imagenes.slice(1).map((imgUrl, idx) => ({
+            fecha: `Actualización #${idx + 2}`,
+            titulo: `Seguimiento fotográfico (${codigoArbol})`,
+            detalle: data.observaciones || "Registro de evolución en el Bosque Virtual.",
+            imagen: imgUrl
+          }))
+        ];
+
+        const timelineHtml = `
+          <h3>🕒 Línea de tiempo</h3>
+          <div class="timeline-arbol">
+            ${eventosTimeline
+              .map(
+                (ev) => `
+                  <div class="timeline-item">
+                    <span class="timeline-fecha">${ev.fecha}</span>
+                    <h4>${ev.titulo}</h4>
+                    <p>${ev.detalle}</p>
+                    ${ev.imagen ? `<img src="${ev.imagen}" alt="${ev.titulo}" loading="lazy" />` : ""}
+                  </div>
+                `
+              )
+              .join("")}
+          </div>
+        `;
+
         resultadoArbolEl.innerHTML = `
-          <h2>🌳 ${data.nombreArbol || "Árbol Protector EcoLegado"} (${data.codigo || inputVal.toUpperCase()})</h2>
+          <h2>🌳 ${data.nombreArbol || "Árbol Protector EcoLegado"} (${codigoArbol})</h2>
           <p><strong>Titular / Cliente:</strong> ${data.cliente || data.titular || data.nombre || "Legado Solidario"}</p>
           <p><strong>Especie:</strong> ${data.especie || "Especie nativa reforestada"}</p>
           <p><strong>Estado actual:</strong> ${data.estado || "En crecimiento y cuidado activo"}</p>
@@ -551,9 +851,10 @@
           <p><strong>Fecha de registro:</strong> ${data.fecha || "Registrado en Bosque Virtual"}</p>
           ${data.observaciones ? `<p><strong>Notas de evolución:</strong> ${data.observaciones}</p>` : ""}
           ${galeriaHtml}
+          ${timelineHtml}
         `;
         resultadoArbolEl.style.display = "block";
-        estadoEl.textContent = "Árbol encontrado en el Bosque Virtual.";
+        estadoEl.textContent = "Árbol encontrado en el Bosque Virtual. Haz clic en una imagen para ampliarla.";
       } catch (err) {
         resultadoArbolEl.style.display = "none";
         estadoEl.textContent = "Ocurrió un error al consultar el árbol. Intenta nuevamente.";
@@ -566,39 +867,48 @@
 
       if (!certVal) {
         resultadoCertEl.style.display = "none";
-        estadoEl.textContent = "Ingresa el código del árbol, código de certificado o nombre del titular.";
+        estadoEl.textContent = "Ingresa el código del árbol (ejemplo: ECO-001).";
         return;
       }
 
-      estadoEl.textContent = "Verificando Certificado de Árbol Protector... 📜";
+      estadoEl.textContent = "Buscando imagen del certificado... 📜";
       try {
-        const data = await consultarRegistroArbol(certVal);
-        if (!data) {
+        const data = await consultarCertificado(certVal);
+        const linkBruto = data
+          ? String(data.imagenurl || data.imagenUrl || data.urlImagen || data.url || data.imagen || "").trim()
+          : "";
+
+        if (!data || !linkBruto) {
           resultadoCertEl.style.display = "none";
-          estadoEl.textContent = `No se encontró un certificado asociado a "${certVal}".`;
+          estadoEl.textContent = `No se encontró una imagen de certificado configurada en Firestore para "${certVal}".`;
           return;
         }
 
-        const codigoArbol = data.codigo || certVal.toUpperCase();
-        const codigoCert = data.certificadoCodigo || `CERT-${codigoArbol}`;
-        const titular = data.cliente || data.titular || data.nombre || "Protector EcoLegado";
+        const codigo = String(data.codigo || data.codigoArbol || certVal).toUpperCase();
+        const { vistaUrl, descargaUrl } = prepararEnlacesCertificado(linkBruto);
+        const nombreBase = `certificado-${codigo.toLowerCase()}`;
 
         resultadoCertEl.innerHTML = `
-          <span class="certificado-badge">🌱 CERTIFICADO OFICIAL · ECOLEGADO ALFOMBRAS</span>
-          <h3>Certificado de Árbol Protector</h3>
-          <p>Se certifica que el árbol vinculado a la alfombra artesanal de <strong>tufting</strong> está registrado y en seguimiento:</p>
-          <div class="certificado-datos">
-            <p><strong>Titular del legado:</strong> ${titular}</p>
-            <p><strong>Código del árbol:</strong> ${codigoArbol}</p>
-            <p><strong>Código de certificado:</strong> ${codigoCert}</p>
-            <p><strong>Especie:</strong> ${data.especie || "Especie nativa de reforestación"}</p>
-            <p><strong>Estado:</strong> ${data.estado || "Activo y protegido"}</p>
-            <p><strong>Fecha de siembra / registro:</strong> ${data.fecha || "2026"}</p>
+          <span class="certificado-badge">🌱 CERTIFICADO · ${codigo}</span>
+          <h3>Certificado ${codigo}</h3>
+          <img
+            src="${vistaUrl}"
+            alt="Certificado ${codigo}"
+            class="certificado-imagen-preview"
+            onerror="this.alt='No se pudo previsualizar la imagen, pero puedes pulsar Descargar Imagen.';"
+          />
+          <div>
+            <button
+              type="button"
+              class="btn-imprimir"
+              onclick="descargarImagenCertificado('${encodeURIComponent(vistaUrl)}', '${encodeURIComponent(descargaUrl)}', '${nombreBase}')"
+            >
+              ⬇️ Descargar Imagen
+            </button>
           </div>
-          <button type="button" class="btn-imprimir" onclick="window.print()">🖨️ Imprimir o Guardar en PDF</button>
         `;
         resultadoCertEl.style.display = "block";
-        estadoEl.textContent = `Certificado ${codigoCert} listo para consultar o imprimir.`;
+        estadoEl.textContent = `Certificado ${codigo} listo. Haz clic en la imagen para ampliarla o descargarla.`;
       } catch (err) {
         resultadoCertEl.style.display = "none";
         estadoEl.textContent = "No fue posible consultar el certificado en este momento.";

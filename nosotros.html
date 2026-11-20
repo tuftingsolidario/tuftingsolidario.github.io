@@ -159,9 +159,8 @@
       margin-bottom: 0.55rem;
     }
 
-    /* Contenedor de la imagen anclada a Firebase encima del cotizador */
     .contenedor-imagen-precios {
-      margin: 1rem 0 1.35rem;
+      margin: 0.9rem 0 1.25rem;
       border-radius: 10px;
       overflow: hidden;
       border: 1px solid var(--borde-suave);
@@ -172,7 +171,7 @@
     .contenedor-imagen-precios img {
       display: block;
       width: 100%;
-      max-height: 460px;
+      max-height: 480px;
       object-fit: contain;
       margin: 0 auto;
     }
@@ -334,9 +333,6 @@
 
     <section id="cotizador" class="card">
       <h2>Cotizador Automático de Alfombra Personalizada</h2>
-      <p>
-        Selecciona las opciones de tu diseño para calcular una suma aproximada en pesos colombianos (COP):
-      </p>
 
       <!-- Imagen anclada al documento configuracion/precios en Firebase -->
       <div id="cajaImagenPrecios" class="contenedor-imagen-precios" hidden>
@@ -348,6 +344,9 @@
         />
       </div>
 
+      <p>
+        Selecciona las opciones de tu diseño para calcular una suma aproximada en pesos colombianos (COP):
+      </p>
       <form id="formCotizador">
         <div class="grid-cotizador">
           <div class="campo">
@@ -417,7 +416,7 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
     import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
-    // Pega aquí tu configuración exacta de Firebase (proyecto ecolegado-21e65)
+    // Pega aquí tus credenciales reales de Firebase (las mismas de index.html)
     const firebaseConfig = {
       apiKey: "TU_API_KEY",
       authDomain: "ecolegado-21e65.firebaseapp.com",
@@ -427,10 +426,6 @@
       appId: "TU_APP_ID"
     };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    // --- Tema claro / oscuro ---
     const CLAVE_TEMA = "ecolegado_theme";
     const rootEl = document.documentElement;
     const btnTema = document.getElementById("btnModoTema");
@@ -473,42 +468,53 @@
       });
     }
 
-    // --- Cargar imagen desde Firestore (colección: configuracion, documento: precios) ---
+    function normalizarUrlImagen(urlOriginal) {
+      if (!urlOriginal || typeof urlOriginal !== "string") return "";
+      const urlLimpia = urlOriginal.trim();
+
+      const matchFileD = urlLimpia.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+      if (matchFileD && matchFileD[1]) {
+        return `https://lh3.googleusercontent.com/d/${matchFileD[1]}`;
+      }
+      const matchOpenId = urlLimpia.match(/drive\.google\.com\/(?:open|uc)\?.*id=([a-zA-Z0-9_-]+)/);
+      if (matchOpenId && matchOpenId[1]) {
+        return `https://lh3.googleusercontent.com/d/${matchOpenId[1]}`;
+      }
+      return urlLimpia;
+    }
+
     async function cargarImagenPreciosFirebase() {
       const cajaImagen = document.getElementById("cajaImagenPrecios");
       const imgGuia = document.getElementById("imgGuiaPrecios");
       if (!cajaImagen || !imgGuia) return;
 
       try {
-        const refPrecios = doc(db, "configuracion", "precios");
-        const snapPrecios = await getDoc(refPrecios);
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const snapPrecios = await getDoc(doc(db, "configuracion", "precios"));
 
         if (snapPrecios.exists()) {
           const datos = snapPrecios.data();
-          // Soporta los nombres de campo más comunes (imagenUrl, url o imagen)
-          const urlImagen = datos.imagenUrl || datos.url || datos.imagen;
+          const urlCruda = datos.imagenUrl || datos.url || datos.imagen || datos.foto || "";
+          const urlFinal = normalizarUrlImagen(urlCruda);
 
-          if (urlImagen) {
-            imgGuia.src = urlImagen;
+          if (urlFinal) {
+            imgGuia.src = urlFinal;
             if (datos.alt) {
               imgGuia.alt = datos.alt;
             }
             imgGuia.onload = () => {
               cajaImagen.hidden = false;
             };
-            imgGuia.onerror = () => {
-              cajaImagen.hidden = true;
-            };
           }
         }
       } catch (error) {
-        console.error("No se pudo cargar la imagen de precios desde Firebase:", error);
+        console.error("Error al cargar configuracion/precios:", error);
       }
     }
 
     cargarImagenPreciosFirebase();
 
-    // --- Lógica del cotizador ---
     const inputsCalculo = document.querySelectorAll(".calc-input");
     const precioTotalEl = document.getElementById("precioAproximado");
     const formCotizador = document.getElementById("formCotizador");

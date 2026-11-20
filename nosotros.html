@@ -46,6 +46,25 @@
       transition: background-color 0.2s ease, color 0.2s ease;
     }
 
+    header {
+      background: linear-gradient(135deg, var(--color-acento), var(--color-acento-oscuro));
+      color: #ffffff;
+      padding: 2.5rem 1rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+    }
+
+    header p {
+      margin: 0.7rem auto 0;
+      max-width: 720px;
+      font-size: 1.05rem;
+      opacity: 0.95;
+    }
+
     nav {
       background-color: var(--color-acento);
       padding: 1rem 1.5rem;
@@ -104,6 +123,35 @@
       font-size: 0.9rem;
       font-weight: bold;
       margin-bottom: 0.5rem;
+    }
+
+    .mvv-bloque {
+      margin-top: 1.25rem;
+      padding-top: 1.15rem;
+      border-top: 1px solid var(--borde-suave);
+    }
+
+    .mvv-bloque h3 {
+      margin: 1rem 0 0.4rem;
+      color: var(--color-acento-oscuro);
+      font-size: 1.15rem;
+    }
+
+    .mvv-bloque h3:first-child {
+      margin-top: 0;
+    }
+
+    .mvv-bloque p {
+      margin: 0 0 0.85rem;
+    }
+
+    .valores-lista {
+      margin: 0.45rem 0 0;
+      padding-left: 1.2rem;
+    }
+
+    .valores-lista li {
+      margin-bottom: 0.55rem;
     }
 
     .grid-cotizador {
@@ -200,6 +248,11 @@
   </style>
 </head>
 <body>
+  <header>
+    <h1>Nosotros y Cotizador</h1>
+    <p>Alfombras artesanales en tufting personalizado con diseño de alta gama y un árbol protector sembrado por cada pieza.</p>
+  </header>
+
   <nav>
     <a href="index.html">Inicio</a>
     <a href="nosotros.html">Nosotros</a>
@@ -213,10 +266,32 @@
   <main>
     <section class="card">
       <span class="badge-eco">🌱 Arte Textil Sostenible</span>
-      <h1>Sobre Nosotros</h1>
+      <h2>Sobre Nosotros</h2>
       <p>
         En <strong>TUFTINGSOLIDARIO (EcoLegado Alfombras)</strong> elaboramos alfombras artesanales mediante técnica de <em>tufting</em>. Cada pieza que creas ayuda a financiar la siembra y el cuidado de un árbol registrado a tu nombre.
       </p>
+
+      <div class="mvv-bloque">
+        <h3>Misión</h3>
+        <p>
+          En Tuftinsolidario (EcoLegado Alfombras), transformamos espacios estériles o monótonos en ambientes multifuncionales llenos de vida, amplitud visual y personalidad mediante alfombras artesanales de tufting con diseño personalizado, exclusividad y estética atemporal de alta gama. Creamos piezas coleccionables con acabados cuidados que elevan cada rincón del hogar o estudio y, por cada alfombra elaborada, impulsamos la siembra y el seguimiento de un árbol protector.
+        </p>
+
+        <h3>Visión</h3>
+        <p>
+          Consolidar a Tuftinsolidario como referente de arte textil personalizado y diseño de alta gama sostenible en el ámbito residencial y creativo, reconocido por convertir espacios neutros o limitados en lugares multifuncionales que amplían visualmente el entorno, expresan identidad propia y perduran como piezas coleccionables atemporales, mientras cada creación multiplica un bosque vivo y transparente para futuras generaciones.
+        </p>
+
+        <h3>Valores</h3>
+        <ul class="valores-lista">
+          <li><strong>Exclusividad y Personalización Coleccionable:</strong> Cada alfombra se concibe como una pieza única o de edición cuidada, adaptada al diseño, la escala y la historia de quien la elige para perdurar en el tiempo.</li>
+          <li><strong>Transformación Espacial y Amplitud Visual:</strong> Diseñamos proporciones, texturas y contrastes que ordenan y amplían visualmente el espacio, convirtiendo zonas estériles en ambientes multifuncionales acogedores y prácticos.</li>
+          <li><strong>Artesanía Atemporal de Alta Gama:</strong> Priorizamos el detalle en el tufting, la densidad del tejido y los acabados (limpio o relieve 3D / carving) para lograr presencias elegantes que trascienden las modas pasajeras.</li>
+          <li><strong>Personalidad con Propósito Ecológico:</strong> Unimos la identidad estética de cada espacio con el compromiso ambiental de EcoLegado Alfombras, vinculando cada pedido a un árbol sembrado y documentado.</li>
+          <li><strong>Honestidad y Cercanía:</strong> Acompañamos cada proyecto con claridad en tiempos, acabados y procesos, construyendo confianza real desde el boceto hasta la entrega y el seguimiento del árbol.</li>
+        </ul>
+      </div>
+
       <div class="acciones-form">
         <a href="#cotizador" class="btn-enviar">Solicitar cotización</a>
         <a href="arboles.html" class="btn-secundario">Ver Bosque Virtual</a>
@@ -306,7 +381,6 @@
 
   <script>
     (function () {
-      // 1. Persistencia del tema claro / oscuro en localStorage
       const CLAVE_TEMA = "ecolegado_tema";
       const btnTema = document.getElementById("btnModoTema");
 
@@ -342,7 +416,6 @@
         });
       }
 
-      // 2. Cotizador automático en COP
       const inputsCalculo = document.querySelectorAll(".calc-input");
       const precioTotalEl = document.getElementById("precioAproximado");
       const formCotizador = document.getElementById("formCotizador");
@@ -356,7 +429,7 @@
       function calcularPrecioAproximado() {
         let suma = 0;
         inputsCalculo.forEach((select) => {
-          const valor = parseFloat(select.value) || 0;
+          const valor = parseInt(select.value, 10) || 0;
           suma += valor;
         });
         if (precioTotalEl) {
@@ -365,25 +438,34 @@
         return suma;
       }
 
+      function generarResumenTexto(total) {
+        const tamanoTexto = document.getElementById("tamano").selectedOptions[0].text;
+        const imagenTexto = document.getElementById("tipoImagen").selectedOptions[0].text;
+        const formaTexto = document.getElementById("forma").selectedOptions[0].text;
+        const acabadoTexto = document.getElementById("acabado").selectedOptions[0].text;
+        const notaExtra =
+          notasDiseno && notasDiseno.value.trim()
+            ? ` · Notas: "${notasDiseno.value.trim()}"`
+            : "";
+
+        return `Cotización lista (${formatearCOP(total)}): ${tamanoTexto} · ${imagenTexto} · ${formaTexto} · ${acabadoTexto}${notaExtra}.`;
+      }
+
       inputsCalculo.forEach((select) => {
-        select.addEventListener("change", calcularPrecioAproximado);
+        select.addEventListener("change", function () {
+          const total = calcularPrecioAproximado();
+          if (resumenConfirmado && resumenConfirmado.textContent) {
+            resumenConfirmado.textContent = generarResumenTexto(total);
+          }
+        });
       });
 
       if (formCotizador) {
         formCotizador.addEventListener("submit", function (evento) {
           evento.preventDefault();
           const total = calcularPrecioAproximado();
-          const tamanoTexto = document.getElementById("tamano").selectedOptions[0].text;
-          const imagenTexto = document.getElementById("tipoImagen").selectedOptions[0].text;
-          const formaTexto = document.getElementById("forma").selectedOptions[0].text;
-          const acabadoTexto = document.getElementById("acabado").selectedOptions[0].text;
-          const notaExtra =
-            notasDiseno && notasDiseno.value.trim()
-              ? ` · Notas: "${notasDiseno.value.trim()}"`
-              : "";
-
           if (resumenConfirmado) {
-            resumenConfirmado.textContent = `Cotización lista (${formatearCOP(total)}): ${tamanoTexto} · ${imagenTexto} · ${formaTexto} · ${acabadoTexto}${notaExtra}.`;
+            resumenConfirmado.textContent = generarResumenTexto(total);
           }
         });
       }

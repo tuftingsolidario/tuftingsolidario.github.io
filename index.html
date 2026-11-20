@@ -7,8 +7,26 @@
   <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfWWOMtAAAAAG-5zjE4hywzDE1Qtfbz1AuRd30g"></script>
   <link rel="stylesheet" href="styles.css" />
   <style>
+    :root {
+      --primary-color: #2e6f40;
+      --secondary-color: #489462;
+      --accent-warm: #b85d3b;
+      --bg-color: #fbf7f0;
+      --text-color: #2b2623;
+      --nav-bg: #225430;
+    }
+
+    [data-theme="dark"] {
+      --primary-color: #57a773;
+      --secondary-color: #79c293;
+      --accent-warm: #df7a53;
+      --bg-color: #141916;
+      --text-color: #f2efe9;
+      --nav-bg: #102417;
+    }
+
     header.site-header {
-      background: linear-gradient(135deg, var(--accent-primary, #2e6f40), var(--accent-hover, #225430));
+      background: linear-gradient(135deg, var(--primary-color, #2e6f40), var(--nav-bg, #225430));
       color: #ffffff;
       padding: 2.15rem 1.25rem;
       text-align: center;
@@ -35,6 +53,12 @@
       opacity: 0.96;
       font-size: 1.02rem;
       line-height: 1.5;
+    }
+    nav {
+      background-color: var(--nav-bg, #225430);
+    }
+    nav a:hover {
+      color: #f3d5c5;
     }
     .impacto-section {
       background-color: var(--card-bg, var(--bg-card, #ffffff));

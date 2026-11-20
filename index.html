@@ -158,10 +158,10 @@
   </header>
 
   <nav>
-    <a href="index.html">Inicio 🏠</a>
-    <a href="nosotros.html">Nosotros 👥</a>
-    <a href="arboles.html">Bosque Virtual 🌳</a>
-    <a href="resenas.html">Reseñas ⭐</a>
+    <a href="https://tuftingsolidario.github.io/index.html">Inicio 🏠</a>
+    <a href="https://tuftingsolidario.github.io/nosotros.html">Nosotros 👥</a>
+    <a href="https://tuftingsolidario.github.io/arboles.html">Bosque Virtual 🌳</a>
+    <a href="https://tuftingsolidario.github.io/resenas.html">Reseñas ⭐</a>
     <button id="btnTema" type="button" class="btn-tema" aria-label="Alternar entre modo claro y oscuro">🌙 Modo oscuro</button>
   </nav>
 
@@ -182,7 +182,7 @@
     <section class="hero">
       <h2>Arte Textil Artesanal con Propósito Ecológico</h2>
       <p>Creamos alfombras personalizadas mediante la técnica de <strong>tufting</strong>. Por cada pieza elaborada, impulsamos la siembra y el cuidado de un árbol registrado a tu nombre.</p>
-      <a href="nosotros.html" class="btn">Calcular Cotización Aproximada 🌱</a>
+      <a href="https://tuftingsolidario.github.io/nosotros.html" class="btn">Calcular Cotización Aproximada 🌱</a>
     </section>
 
     <section id="pilares">
@@ -206,7 +206,7 @@
     <section id="impacto-clientes" class="impacto-section">
       <h2>El impacto de nuestros clientes</h2>
       <p>Cada alfombra personalizada impulsa la reforestación y deja una huella viva que crece junto a nuestra comunidad.</p>
-      <a href="arboles.html" class="btn-contador-arboles">
+      <a href="https://tuftingsolidario.github.io/arboles.html" class="btn-contador-arboles">
         <span>🌳 Árboles sembrados</span>
         <span id="contadorArbolesSembrados" class="contador-numero">3</span>
       </a>
@@ -219,7 +219,7 @@
     <section class="cotizador-cta">
       <h3>¿Quieres conocer un estimado de tu diseño?</h3>
       <p>En la pestaña <strong>Nosotros</strong> puedes combinar tamaño, tipo de boceto, forma y acabado para obtener una suma aproximada al instante.</p>
-      <a href="nosotros.html" class="btn btn-secundario">Ir al Cotizador Automático</a>
+      <a href="https://tuftingsolidario.github.io/nosotros.html" class="btn btn-secundario">Ir al Cotizador Automático</a>
     </section>
 
     <section id="preguntas-frecuentes" class="faq-section">
@@ -407,21 +407,22 @@
     async function cargarImagenImpacto() {
       if (!imgImpacto || !estadoImgImpacto) return;
       try {
-        const snapArbol = await getDoc(doc(db, "arboles", "impacto"));
-        const snapConfig = snapArbol.exists() ? null : await getDoc(doc(db, "configuracion", "impacto"));
-        const data = snapArbol.exists() ? snapArbol.data() : (snapConfig?.exists() ? snapConfig.data() : null);
+        const snapConfig = await getDoc(doc(db, "configuracion", "impacto"));
+        const snapArbol = snapConfig.exists() ? null : await getDoc(doc(db, "arboles", "impacto"));
+        const data = snapConfig.exists() ? snapConfig.data() : (snapArbol?.exists() ? snapArbol.data() : null);
 
         if (!data) {
           imgImpacto.style.display = "none";
-          estadoImgImpacto.textContent = "Aún no hay registro en arboles/impacto.";
+          estadoImgImpacto.textContent = "Aún no hay registro en configuracion/impacto.";
           return;
         }
 
-        const rawFuente = data.imagen || data.imagenUrl || data.foto || data.fotoUrl || data.url || data.storagePath || "";
+        const rawFuente =
+          data.impacto || data.imagen || data.imagenUrl || data.foto || data.fotoUrl || data.url || data.storagePath || "";
         const urlFinal = resolverUrlImagenFirebase(rawFuente);
         if (!urlFinal) {
           imgImpacto.style.display = "none";
-          estadoImgImpacto.textContent = "El documento arboles/impacto no tiene un campo de imagen válido.";
+          estadoImgImpacto.textContent = "El documento configuracion/impacto no tiene un campo de imagen válido.";
           return;
         }
 
@@ -432,13 +433,13 @@
         };
         imgImpacto.onerror = () => {
           imgImpacto.style.display = "none";
-          estadoImgImpacto.textContent = "No se pudo descargar la imagen desde Firebase (revisa URL o permisos).";
+          estadoImgImpacto.textContent = "No se pudo cargar la imagen desde Drive/Firebase (revisa permisos públicos).";
         };
         imgImpacto.src = urlFinal;
       } catch (err) {
-        console.error("Error cargando arboles/impacto:", err);
+        console.error("Error cargando configuracion/impacto:", err);
         imgImpacto.style.display = "none";
-        estadoImgImpacto.textContent = "Error al consultar arboles/impacto en Firestore.";
+        estadoImgImpacto.textContent = "Error al consultar configuracion/impacto en Firestore.";
       }
     }
 

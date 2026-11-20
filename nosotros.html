@@ -159,6 +159,24 @@
       margin-bottom: 0.55rem;
     }
 
+    /* Contenedor de la imagen anclada a Firebase encima del cotizador */
+    .contenedor-imagen-precios {
+      margin: 1rem 0 1.35rem;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--borde-suave);
+      background-color: var(--fondo-suave);
+      text-align: center;
+    }
+
+    .contenedor-imagen-precios img {
+      display: block;
+      width: 100%;
+      max-height: 460px;
+      object-fit: contain;
+      margin: 0 auto;
+    }
+
     .grid-cotizador {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -319,6 +337,17 @@
       <p>
         Selecciona las opciones de tu diseño para calcular una suma aproximada en pesos colombianos (COP):
       </p>
+
+      <!-- Imagen anclada al documento configuracion/precios en Firebase -->
+      <div id="cajaImagenPrecios" class="contenedor-imagen-precios" hidden>
+        <img
+          id="imgGuiaPrecios"
+          src=""
+          alt="Guía visual de tamaños y precios de alfombras personalizadas"
+          loading="lazy"
+        />
+      </div>
+
       <form id="formCotizador">
         <div class="grid-cotizador">
           <div class="campo">
@@ -384,106 +413,157 @@
     </section>
   </main>
 
-  <script>
-    (function () {
-      const CLAVE_TEMA = "ecolegado_theme";
-      const rootEl = document.documentElement;
-      const btnTema = document.getElementById("btnModoTema");
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
-      function aplicarTema(tema) {
-        const esOscuro = tema === "dark";
-        if (esOscuro) {
-          rootEl.setAttribute("data-theme", "dark");
-        } else {
-          rootEl.removeAttribute("data-theme");
-        }
-        if (btnTema) {
-          btnTema.setAttribute("aria-pressed", String(esOscuro));
-          btnTema.textContent = esOscuro ? "☀️ Modo claro" : "🌙 Modo oscuro";
-        }
+    // Pega aquí tu configuración exacta de Firebase (proyecto ecolegado-21e65)
+    const firebaseConfig = {
+      apiKey: "TU_API_KEY",
+      authDomain: "ecolegado-21e65.firebaseapp.com",
+      projectId: "ecolegado-21e65",
+      storageBucket: "ecolegado-21e65.firebasestorage.app",
+      messagingSenderId: "TU_MESSAGING_SENDER_ID",
+      appId: "TU_APP_ID"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // --- Tema claro / oscuro ---
+    const CLAVE_TEMA = "ecolegado_theme";
+    const rootEl = document.documentElement;
+    const btnTema = document.getElementById("btnModoTema");
+
+    function aplicarTema(tema) {
+      const esOscuro = tema === "dark";
+      if (esOscuro) {
+        rootEl.setAttribute("data-theme", "dark");
+      } else {
+        rootEl.removeAttribute("data-theme");
       }
-
-      function obtenerTemaInicial() {
-        const guardado = localStorage.getItem(CLAVE_TEMA);
-        if (guardado === "dark" || guardado === "claro") {
-          return guardado;
-        }
-        if (guardado === "oscuro") {
-          return "dark";
-        }
-        return window.matchMedia &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "claro";
-      }
-
-      aplicarTema(obtenerTemaInicial());
-
       if (btnTema) {
-        btnTema.addEventListener("click", function () {
-          const esOscuroActual = rootEl.getAttribute("data-theme") === "dark";
-          const siguienteTema = esOscuroActual ? "claro" : "dark";
-          localStorage.setItem(CLAVE_TEMA, siguienteTema);
-          aplicarTema(siguienteTema);
-        });
+        btnTema.setAttribute("aria-pressed", String(esOscuro));
+        btnTema.textContent = esOscuro ? "☀️ Modo claro" : "🌙 Modo oscuro";
       }
+    }
 
-      const inputsCalculo = document.querySelectorAll(".calc-input");
-      const precioTotalEl = document.getElementById("precioAproximado");
-      const formCotizador = document.getElementById("formCotizador");
-      const resumenConfirmado = document.getElementById("resumenConfirmado");
-      const notasDiseno = document.getElementById("notasDiseno");
-
-      function formatearCOP(valor) {
-        return "$" + Number(valor).toLocaleString("es-CO") + " COP";
+    function obtenerTemaInicial() {
+      const guardado = localStorage.getItem(CLAVE_TEMA);
+      if (guardado === "dark" || guardado === "claro") {
+        return guardado;
       }
-
-      function calcularPrecioAproximado() {
-        let suma = 0;
-        inputsCalculo.forEach((select) => {
-          const valor = parseInt(select.value, 10) || 0;
-          suma += valor;
-        });
-        if (precioTotalEl) {
-          precioTotalEl.textContent = formatearCOP(suma);
-        }
-        return suma;
+      if (guardado === "oscuro") {
+        return "dark";
       }
+      return window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "claro";
+    }
 
-      function generarResumenTexto(total) {
-        const tamanoTexto = document.getElementById("tamano").selectedOptions[0].text;
-        const imagenTexto = document.getElementById("tipoImagen").selectedOptions[0].text;
-        const formaTexto = document.getElementById("forma").selectedOptions[0].text;
-        const acabadoTexto = document.getElementById("acabado").selectedOptions[0].text;
-        const notaExtra =
-          notasDiseno && notasDiseno.value.trim()
-            ? ` · Notas: "${notasDiseno.value.trim()}"`
-            : "";
+    aplicarTema(obtenerTemaInicial());
 
-        return `Cotización lista (${formatearCOP(total)}): ${tamanoTexto} · ${imagenTexto} · ${formaTexto} · ${acabadoTexto}${notaExtra}.`;
-      }
-
-      inputsCalculo.forEach((select) => {
-        select.addEventListener("change", function () {
-          const total = calcularPrecioAproximado();
-          if (resumenConfirmado && resumenConfirmado.textContent) {
-            resumenConfirmado.textContent = generarResumenTexto(total);
-          }
-        });
+    if (btnTema) {
+      btnTema.addEventListener("click", function () {
+        const esOscuroActual = rootEl.getAttribute("data-theme") === "dark";
+        const siguienteTema = esOscuroActual ? "claro" : "dark";
+        localStorage.setItem(CLAVE_TEMA, siguienteTema);
+        aplicarTema(siguienteTema);
       });
+    }
 
-      if (formCotizador) {
-        formCotizador.addEventListener("submit", function (evento) {
-          evento.preventDefault();
-          const total = calcularPrecioAproximado();
-          if (resumenConfirmado) {
-            resumenConfirmado.textContent = generarResumenTexto(total);
+    // --- Cargar imagen desde Firestore (colección: configuracion, documento: precios) ---
+    async function cargarImagenPreciosFirebase() {
+      const cajaImagen = document.getElementById("cajaImagenPrecios");
+      const imgGuia = document.getElementById("imgGuiaPrecios");
+      if (!cajaImagen || !imgGuia) return;
+
+      try {
+        const refPrecios = doc(db, "configuracion", "precios");
+        const snapPrecios = await getDoc(refPrecios);
+
+        if (snapPrecios.exists()) {
+          const datos = snapPrecios.data();
+          // Soporta los nombres de campo más comunes (imagenUrl, url o imagen)
+          const urlImagen = datos.imagenUrl || datos.url || datos.imagen;
+
+          if (urlImagen) {
+            imgGuia.src = urlImagen;
+            if (datos.alt) {
+              imgGuia.alt = datos.alt;
+            }
+            imgGuia.onload = () => {
+              cajaImagen.hidden = false;
+            };
+            imgGuia.onerror = () => {
+              cajaImagen.hidden = true;
+            };
           }
-        });
+        }
+      } catch (error) {
+        console.error("No se pudo cargar la imagen de precios desde Firebase:", error);
       }
+    }
 
-      calcularPrecioAproximado();
-    })();
+    cargarImagenPreciosFirebase();
+
+    // --- Lógica del cotizador ---
+    const inputsCalculo = document.querySelectorAll(".calc-input");
+    const precioTotalEl = document.getElementById("precioAproximado");
+    const formCotizador = document.getElementById("formCotizador");
+    const resumenConfirmado = document.getElementById("resumenConfirmado");
+    const notasDiseno = document.getElementById("notasDiseno");
+
+    function formatearCOP(valor) {
+      return "$" + Number(valor).toLocaleString("es-CO") + " COP";
+    }
+
+    function calcularPrecioAproximado() {
+      let suma = 0;
+      inputsCalculo.forEach((select) => {
+        const valor = parseInt(select.value, 10) || 0;
+        suma += valor;
+      });
+      if (precioTotalEl) {
+        precioTotalEl.textContent = formatearCOP(suma);
+      }
+      return suma;
+    }
+
+    function generarResumenTexto(total) {
+      const tamanoTexto = document.getElementById("tamano").selectedOptions[0].text;
+      const imagenTexto = document.getElementById("tipoImagen").selectedOptions[0].text;
+      const formaTexto = document.getElementById("forma").selectedOptions[0].text;
+      const acabadoTexto = document.getElementById("acabado").selectedOptions[0].text;
+      const notaExtra =
+        notasDiseno && notasDiseno.value.trim()
+          ? ` · Notas: "${notasDiseno.value.trim()}"`
+          : "";
+
+      return `Cotización lista (${formatearCOP(total)}): ${tamanoTexto} · ${imagenTexto} · ${formaTexto} · ${acabadoTexto}${notaExtra}.`;
+    }
+
+    inputsCalculo.forEach((select) => {
+      select.addEventListener("change", function () {
+        const total = calcularPrecioAproximado();
+        if (resumenConfirmado && resumenConfirmado.textContent) {
+          resumenConfirmado.textContent = generarResumenTexto(total);
+        }
+      });
+    });
+
+    if (formCotizador) {
+      formCotizador.addEventListener("submit", function (evento) {
+        evento.preventDefault();
+        const total = calcularPrecioAproximado();
+        if (resumenConfirmado) {
+          resumenConfirmado.textContent = generarResumenTexto(total);
+        }
+      });
+    }
+
+    calcularPrecioAproximado();
   </script>
 </body>
 </html>

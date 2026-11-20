@@ -111,7 +111,8 @@
       text-align: center;
     }
 
-    .panel-busqueda {
+    .panel-busqueda,
+    .panel-impacto {
       background-color: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 14px;
@@ -120,17 +121,65 @@
       text-align: left;
     }
 
-    .panel-busqueda h2 {
+    .panel-busqueda h2,
+    .panel-impacto h2 {
       margin-top: 0;
       margin-bottom: 0.45rem;
       color: var(--primary-color);
       font-size: 1.3rem;
     }
 
-    .panel-busqueda p {
+    .panel-busqueda p,
+    .panel-impacto p {
       margin: 0 0 1rem;
       color: var(--muted-color);
       font-size: 0.96rem;
+    }
+
+    .impacto-lista {
+      margin: 0 0 1.15rem;
+      padding-left: 1.25rem;
+      color: var(--text-color);
+      font-size: 0.96rem;
+    }
+
+    .impacto-lista li {
+      margin-bottom: 0.45rem;
+    }
+
+    .btn-arboles-sembrados {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 11px 20px;
+      background-color: var(--primary-color);
+      color: #ffffff;
+      border: none;
+      border-radius: 999px;
+      font-size: 0.98rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.25s ease, transform 0.2s ease;
+    }
+
+    .btn-arboles-sembrados:hover {
+      background-color: var(--accent-warm);
+      transform: translateY(-1px);
+    }
+
+    .resumen-impacto-juntos {
+      display: none;
+      margin-top: 1rem;
+      padding: 1rem 1.15rem;
+      background-color: var(--box-bg);
+      border-left: 4px solid var(--secondary-color);
+      border-radius: 10px;
+      color: var(--text-color);
+      font-size: 0.96rem;
+    }
+
+    .resumen-impacto-juntos.activo {
+      display: block;
     }
 
     .buscador {
@@ -444,16 +493,42 @@
   </header>
 
   <nav>
-    <a href="index.html">Inicio</a>
-    <a href="nosotros.html">Nosotros</a>
-    <a href="arboles.html">Bosque Virtual 🌳</a>
-    <a href="resenas.html">Reseñas ⭐</a>
+    <a href="index.html">🏠 Inicio</a>
+    <a href="nosotros.html">👥 Nosotros</a>
+    <a href="arboles.html">🌳 Bosque Virtual</a>
+    <a href="resenas.html">⭐ Reseñas</a>
     <button id="btnTema" type="button" class="btn-tema" aria-label="Alternar entre modo claro y oscuro">
       🌙 Modo oscuro
     </button>
   </nav>
 
   <main>
+    <!-- Cuadro de Cambio Positivo y Funcionamiento del Bosque Protector -->
+    <section class="panel-impacto" aria-label="Cambio positivo y funcionamiento del Bosque Protector">
+      <h2>🌿 Cambio Positivo y Cómo Funciona el Bosque Protector</h2>
+      <p>
+        Sembrar un árbol genera un <strong>cambio positivo real</strong>: captura dióxido de carbono, libera oxígeno, protege la estructura del suelo frente a la erosión, favorece la infiltración de agua y crea refugio para la biodiversidad local.
+      </p>
+      <ul class="impacto-lista">
+        <li><strong>1. Siembra con propósito:</strong> Cada alfombra de EcoLegado impulsa la siembra y cuidado de un árbol protector.</li>
+        <li><strong>2. Seguimiento mes a mes:</strong> Registramos su evolución en una línea de tiempo que inicia en la fecha de siembra y suma cada mes de crecimiento.</li>
+        <li><strong>3. Certificado y trazabilidad:</strong> Cada árbol cuenta con su código único y certificado para consultar su historia en el Bosque Virtual.</li>
+      </ul>
+      <button
+        id="btnArbolesSembrados"
+        type="button"
+        class="btn-arboles-sembrados"
+        aria-expanded="false"
+        aria-controls="resumenImpactoJuntos"
+      >
+        🌱 <span id="contadorArbolesTexto">2</span> Árboles Sembrados · Ver impacto juntos
+      </button>
+      <div id="resumenImpactoJuntos" class="resumen-impacto-juntos">
+        <strong>Impacto positivo que hemos generado juntos (<span id="detalleContadorArboles">2</span> árboles sembrados):</strong>
+        cada árbol en cuidado activo representa una acción directa de restauración ecológica, mayor cobertura vegetal, protección del entorno y un legado vivo que crece mes a mes junto a nuestra comunidad.
+      </div>
+    </section>
+
     <!-- Cuadro 1: Seguimiento de Árbol por Código -->
     <section class="panel-busqueda">
       <h2>🌳 Buscar Árbol en el Bosque Virtual</h2>
@@ -564,6 +639,17 @@
         });
       }
 
+      // Botón de árboles sembrados e impacto positivo juntos
+      const btnArbolesSembrados = document.getElementById("btnArbolesSembrados");
+      const resumenImpactoJuntos = document.getElementById("resumenImpactoJuntos");
+
+      if (btnArbolesSembrados && resumenImpactoJuntos) {
+        btnArbolesSembrados.addEventListener("click", function () {
+          const estaVisible = resumenImpactoJuntos.classList.toggle("activo");
+          btnArbolesSembrados.setAttribute("aria-expanded", String(estaVisible));
+        });
+      }
+
       // Vista ampliada (Lightbox) para imágenes de árbol y certificado
       const modalEl = document.getElementById("lightboxModal");
       const modalImgEl = document.getElementById("lightboxImagen");
@@ -660,7 +746,6 @@
 
       const texto = String(valorFecha).trim().toLowerCase();
 
-      // Formato ISO: YYYY-MM-DD o YYYY-MM
       const isoMatch = texto.match(/^(\d{4})-(\d{1,2})(?:-(\d{1,2}))?/);
       if (isoMatch) {
         return {
@@ -670,7 +755,6 @@
         };
       }
 
-      // Formato DD/MM/YYYY o DD-MM-YYYY
       const latamMatch = texto.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
       if (latamMatch) {
         return {
@@ -680,7 +764,6 @@
         };
       }
 
-      // Formato texto en español: "2026 noviembre", "noviembre 2026" o "19 de noviembre de 2026"
       const anioMatch = texto.match(/\b(20\d{2}|19\d{2})\b/);
       const mesIdx = MESES_ES.findIndex((m) => texto.includes(m));
       const diaMatch = texto.match(/(?:^|\s)(\d{1,2})(?:\s+de|\s|$)/);
@@ -875,8 +958,6 @@
       const fechaSiembraRaw = data.fechaSiembra || data.fecha || data.fechaRegistro || "2026-11";
       const fechaSiembraEtiqueta = obtenerEtiquetaMesSiguiente(fechaSiembraRaw, 0);
 
-      // Si el documento trae un arreglo `actualizaciones` o `historial`, respeta su orden
-      // comenzando en la fecha de siembra (offset 0) y sumando +1 mes por cada entrada siguiente.
       const arregloActualizaciones = Array.isArray(data.actualizaciones)
         ? data.actualizaciones
         : Array.isArray(data.historial)
@@ -904,7 +985,6 @@
         });
       }
 
-      // Base por defecto: inicia en la fecha de siembra y suma +1 mes por cada foto adicional
       const eventos = [
         {
           fecha: `Siembra · ${fechaSiembraEtiqueta}`,
